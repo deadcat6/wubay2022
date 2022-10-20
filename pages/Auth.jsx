@@ -50,9 +50,7 @@ export default function Auth() {
       <Button variant="contained">Sign Up</Button>
       <a href="link_to_url" rel="noreferrer">Forgot Password?</a>
     </React.Fragment>
-
-
-
-
   )
 }
+
+
