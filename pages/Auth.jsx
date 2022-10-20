@@ -35,7 +35,7 @@ export default function Auth() {
                         username: v.target.value,
                     })
                 }}
-            />
+            /> <br></br>
             <TextField
                 id="outlined-basic"
                 label="password"
@@ -63,7 +63,7 @@ export default function Auth() {
                 id="outlined-basic"
                 label="username"
                 onChange={(v) => {
-                    setUser({
+                    registerUser({
                         ...register,
                         username: v.target.value,
                     })
@@ -71,9 +71,9 @@ export default function Auth() {
             />
             <TextField
                 id="outlined-basic"
-                label="username"
+                label="password"
                 onChange={(v) => {
-                    setUser({
+                    registerUser({
                         ...register,
                         password: v.target.value,
                     })
@@ -81,9 +81,9 @@ export default function Auth() {
             />
             <TextField
                 id="outlined-basic"
-                label="username"
+                label="email"
                 onChange={(v) => {
-                    setUser({
+                    registerUser({
                         ...register,
                         email: v.target.value,
                     })
@@ -91,9 +91,9 @@ export default function Auth() {
             />
             <TextField
                 id="outlined-basic"
-                label="username"
+                label="First name"
                 onChange={(v) => {
-                    setUser({
+                    registerUser({
                         ...register,
                         firstname: v.target.value,
                     })
@@ -101,9 +101,9 @@ export default function Auth() {
             />
             <TextField
                 id="outlined-basic"
-                label="username"
+                label="Last name"
                 onChange={(v) => {
-                    setUser({
+                    registerUser({
                         ...register,
                         lastname: v.target.value,
                     })
@@ -111,14 +111,15 @@ export default function Auth() {
             />
             <TextField
                 id="outlined-basic"
-                label="username"
+                label="Phone number"
                 onChange={(v) => {
-                    setUser({
+                    registerUser({
                         ...register,
                         phone: v.target.value,
                     })
                 }}
             />
+            <br></br>
             <Button
                 variant="contained"
                 onClick={(e) => {
@@ -132,4 +133,3 @@ export default function Auth() {
         </React.Fragment>
     )
 }
-
