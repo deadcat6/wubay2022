@@ -7,14 +7,32 @@ import Button from '@mui/material/Button';
 import * as React from 'react';
 import {TextField} from "@mui/material";
 import {useState} from "react";
+
+    const styles = theme => ({
+    textField: {
+        width: '90%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        paddingBottom: 0,
+        marginTop: 0,
+        fontWeight: 500
+    },
+    input: {
+        color: 'white'
+    }
+    });
+
 export default function Auth() {
 
+    //Const for User Login
     const [user, setUser] = useState({
         username: '',
         password: '',
     });
 
-    const [register, registerUser] = useState({
+
+    //Const for User Sign Up
+    const [register, setRegister] = useState({
         username: '',
         password: '',
         email: '',
@@ -28,24 +46,24 @@ export default function Auth() {
             <h2>WUBay Login Page</h2>
             <TextField
                 id="outlined-basic"
-                label="username"
+                label="Username"
                 onChange={(v) => {
                     setUser({
                         ...user,
                         username: v.target.value,
                     })
                 }}
-            /> <br></br>
+            /><br></br>
             <TextField
                 id="outlined-basic"
-                label="password"
+                label="Password"
                 onChange={(v) => {
                     setUser({
                         ...user,
                         password:v.target.value,
                     })
                 }}
-            />
+            /><br></br><br></br>
 
             <Button
                 variant="contained"
@@ -55,81 +73,82 @@ export default function Auth() {
                     alert("username" + user.username + "  password" + user.password);
                     // sent to backend and firebase
                 }}
-            >Login</Button>
+            >Log In</Button><br></br><br></br>
+            <a href="link_to_url" rel="noreferrer">Forgot Password?</a><br></br><br></br>
 
-            
-           
+
             <TextField
                 id="outlined-basic"
-                label="username"
+                label="New Username"
                 onChange={(v) => {
-                    registerUser({
+                    setRegister({
                         ...register,
-                        username: v.target.value,
+                        username:v.target.value,
                     })
                 }}
-            />
+            /><br></br>
             <TextField
                 id="outlined-basic"
-                label="password"
+                label="New Password"
                 onChange={(v) => {
-                    registerUser({
+                    setRegister({
                         ...register,
-                        password: v.target.value,
+                        password:v.target.value,
                     })
                 }}
-            />
+            /><br></br>
             <TextField
                 id="outlined-basic"
-                label="email"
+                label="First Name"
                 onChange={(v) => {
-                    registerUser({
+                    setRegister({
                         ...register,
-                        email: v.target.value,
+                        firstname:v.target.value,
                     })
                 }}
-            />
+            /><br></br>
             <TextField
                 id="outlined-basic"
-                label="First name"
+                label="Last Name"
                 onChange={(v) => {
-                    registerUser({
+                    setRegister({
                         ...register,
-                        firstname: v.target.value,
+                        lastname:v.target.value,
                     })
                 }}
-            />
+            /><br></br>
             <TextField
                 id="outlined-basic"
-                label="Last name"
+                label="Email"
                 onChange={(v) => {
-                    registerUser({
+                    setRegister({
                         ...register,
-                        lastname: v.target.value,
+                        email:v.target.value,
                     })
                 }}
-            />
+            /><br></br>
             <TextField
                 id="outlined-basic"
                 label="Phone number"
                 onChange={(v) => {
-                    registerUser({
+                    setRegister({
                         ...register,
-                        phone: v.target.value,
+                        phone:v.target.value,
                     })
                 }}
-            />
-            <br></br>
+            /><br></br><br></br>
+
             <Button
                 variant="contained"
                 onClick={(e) => {
                     e.preventDefault();
                     //console.log(user);
-                    alert("username" + register.username + "  password" + register.password+ "  first name" + register.firstname + "  lastname" + register.lastname + "  phone" + register.phone + "  email" + register.email);
+                    alert("username" + register.username + "  password" + register.password + "  first name" + register.firstname+ "  last name" + register.lastname + "  email" + register.email+ "  phone" + register.phone);
                     // sent to backend and firebase
                 }}
-            >Sign Up</Button>
-            <a href="link_to_url" rel="noreferrer">Forgot Password?</a>
+            >Sign Up</Button><br></br><br></br><br></br>
+
         </React.Fragment>
     )
 }
+
