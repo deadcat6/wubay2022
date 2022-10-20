@@ -1,3 +1,5 @@
+//domain.com/
+
 import Head from 'next/head'
 import Image from 'next/image'
 import Button from '@mui/material/Button';
