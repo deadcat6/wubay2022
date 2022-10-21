@@ -5,7 +5,7 @@ import Image from 'next/image'
 
 import Button from '@mui/material/Button';
 import * as React from 'react';
-import {TextField, FormControl, InputLabel, Select, MenuItem, NativeSelect, Grid} from "@mui/material";
+import {TextField, FormControl, InputLabel, Select, MenuItem, NativeSelect, Grid, Container} from "@mui/material";
 import {useState} from "react";
 export default function Auth() {
 
@@ -24,11 +24,14 @@ export default function Auth() {
     return (
         <React.Fragment>
             <h2>Submit a Product</h2>
+            <Container maxWidth="sm">
+
+            </Container>
             <Grid container
-                    justifyContent="center"
-                    alignItems="center"
-                    spacing={{xl: 2}}
-                    columns={{xl: 2}}
+                  justifyContent="center"
+                  alignItems="center"
+                  spacing={{xl: 2}}
+                  columns={{xl: 2}}
             >
                 <Grid item>
                     <TextField
