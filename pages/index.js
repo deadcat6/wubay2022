@@ -6,13 +6,12 @@ import Button from '@mui/material/Button';
 import * as React from 'react';
 import {TextField} from "@mui/material";
 import {useState} from "react";
-import Auth from "./Auth";
-import Product from "./Product";
+import MainPage from "./MainPage";
 export default function Home() {
 
   return (
   <React.Fragment>
-    <Product/>
+    <MainPage/>
   </React.Fragment>
 
 
