@@ -1,28 +1,35 @@
 import { app, database } from './firebaseConfig';
 import { collection, addDoc, getDocs, getDoc , doc} from 'firebase/firestore';
  
-async function signup(username, email) {
-   const db = collection(database, 'users');
+async function signup(username, password, firstname, lastname, email, phone) {
+   const db = collection(database, "users");
    const userSnapshot = await getDocs(db);
    const userList = userSnapshot.docs.map(doc => doc.data());
-   console.log(userList)
+   //console.log(userList)
    let user_exists = false
-   console.log(username)
+   //console.log(username)
  
    for(let i = 0; i<userList.length; i++){
  
-       console.log(userList[i]['username'])
+       //console.log(userList[i]['username'])
        if(username === userList[i]['username']){
            user_exists = true
        }
-   console.log(user_exists)
+   //console.log(user_exists)
    }
+   
    if(!user_exists){
        addDoc(db, {
-          username: username
+          username: username,
+          email: email,
+          password: password,
+          firstname: firstname,
+          lastname: lastname,
+          phone: phone
         })
  
    }
+   
    return !user_exists
 }
  
@@ -30,13 +37,13 @@ async function login(username, password) {
    const db = collection(database, 'users');
    const userSnapshot = await getDocs(db);
    const userList = userSnapshot.docs.map(doc => doc.data());
-   console.log(userList)
+   //console.log(userList)
    let logged_in = false
-   console.log(username)
+   //console.log(username)
  
    for(let i = 0; i<userList.length; i++){
  
-       console.log(userList[i]['username'])
+       //console.log(userList[i]['username'])
        if(username === userList[i]['username'] && password === userList[i]['password']){
            logged_in = true
        }
@@ -44,5 +51,8 @@ async function login(username, password) {
    return logged_in
 }
  
+
+export default signup;
+
 // signup("michaelcafiero", "cafiero.i@wustl.edu") //your data here
   // login()
