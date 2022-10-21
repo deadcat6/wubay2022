@@ -72,8 +72,7 @@ export default function Auth() {
 
     });
     const login_data = await response.json();
-    console.log(login_data)
-    //alert(login_data.toString());
+
 
   }
 
@@ -119,7 +118,7 @@ export default function Auth() {
                     e.preventDefault();
                     //console.log(user);
                     loginHandler(user.username, user.password);
-                    //alert("username" + user.username + "  password" + user.password);
+                    alert("username" + user.username + "  password" + user.password);
                     // sent to backend and firebase
                   }}
                 >Log In</Button>
