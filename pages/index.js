@@ -7,14 +7,15 @@ import * as React from 'react';
 import {TextField} from "@mui/material";
 import {useState} from "react";
 import Auth from "./Auth";
+import Product from "./Product";
 export default function Home() {
 
   return (
   <React.Fragment>
-    <Auth/>
+    <Product/>
   </React.Fragment>
 
-    
+
 
 
   )
