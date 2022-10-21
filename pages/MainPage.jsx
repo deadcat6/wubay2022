@@ -1,7 +1,7 @@
 //domain.com/
 
 import * as React from 'react';
-import Auth from "./user/Auth";
+import Auth from "./user/Login";
 import Link from "next/link";
 import { useRouter } from 'next/router'
 import Button from '@mui/material/Button';
@@ -14,9 +14,23 @@ import Button from '@mui/material/Button';
         variant="contained"
         onClick={(e) => {
           e.preventDefault();
-          router.push('user/Auth');
+          router.push('user/Login');
         }}
-      >auth page</Button>
+      >Login Form</Button>
+        <Button
+            variant="contained"
+            onClick={(e) => {
+                e.preventDefault();
+                router.push('user/Signup');
+            }}
+        >Signup Form</Button>
+        <Button
+            variant="contained"
+            onClick={(e) => {
+                e.preventDefault();
+                router.push('Product');
+            }}
+        >Create Listing Form</Button>
     </React.Fragment>
 
   )
