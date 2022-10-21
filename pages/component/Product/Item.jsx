@@ -9,8 +9,10 @@ import { Button, CardActionArea, CardActions } from '@mui/material';
 
 
 const Item = ({ id, title, price }) => {
-  const imgPath = `../assets/img/${id}.jpg`;
-  // const navigate = useNavigate();
+  // const imgPath = `../assets/img/${id}.jpg`;
+  const imgPath = `  https://picsum.photos/200/300`;
+
+    // const navigate = useNavigate();
   // const handleNavigation = () => navigate(`/item/${id}`);
 
   return (
@@ -21,7 +23,7 @@ const Item = ({ id, title, price }) => {
           height='260'
           image={imgPath}
           alt={id}
-          onClick={handleNavigation}
+          //onClick={handleNavigation}
         />
         <CardContent>
           <Typography variant='body2' color='text.secondary' noWrap>
@@ -30,7 +32,9 @@ const Item = ({ id, title, price }) => {
         </CardContent>
       </CardActionArea>
       <CardActions sx={{ display: 'flex', justifyContent: 'space-around' }}>
-        <Button size='small' color='error' onClick={handleNavigation}>
+        <Button size='small' color='error'
+                //onClick={handleNavigation}
+        >
           Buy
         </Button>
         <Typography variant='subtitle2' color='text.secondary' align='right'>

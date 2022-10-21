@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 // import { useParams } from 'react-router-dom';
+import * as React from 'react';
 
-import LoadingSpinner from '../ui/LoadingSpinner';
+// import LoadingSpinner from '../ui/LoadingSpinner';
 import ItemList from './ItemList';
 import { collection, getDocs, query, where } from 'firebase/firestore';
-import { db } from '../../firebase/config';
+// import { db } from '../../firebase/config';
 const dummyItem = [{
   id: '1',
   title: 'apple',
@@ -30,7 +31,7 @@ const ItemListCointainer = () => {
 
   const [items, setItems] = useState(null);
   const [loading, setLoading] = useState(false);
-  const { categoryId, term } = useParams();
+  // const {categoryId, term} = useParams();
   //
   // useEffect(async () => {
   //   setLoading(true);
@@ -59,10 +60,17 @@ const ItemListCointainer = () => {
   //   }
   // }, [categoryId, term]);
 
-  return loading ? (
-    <LoadingSpinner text='loading' />
-  ) : (
-    <ItemList items={dummyItem} />
+  // return loading ? (
+  //   <LoadingSpinner text='loading' />
+  // ) : (
+  //   <ItemList items={dummyItem} />
+  // );
+  return (
+    <React.Fragment>
+      <ItemList items={dummyItem}/>
+    </React.Fragment>
+
+
   );
-};
+}
 export default ItemListCointainer;
