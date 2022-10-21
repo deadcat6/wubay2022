@@ -20,9 +20,45 @@ export default function Auth() {
         sellProgress: ''   //This should be defaulted to 0 in the backend.
     });
 
+    const [products, setProducts] = useState({});
+    
+    const getProducts = async () => {
+        const res = await fetch('/api/get_products');
+        const data = await res.json();
+        const products_ = data.products;
+        setProducts(products_);
+        alert(products); //from the use state
+        
+    }
+    
+
+    async function addProductHandler(name, description, imagePath, transactionType) {
+        const response = await fetch('/api/add_product', {
+          method: 'POST',
+          body: JSON.stringify({
+            name,
+            description,
+            imagePath,
+            transactionType
+          }),
+          headers: {'Content-Type': 'application/json'}
+    
+    
+        });
+        const product_data = await response.json();
+    
+    
+    }
 
     return (
         <React.Fragment>
+            <Button
+            onClick = {(e) => {
+                //alert("click  ");
+                getProducts();
+            }}> get products </Button>
+
+
             <h2>Submit a Product</h2>
             <Container maxWidth="sm">
 
@@ -102,6 +138,7 @@ export default function Auth() {
                         variant="contained"
                         onClick={(e) => {
                             e.preventDefault();
+                            addProductHandler(product.name, product.description, JSON.stringify(product.imagePath), product.transactionType);
                             //console.log(user);
                             alert("product name: " + product.name + " description: " + product.description + " Image list: "+ JSON.stringify(product.imagePath) + " transaction type: " + product.transactionType);
                             // sent to backend and firebase
