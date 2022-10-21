@@ -89,7 +89,7 @@ export default function Auth() {
 
       <Container id="login"  justifyContent="left" maxWidth="sm">
         {/*这个box只是让你看到container的大小*/}
-        <Box sx={{backgroundColor: 'grey',}}>
+        <Box my={10} sx={{backgroundColor: 'white',}}>
               <Stack spacing={2.5} alignItems="center">
                 <h2>Welcome to WUBay</h2>
                 <TextField
