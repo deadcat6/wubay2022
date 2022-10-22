@@ -8,23 +8,40 @@ import SearchBar from './SearchBar';
 //import CartWidget from '../Cart/CartWidget';
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
-import {Tooltip} from "@mui/material";
+import {ThemeProvider, Tooltip} from "@mui/material";
 import PersonIcon from '@mui/icons-material/Person';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import Link from 'next/link';
 import ChatPage from "../../pages/chat/ChatPage";
+import Button from "@mui/material/Button";
+import {createTheme} from "@mui/material/styles";
 
 
 const NavBar = () => {
   const pages = ['Desktops', 'Notebooks', 'Gadgets'];
-
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#ffffff",
+        contrastText: "#fff" //button text white instead of black
+      },
+      background: {
+        default: "#394764"
+      }
+    }
+  });
   return (
     // <ThemeContext>
-    <AppBar position='static' sx={{bgcolor: '#3e1903'}}>
+    <AppBar position='static' sx={{bgcolor: 'rgba(75,134,224,0.88)'}}>
       <Container maxWidth='xl'>
         <Toolbar disableGutters>
-          <h1>WUBay</h1>
+
+            <ThemeProvider theme={theme}>
+              <Link href="/" passHref>
+                <Button size="medium" style={{justifyContent: "flex-start"}}><h1>WUBay</h1></Button>
+              </Link>
+            </ThemeProvider>
           {/*<Logo />*/}
           {/*<MenuNavList pages={pages} />*/}
           <Container maxWidth='xs' disableGutters>

@@ -2,75 +2,53 @@ import { useState, useEffect } from 'react';
 // import { useParams } from 'react-router-dom';
 import * as React from 'react';
 
-// import LoadingSpinner from '../ui/LoadingSpinner';
 import ItemList from './ItemList';
-import { collection, getDocs, query, where } from 'firebase/firestore';
-// import { db } from '../../firebase/config';
-const dummyItem = [{
-  id: '1',
-  title: 'apple',
-  price: '100',
-},{
-  id: '1',
-  title: 'banana',
-  price: '200',
-},{
-  id: '1',
-  title: 'orange',
-  price: '22',
-},{
-  id: '1',
-  title: 'peach',
-  price: '88',
-},{
-  id: '1',
-  title: 'pear',
-  price: '500',
-}];
+import Button from "@mui/material/Button";
+import LoadingSpinner from "../ui/LoadingSpinner";
+
 const ItemListCointainer = () => {
 
-  const [items, setItems] = useState(null);
-  const [loading, setLoading] = useState(false);
-  // const {categoryId, term} = useParams();
-  //
-  // useEffect(async () => {
-  //   setLoading(true);
-  //
-  //   const itemsRef = collection(db, 'items');
-  //   const q = categoryId
-  //     ? query(itemsRef, where('category', '==', categoryId))
-  //     : itemsRef;
-  //
-  //   try {
-  //     const { docs } = await getDocs(q);
-  //     const items = docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  //
-  //     if (term) {
-  //       const filteredItems = items.filter((item) =>
-  //         item.title.toLowerCase().includes(term.trim().toLowerCase())
-  //       );
-  //       setItems(filteredItems);
-  //     } else {
-  //       setItems(items);
-  //     }
-  //
-  //     setLoading(false);
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // }, [categoryId, term]);
+  //const [items, setItems] = useState(null);
+  const [loading, setLoading] = useState(true);
+  //const {categoryId, term} = useParams();
+  const [products, setProducts] = useState({});
+  useEffect(() => {
+    const getProducts = async () => {
+      setLoading(true);
+      const res = await fetch('/api/get_products');
+      const data = await res.json();
+      //data.products.map(e => console.log(e))
+      setProducts(data.products);
+      setLoading(false);
+    }
+    getProducts();
+  }, []); // Or [] if effect doesn't need props or state
 
-  // return loading ? (
-  //   <LoadingSpinner text='loading' />
-  // ) : (
-  //   <ItemList items={dummyItem} />
-  // );
-  return (
+
+
+
+  const getProducts = async () => {
+    const res = await fetch('/api/get_products');
+    const data = await res.json();
+    //data.products.map(e => console.log(e))
+    //console.log(data);
+    setProducts(data.products);
+    //alert(data.products);
+
+  }
+
+  return loading ? (
+    <LoadingSpinner text='Loading...' />
+  ) : (
     <React.Fragment>
-      <ItemList items={dummyItem}/>
+      {/*<Button*/}
+      {/*  onClick={(e) => {*/}
+      {/*    getProducts();*/}
+      {/*  }}> get products !!!!!!!!!!!!!!!!!!! </Button>*/}
+
+      <ItemList items={products}/>
+
     </React.Fragment>
-
-
   );
 }
 export default ItemListCointainer;

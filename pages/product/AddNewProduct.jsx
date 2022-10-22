@@ -17,15 +17,7 @@ const AddNewProduct = () => {
     sellProgress: ''   //This should be defaulted to 0 in the backend.
   });
 
-  const [products, setProducts] = useState({});
 
-  const getProducts = async () => {
-    const res = await fetch('/api/get_products');
-    const data = await res.json();
-    setProducts(data.products);
-    alert(data.products);
-
-  }
 
 
   async function addProductHandler(name, description, imagePath, transactionType, price) {
@@ -51,10 +43,6 @@ const AddNewProduct = () => {
     <React.Fragment>
       <NavBar/>
 
-      {/*<Button*/}
-      {/*  onClick={(e) => {*/}
-      {/*    getProducts();*/}
-      {/*  }}> get products !!!!!!!!!!!!!!!!!!! </Button>*/}
 
 
       <Container id="product" justifyContent="left" maxWidth="sm">

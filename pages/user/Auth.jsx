@@ -56,7 +56,7 @@ export default function Auth() {
   return ( // need to logged in
     <>
       <NavBar/>
-      mark will make this page prettier later,
+      tony will make this page prettier later,
       <h1> need to logged in</h1> <br/>
       <button onClick={() => signIn('google', {callbackUrl: 'http://localhost:3000/user/Auth'})}>Sign in with google</button>
     </>
