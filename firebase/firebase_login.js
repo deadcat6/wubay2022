@@ -10,7 +10,6 @@ async function login(username, password) {
     //console.log(username)
   
     for(let i = 0; i<userList.length; i++){
-  
         //console.log(userList[i]['username'])
         if(username === userList[i]['username'] && password === userList[i]['password']){
             logged_in = true

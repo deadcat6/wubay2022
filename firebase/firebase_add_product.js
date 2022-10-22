@@ -8,7 +8,6 @@ async function add_product(lister, price, name, description, imagePath, transact
     //const transaction_types = ["none", "item swap", "venmo", "cash app", "other"];
     //transaction_types[transactionType]
 
-
     //missing price, lister
     await addDoc(db, {
         lister: lister, //this field should be obtained from the current user
