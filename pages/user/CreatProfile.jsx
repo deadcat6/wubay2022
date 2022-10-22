@@ -7,7 +7,7 @@ const CreatProfile = () => {
   const {data: session} = useSession()
 
   return (
-    <h1>hello ! {session.user.email} please creat a new profile</h1>
+    <h1>hello ! {session.user.email} please creat a new profile.</h1>
 
   )
 }

@@ -54,12 +54,18 @@ export default function Auth() {
     )
   }
 
-  return ( // need to logged in
-    <>
+  return ( /* need to logged in */ <>
       <NavBar/>
       tony will make this page prettier later,
-      <h1> need to logged in</h1> <br/>
-      <button onClick={() => signIn('google', {callbackUrl: 'http://localhost:3000/user/Auth'})}>Sign in with google</button>
-    </>
+      <h1>Please log in.</h1> <br/>
+        <Button
+            variant="contained"
+            sx={{
+                width: { sm: 100, md: 200 },
+                height: { sm: 30, md: 60 },
+            }}
+            onClick={() => signIn('google', {callbackUrl: 'http://localhost:3000/user/Auth'})}
+        >Log in with Google</Button>
+          </>
   )
 }

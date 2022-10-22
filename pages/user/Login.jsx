@@ -53,6 +53,9 @@ export default function Login() {
                     <TextField
                         id="outlined-basic"
                         label="Username"
+                        sx={{
+                            width: { sm: 200, md: 300 },
+                        }}
                         onChange={(v) => {
                             setUser({
                                 ...user,
@@ -63,6 +66,9 @@ export default function Login() {
                     <TextField
                         id="outlined-basic"
                         label="Password"
+                        sx={{
+                            width: { sm: 200, md: 300 },
+                        }}
                         onChange={(v) => {
                             setUser({
                                 ...user,
@@ -72,6 +78,10 @@ export default function Login() {
                     />
                     <Button
                         variant="contained"
+                        sx={{
+                            width: { sm: 50, md: 100 },
+                            height: { sm: 30, md: 60 },
+                        }}
                         onClick={(e) => {
                             e.preventDefault();
                             //console.log(user);

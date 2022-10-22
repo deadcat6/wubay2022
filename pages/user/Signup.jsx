@@ -53,7 +53,9 @@ export default function Signup() {
             <TextField
               id="outlined-basic"
               label="New Username"
-              visibility='hidden'
+              sx={{
+                width: { sm: 200, md: 300 },
+              }}
               onChange={(v) => {
                 setRegister({
                   ...register,
@@ -63,17 +65,10 @@ export default function Signup() {
             />
             <TextField
               id="outlined-basic"
-              label="New Password"
-              onChange={(v) => {
-                setRegister({
-                  ...register,
-                  password: v.target.value,
-                })
-              }}
-            />
-            <TextField
-              id="outlined-basic"
               label="First Name"
+              sx={{
+                width: { sm: 200, md: 300 },
+              }}
               onChange={(v) => {
                 setRegister({
                   ...register,
@@ -84,6 +79,9 @@ export default function Signup() {
             <TextField
               id="outlined-basic"
               label="Last Name"
+              sx={{
+                width: { sm: 200, md: 300 },
+              }}
               onChange={(v) => {
                 setRegister({
                   ...register,
@@ -93,17 +91,10 @@ export default function Signup() {
             />
             <TextField
               id="outlined-basic"
-              label="Email"
-              onChange={(v) => {
-                setRegister({
-                  ...register,
-                  email: v.target.value,
-                })
-              }}
-            />
-            <TextField
-              id="outlined-basic"
               label="Phone number"
+              sx={{
+                width: { sm: 200, md: 300 },
+              }}
               onChange={(v) => {
                 setRegister({
                   ...register,
@@ -113,6 +104,10 @@ export default function Signup() {
             />
             <Button
               variant="contained"
+              sx={{
+                width: { sm: 50, md: 100 },
+                height: { sm: 30, md: 60 },
+              }}
               onClick={(e) => {
                 e.preventDefault();
                 signupHandler(register.username, register.password, register.firstname, register.lastname, register.email, register.phone);
