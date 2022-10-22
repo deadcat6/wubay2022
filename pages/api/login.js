@@ -1,4 +1,4 @@
-import login from './firebase_login.js';
+import login from '../../firebase/firebase_login.js';
 
 
 function handler(req, res){

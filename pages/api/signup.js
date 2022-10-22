@@ -1,4 +1,4 @@
-import signup from './firebase_signup.js';
+import signup from '../../firebase/firebase_signup.js';
 
 
 function handler(req, res){
