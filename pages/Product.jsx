@@ -37,21 +37,21 @@ export default function Auth() {
     const getProducts = async () => {
         const res = await fetch('/api/get_products');
         const data = await res.json();
-        const products_ = data.products;
-        setProducts(products_);
-        alert(products); //from the use state
+        setProducts(data.products);
+        alert(data.products);
         
     }
     
 
-    async function addProductHandler(name, description, imagePath, transactionType) {
+    async function addProductHandler(name, description, imagePath, transactionType, price) {
         const response = await fetch('/api/add_product', {
           method: 'POST',
           body: JSON.stringify({
             name,
             description,
             imagePath,
-            transactionType
+            transactionType,
+            price
           }),
           headers: {'Content-Type': 'application/json'}
     
@@ -66,9 +66,8 @@ export default function Auth() {
         <React.Fragment>
             <Button
             onClick = {(e) => {
-                //alert("click  ");
                 getProducts();
-            }}> get products </Button>
+            }}> get products !!!!!!!!!!!!!!!!!!! </Button>
 
 
 
@@ -148,7 +147,7 @@ export default function Auth() {
                             onClick={(e) => {
                                 e.preventDefault();
                                 //console.log(user);
-                                addProductHandler(product.name, product.description, JSON.stringify(product.imagePath), product.transactionType);
+                                addProductHandler(product.name, product.description, JSON.stringify(product.imagePath), product.transactionType, product.price);
 
                                 alert("product name: " + product.name + " description: " + product.description + " Image list: "+ JSON.stringify(product.imagePath) + " transaction type: " + product.transactionType);
                                 // sent to backend and firebase
