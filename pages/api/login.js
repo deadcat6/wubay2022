@@ -7,8 +7,7 @@ function handler(req, res){
         const data = req.body;
         
         const { username, password } = data;
-        
-        
+
         //console.log(username);
         const login_match = login(username, password);
         
