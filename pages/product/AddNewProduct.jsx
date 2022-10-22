@@ -35,7 +35,7 @@ const AddNewProduct = () => {
 
     });
     const product_data = await response.json();
-
+    alert(product_data.message);
 
   }
 

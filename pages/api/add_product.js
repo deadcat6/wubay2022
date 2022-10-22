@@ -6,9 +6,21 @@ function handler(req, res){
         
         const data = req.body;
         const { name, description, imagePath, transactionType, price } = data;
-        const p = add_product("DemoLister", price, name, description, imagePath, transactionType);
+        
         //console.log(p);
-        res.status(201).json({ message: 'inserted user into database', item_name: name, p: p });
+        
+        var message = "inserted product";
+        var add_return = '';
+        let success = false;
+        if (isNaN(price) == false && price > 0){
+            add_return = add_product("DemoLister", price, name, description, imagePath, transactionType);
+            success = true;
+            //console.log('working');
+        }
+        else{
+            message = 'please input a price that is a number greater than 0';
+        }
+        res.status(201).json({ message: message, success: success, item_name: name, return_val: add_return });
     }
 }
 

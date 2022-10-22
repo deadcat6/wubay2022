@@ -9,7 +9,7 @@ import SearchBar from './SearchBar';
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import {ThemeProvider, Tooltip} from "@mui/material";
-import PersonIcon from '@mui/icons-material/Person';
+//import PersonIcon from '@mui/icons-material/Person';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import Link from 'next/link';
@@ -79,7 +79,7 @@ const NavBar = () => {
             <Tooltip title='Your Account'>
               <Link href="/user/Auth" passHref>
                 <IconButton size="large" color='inherit' aria-label="">
-                  <PersonIcon fontSize="inherit"/>
+                  {/* <PersonIcon fontSize="inherit"/> */}
                 </IconButton>
               </Link>
 

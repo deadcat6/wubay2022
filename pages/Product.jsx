@@ -33,7 +33,6 @@ export default function Auth() {
         sellProgress: ''   //This should be defaulted to 0 in the backend.
     });
 
-
     return (
         <React.Fragment>
 
