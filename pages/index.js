@@ -9,7 +9,6 @@ import {useState} from "react";
 import Auth from "./user/Auth";
 import MainPage from "./MainPage";
 import NavBar from "../component/NavBar/NavBar";
-import MarkAuth from "./user/MarkAuth";
 
 
 
@@ -19,7 +18,7 @@ export default function Home() {
   <React.Fragment>
     <NavBar/>
     <MainPage/>
-    {/*<MarkAuth/>*/}
+
   </React.Fragment>
 
     
