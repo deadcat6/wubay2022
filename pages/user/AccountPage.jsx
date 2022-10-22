@@ -1,6 +1,6 @@
 import {useSession} from "next-auth/react";
 {/*TODO: Tony: AccountPage that display user info.*/}
-{/*TODO: Ajay: Create a api to fetch the user's info from db.*/}
+{/*TODO: Ajay: Create a api to fetch the user's info from db using user's email.*/}
 const AccountPage = () => {
   const {data: session} = useSession()
 

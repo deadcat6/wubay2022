@@ -43,6 +43,7 @@ export default function Auth() {
     return (
       <>
         <NavBar/>
+        {/*TODO - Michael: read user info from db.*/}
         {/*TODO - MVP: Tony: AccountPage that display user info.*/}
         {/*TODO - MVP: Ajay: Create a api to fetch the user's info from db.*/}
         {/*TODO - Alpha: Tony: user can edit their profile.*/}
