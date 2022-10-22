@@ -30,7 +30,7 @@ export default function Auth() {
       //TODO: Tony: new user first time logged in should creat a profile, CreatProfile is just like the signup page.
       //TODO: Michael: Create a function update user's info(profile)
       //TODO: Ajay: in this CreatProfile page, Create a api to update the user's info to db.
-      //TODO: Ajay: or I will say CreatProfile middleware.
+      //TODO: Ajay: in other word CreatProfile middleware.
       return (
         <>
           <NavBar/>
