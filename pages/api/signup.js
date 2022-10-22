@@ -1,4 +1,4 @@
-import signup from './firebase_signup.js';
+import signup from '../../firebase/firebase_signup.js';
 
 
 function handler(req, res){
@@ -7,9 +7,6 @@ function handler(req, res){
         const data = req.body;
         
         const { username, password, firstname, lastname, email, phone } = data;
-        
-        
-        
         
         const user_exists = signup(username, password, firstname, lastname, email, phone);
         console.log(user_exists);
