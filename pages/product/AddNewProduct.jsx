@@ -2,6 +2,7 @@ import Button from '@mui/material/Button';
 import * as React from 'react';
 import {useState} from 'react';
 import {Box, Container, FormControl, InputLabel, NativeSelect, Stack, TextField} from "@mui/material";
+import NavBar from "../../component/NavBar/NavBar";
 
 const AddNewProduct = () => {
 
@@ -48,10 +49,12 @@ const AddNewProduct = () => {
 
   return (
     <React.Fragment>
-      <Button
-        onClick={(e) => {
-          getProducts();
-        }}> get products !!!!!!!!!!!!!!!!!!! </Button>
+      <NavBar/>
+
+      {/*<Button*/}
+      {/*  onClick={(e) => {*/}
+      {/*    getProducts();*/}
+      {/*  }}> get products !!!!!!!!!!!!!!!!!!! </Button>*/}
 
 
       <Container id="product" justifyContent="left" maxWidth="sm">

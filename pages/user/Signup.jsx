@@ -121,7 +121,6 @@ export default function Signup() {
                 // sent to backend and firebase
               }}
             >Sign Up</Button>
-            {/*这里不要用 a href 该用boolean*/}
             <a href="Login" rel="noreferrer">Already part of WUBay? Log in here.</a>
           </Stack>
         </Box>

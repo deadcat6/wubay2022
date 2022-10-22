@@ -80,9 +80,8 @@ export default function Login() {
                             // sent to backend and firebase
                         }}
                     >Log In</Button>
-                    {/*这里不要用 a href 该用boolean*/}
                     <a href="Signup" rel="noreferrer">No Account? Sign Up!</a>
-                    <a href="link_to_url" rel="noreferrer">Forgot Password?</a>
+                    <a href="Signup" rel="noreferrer">Forgot Password?</a>
                 </Stack>
             </Box>
         </Container>
