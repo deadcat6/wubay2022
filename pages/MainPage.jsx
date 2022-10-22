@@ -2,11 +2,14 @@
 
 import * as React from 'react';
 import {useRouter} from 'next/router'
-import ItemListCointainer from "./component/Product/ItemListCointainer";
-import FilterContainer from "./component/Product/FilterContainer";
+import ItemListCointainer from "../component/Product/ItemListCointainer";
+import FilterContainer from "../component/Product/FilterContainer";
 import Grid from "@mui/material/Grid";
+import {useSession} from "next-auth/react";
 
 const MainPage = () => {
+  const {data: session} = useSession()
+
   const router = useRouter();
   return (
     <React.Fragment>

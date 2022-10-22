@@ -4,23 +4,12 @@ import Button from '@mui/material/Button';
 import * as React from 'react';
 import {useState} from 'react';
 import {Box, Container, Grid, Stack, TextField} from "@mui/material";
+import {useSession} from "next-auth/react";
 
-const styles = theme => ({
-  textField: {
-    width: '90%',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    paddingBottom: 0,
-    marginTop: 0,
-    fontWeight: 500
-  },
-  input: {
-    color: 'white'
-  }
-});
+
 
 export default function Auth() {
-
+  const {data: session} = useSession()
   //Const for User Login
   const [user, setUser] = useState({
     username: '',
@@ -72,7 +61,7 @@ export default function Auth() {
 
     });
     const login_data = await response.json();
-
+    console.log(login_data)
 
   }
 

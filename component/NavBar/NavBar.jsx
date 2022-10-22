@@ -13,7 +13,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import Link from 'next/link';
-import ChatPage from "../../chat/ChatPage";
+import ChatPage from "../../pages/chat/ChatPage";
 
 
 const NavBar = () => {
