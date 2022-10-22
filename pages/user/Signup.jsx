@@ -5,21 +5,8 @@ import * as React from 'react';
 import {useState} from 'react';
 import {Box, Container, Grid, Stack, TextField} from "@mui/material";
 
-const styles = theme => ({
-    textField: {
-        width: '90%',
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        paddingBottom: 0,
-        marginTop: 0,
-        fontWeight: 500
-    },
-    input: {
-        color: 'white'
-    }
-});
 
-export default function Auth() {
+export default function Signup() {
     //Const for User Sign Up
     const [register, setRegister] = useState({
         username: '',

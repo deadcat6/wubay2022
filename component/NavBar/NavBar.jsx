@@ -60,7 +60,7 @@ const NavBar = () => {
               </Link>
             </Tooltip>
             <Tooltip title='Your Account'>
-              <Link href="/user/Chat" passHref>
+              <Link href="/user/Auth" passHref>
                 <IconButton size="large" color='inherit' aria-label="">
                   <PersonIcon fontSize="inherit"/>
                 </IconButton>
