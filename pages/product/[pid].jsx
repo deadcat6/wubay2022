@@ -171,15 +171,19 @@ export default function Product() {
                                                                     to_name: "Seller Name",
                                                                     from_name: "Buyer Name",
                                                                     item_name: "Item Name",
-                                                                    from_email: "Buyer Email"
-
+                                                                    from_email: "Buyer Email",
+                                                                    reply_to: "mtngckover@gmail.com"
                                                                 };
-                                                                emailjs.send('service_32765vj', 'template_2es1tce', emailData, 'iNXQcfJgGe4A7EoEe')
-                                                                    .then((result) => {
-                                                                        window.location.reload()  //This is if you still want the page to reload (since e.preventDefault() cancelled that behavior)
-                                                                    }, (error) => {
-                                                                        console.log(error.text);
-                                                                    });
+                                                                let send = prompt("Buyer: "+emailData.from_name+" Seller: "+emailData.to_name+ " Item: "+emailData.item_name+" Buyer email: "+emailData.from_email + " to: "+emailData.reply_to + ".\n\nEnter 1 to send.");
+                                                                if (send === "1"){
+                                                                    emailjs.send('service_32765vj', 'template_2es1tce', emailData, 'iNXQcfJgGe4A7EoEe')
+                                                                        .then((result) => {
+                                                                            alert("email sent. Check the seller's email.");
+                                                                        }, (error) => {
+                                                                            console.log(error.text);
+                                                                        });
+                                                                }
+
                                                             }}
                                                         >Purchase Now</Button>
                                                     </Grid>
@@ -187,11 +191,6 @@ export default function Product() {
                                             </Grid>
 
                                         </CardContent>
-                                        <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
-
-
-
-                                        </Box>
                                     </Box>
                                 </Card>
                             </Stack>
