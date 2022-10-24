@@ -1,51 +1,22 @@
 import { app, database } from './firebaseConfig';
-import {collection, addDoc, getDocs, getDoc, doc, query, where} from 'firebase/firestore';
+import {collection, addDoc, getDocs, getDoc, doc, query, where, updateDoc} from 'firebase/firestore';
 
-async function update_info(username, fields, updates) {
+async function update_profile(email, fields, updates) {
 
-    //function writeUserData(userId, name, email, imageUrl) {
-    //   const db = getDatabase();
-    //   set(ref(db, 'users/' + userId), {
-    //     username: name,
-    //     email: email,
-    //     profile_picture : imageUrl
-    //   });
-    // }
+    const profileRef = collection(database, "users");
+    let profile = query(profileRef, where("email", "==", email))
 
-    const productsRef = collection(database, "users");
-    let first_name = ""
-    let last_name = ""
-    let password = ""
-    let phone = ""
-    let dict = new Object()
+    let dict = {phone:profile["phone"], first_name: profile["firstname"], last_name: profile["lastname"],
+        username: profile["username"], password:profile["password"]}
 
-//Populate data
-    dict["id"] = 123
-    dict["name"] = "Anj"
-    dict["age"] = 28
-    dict["registered"] = true
-
-    // Create a query against the collection.
-    //fields and updates must be same length and order
-    return query(productsRef, where("username", "==", username))
     for(let i = 0; i<fields.length(); i++){
-
+        dict[fields[i]] = updates[i]
     }
 
-    const db = collection(database, 'users');
-    const userSnapshot = await getDocs(db);
-    const userList = userSnapshot.docs.map(doc => doc.data());
 
-    let logged_in = false
+    const res = await updateDoc(profileRef, dict);
+    console.log(res)
 
-    for(let i = 0; i<userList.length; i++){
-        //console.log(userList[i]['username'])
-        if(username === userList[i]['username'] && password === userList[i]['password']){
-            logged_in = true
-        }
-    }
+}
 
-    console.log("login is " + logged_in)
-    return logged_in
- }
- export default update_info;
+export default update_profile;
