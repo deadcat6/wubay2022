@@ -6,11 +6,12 @@ function handler(req, res){
         
         const data = req.body;
         
-        const { username, password, firstname, lastname, email, phone } = data;
+        const { email } = data;
         
-        const user_exists = signup(username, password, firstname, lastname, email, phone);
-        console.log(user_exists);
-        res.status(201).json({ message: 'inserted user into database', username: username, exists: user_exists });
+        const user_exists = signup(email);
+        //false = user added i think
+        //console.log(user_exists);
+        res.status(201).json({ message: 'inserted user into database', user_exists: user_exists });
     }
 }
 

@@ -1,7 +1,7 @@
 import { app, database } from './firebaseConfig';
 import { collection, addDoc, getDocs, getDoc , doc} from 'firebase/firestore';
  
-async function signup(username, password, firstname, lastname, email, phone) {
+async function signup(email) {
    const db = collection(database, "users");
    const userSnapshot = await getDocs(db);
    const userList = userSnapshot.docs.map(doc => doc.data());
@@ -20,12 +20,7 @@ async function signup(username, password, firstname, lastname, email, phone) {
    
    if(!user_exists){
        addDoc(db, {
-          username: username,
-          email: email,
-          password: password,
-          firstname: firstname,
-          lastname: lastname,
-          phone: phone
+          email:email
         })
  
    }
