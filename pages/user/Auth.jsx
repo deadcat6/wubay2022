@@ -33,8 +33,8 @@ export default function Auth() {
 
       const data = await res.json();
       //data.products.map(e => console.log(e))
-
-      return !data.user_exists;
+      console.log(data.oldUser);
+      return !data.oldUser;
     }
 
     getUserInfo();
@@ -50,6 +50,7 @@ export default function Auth() {
       return (
         <>
           <NavBar/>
+          <h1>CreatProfile page</h1>
           <CreatProfile/>
           <Stack spacing={2.5} alignItems="center">
                 <Button
@@ -73,6 +74,7 @@ export default function Auth() {
         {/*TODO - MVP: Ajay: Create a api to fetch the user's info from db.*/}
         {/*TODO - Alpha: Tony: user can edit their profile.*/}
         {/*TODO - Alpha: Ajay: user can edit their profile, call a api to update the user's info from db.*/}
+        <h1>AccountPage page</h1>
         <AccountPage/>
         <button onClick={() => signOut({callbackUrl: 'http://localhost:3002/user/Auth'})}>Sign out</button>
       </>
@@ -89,7 +91,7 @@ export default function Auth() {
                 width: { sm: 100, md: 200 },
                 height: { sm: 30, md: 60 },
             }}
-            onClick={() => signIn('google', {callbackUrl: 'http://localhost:3002/user/Auth'})}
+            onClick={() => signIn('google', {callbackUrl: 'http://localhost:3000/user/Auth'})}
         >Log in with Google</Button>
           </>
   )

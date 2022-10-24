@@ -6,7 +6,7 @@ async function signup(email) {
    const userSnapshot = await getDocs(db);
    const userList = userSnapshot.docs.map(doc => doc.data());
    //console.log(userList)
-   let user_exists = false
+   let oldUser = false
    //console.log(username)
 
 
@@ -14,19 +14,19 @@ async function signup(email) {
 
        //console.log(userList[i]['username'])
        if(email === userList[i]['email']){
-           user_exists = true
+         oldUser = true
        }
    //console.log(user_exists)
    }
    
-   if(!user_exists){
-       addDoc(db, {
-          email:email
-        })
+   if(!oldUser){
+       await addDoc(db, {
+         email: email
+       })
  
    }
-   
-   return !user_exists
+   console.log(oldUser);
+   return oldUser
 }
  
 async function login(username, password) {

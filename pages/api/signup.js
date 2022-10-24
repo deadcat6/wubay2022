@@ -8,10 +8,10 @@ function handler(req, res){
         
         const { email } = data;
         
-        const user_exists = signup(email);
+        const oldUser = signup(email);
         //false = user added i think
         //console.log(user_exists);
-        res.status(201).json({ message: 'inserted user into database', user_exists: user_exists });
+        res.status(201).json({ message: 'inserted user into database', oldUser: oldUser });
     }
 }
 
