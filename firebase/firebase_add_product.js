@@ -15,7 +15,8 @@ async function add_product(lister, price, name, description, imagePath, transact
         name: name,
         desc: description,
         image_url: imagePath,
-        type: transactionType
+        type: transactionType,
+        sell_progress: 0
     })
 
     }

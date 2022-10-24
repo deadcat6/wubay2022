@@ -21,7 +21,31 @@ const styles = theme => ({
 {/*TODO: Ajay: Create a api to fetch the user's info from db using user's email.*/}
 const AccountPage = () => {
   const {data: session} = useSession()
+  const [user_products, set_user_products] = useState({})
+  const [user_info, set_user_info] = useState({})
+  
+  useEffect(() => {
+    const getUserInfo = async () => {
+      setLoading(true);
+      //const {data: session} = useSession();
+      const res = await fetch('/api/user_data', {
+        method: 'POST',
+        body: JSON.stringify(session.user.email),
+        headers: {'Content-Type': 'application/json'}
+      });
+      
+      const data = await res.json();
+      //data.products.map(e => console.log(e))
+      set_user_products(data.products);
+      alert(data.products)
+      setLoading(false);
+    }
+    
+    getUserInfo();
+  }, []);
 
+
+  
   return (
       <React.Fragment>
 
