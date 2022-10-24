@@ -35,7 +35,16 @@ export default function Auth() {
         <>
           <NavBar/>
           <CreatProfile/>
-          <button onClick={() => signOut({callbackUrl: 'http://localhost:3000/user/Auth'})}>Sign out</button>
+          <Stack spacing={2.5} alignItems="center">
+                <Button
+                    variant="contained"
+                    sx={{
+                        width: { sm: 50, md: 100 },
+                        height: { sm: 30, md: 60 },
+                    }}
+                    onClick={() => signOut({callbackUrl: 'http://localhost:3000/user/Auth'})}
+                >Sign Out</Button>
+            </Stack>
         </>
 
       );
