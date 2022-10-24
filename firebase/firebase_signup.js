@@ -20,7 +20,7 @@ async function signup(email) {
    }
    
    if(!oldUser){
-       await addDoc(db, {
+        addDoc(db, {
          email: email
        })
  
