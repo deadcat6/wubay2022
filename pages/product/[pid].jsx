@@ -15,17 +15,16 @@ import {blue} from "@mui/material/colors";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
+import emailjs, { init } from "@emailjs/browser";
 
 export default function Product() {
-    let starvalue = 5;
+    let starValue = 5;
+    let emailAddress = "i5904503668i@gmail.com";
     let price = "$0.99";
     let methodPayment = 1;
     let paymentIcon = ["","https://filehandler.revlocal.com/600851","https://1000logos.net/wp-content/uploads/2021/12/Venmo-Logo.png", "https://www.logo.wine/a/logo/Cash_App/Cash_App-Logo.wine.svg","https://cdn-icons-png.flaticon.com/512/2489/2489756.png"];
     const theme = useTheme();
     //Set props for product
-
-
-
     return (
         <React.Fragment>
             <Container id="Product"  justifyContent="left"  spacing={2}>
@@ -91,7 +90,7 @@ export default function Product() {
                                                     </Grid>
                                                     <Grid item xs={2.4}>
                                                         <Typography component="legend">Rating</Typography>
-                                                        <Rating name="Seller Rating" value={starvalue} readOnly />
+                                                        <Rating name="Seller Rating" value={starValue} readOnly />
                                                     </Grid>
                                                     <Grid item xs={3.5}>
                                                         <Tooltip title='Your Messages'>
@@ -168,6 +167,19 @@ export default function Product() {
                                                             onClick={(e) => {
                                                                 e.preventDefault();
                                                                 //PurchaseHandler
+                                                                let emailData = {
+                                                                    to_name: "Seller Name",
+                                                                    from_name: "Buyer Name",
+                                                                    item_name: "Item Name",
+                                                                    from_email: "Buyer Email"
+
+                                                                };
+                                                                emailjs.send('service_32765vj', 'template_2es1tce', emailData, 'iNXQcfJgGe4A7EoEe')
+                                                                    .then((result) => {
+                                                                        window.location.reload()  //This is if you still want the page to reload (since e.preventDefault() cancelled that behavior)
+                                                                    }, (error) => {
+                                                                        console.log(error.text);
+                                                                    });
                                                             }}
                                                         >Purchase Now</Button>
                                                     </Grid>
