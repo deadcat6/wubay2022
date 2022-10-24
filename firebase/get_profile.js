@@ -1,15 +1,20 @@
+//get email given a username
+
 import {collection, query, where} from "firebase/firestore";
 import {database} from "./firebaseConfig";
 
-async function get_user_data(username) {
+async function get_profile(email) {
 
     // Create a reference to the cities collection
 
     //const db = collection(database, "products");
-    const productsRef = collection(database, "products");
+    const profileRef = collection(database, "users");
 
     // Create a query against the collection.
-    return query(productsRef, where("lister", "==", username))
+
+    return query(profileRef, where("email", "==", email))
+
 }
 
-export default get_user_data;
+
+export default get_profile;
