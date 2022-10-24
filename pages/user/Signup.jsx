@@ -11,6 +11,7 @@ export default function Signup() {
   const [register, setRegister] = useState({
     username: '',
     password: '',
+    confirmPassword: '',
     email: '',
     firstname: '',
     lastname: '',
@@ -99,6 +100,32 @@ export default function Signup() {
                 setRegister({
                   ...register,
                   phone: v.target.value,
+                })
+              }}
+            />
+            <TextField
+              id="outlined-basic"
+              label="Password"
+              sx={{
+                width: { sm: 200, md: 300 },
+              }}
+              onChange={(v) => {
+                setRegister({
+                  ...register,
+                  password: v.target.value,
+                })
+              }}
+            />
+            <TextField
+              id="outlined-basic"
+              label="Confirm Password"
+              sx={{
+                width: { sm: 200, md: 300 },
+              }}
+              onChange={(v) => {
+                setRegister({
+                  ...register,
+                  confirmPassword: v.target.value,
                 })
               }}
             />

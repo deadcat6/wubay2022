@@ -21,22 +21,22 @@ export default function Auth() {
     //TODO: Michael: Create a function to check whether this is a new user (cannot query the email from the db)
     //TODO: Michael: If so, sign up this new user with only user's email.
     //TODO: Ajay: Create a api to call michael's function and respond  whether this is a new user
-    
+
     const getUserInfo = async () => {
-      
+
       //const {data: session} = useSession();
       const res = await fetch('/api/signup', {
         method: 'POST',
         body: JSON.stringify(email),
         headers: {'Content-Type': 'application/json'}
       });
-      
+
       const data = await res.json();
       //data.products.map(e => console.log(e))
-      
+
       return !data.user_exists;
     }
-    
+
     getUserInfo();
     //return true;
   }
@@ -51,7 +51,16 @@ export default function Auth() {
         <>
           <NavBar/>
           <CreatProfile/>
-          <button onClick={() => signOut({callbackUrl: 'http://localhost:3002/user/Auth'})}>Sign out</button>
+          <Stack spacing={2.5} alignItems="center">
+                <Button
+                    variant="contained"
+                    sx={{
+                        width: { sm: 50, md: 100 },
+                        height: { sm: 30, md: 60 },
+                    }}
+                    onClick={() => signOut({callbackUrl: 'http://localhost:3000/user/Auth'})}
+                >Sign Out</Button>
+            </Stack>
         </>
 
       );
