@@ -22,9 +22,7 @@ async function signup(email) {
           email: email,
           needProfile: true,
        })
- 
    }
-   //console.log(needProfile);
    return needProfile
 }
  

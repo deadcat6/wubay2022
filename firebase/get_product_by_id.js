@@ -11,6 +11,7 @@ async function get_product_by_id(id) {
     if (docSnap.exists()) {
       console.log("Document data:", docSnap.data());
     }
+
     return docSnap.data()
 
     //let product = {}
