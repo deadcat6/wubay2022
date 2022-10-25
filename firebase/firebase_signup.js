@@ -15,7 +15,6 @@ async function signup(email) {
          needProfile = userList[i]['needProfile'];
          userExists = true;
        }
-   //console.log(user_exists)
    }
    
    if(!userExists){

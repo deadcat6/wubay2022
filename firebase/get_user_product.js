@@ -10,11 +10,12 @@ async function get_user_product(username) {
     let products_info = []
     let products_id = []
     querySnapshot.forEach((doc) => {
-    console.log(doc.id, " => ", doc.data());
-    products_info.append(doc.data())
-        products_id.append(doc.id)
+    //console.log(doc.id, " => ", doc.data());
+    products_info.push(doc.data())
+        products_id.push(doc.id)
 
-     })
+    })
+
     return [products_info,products_id]
 }
 

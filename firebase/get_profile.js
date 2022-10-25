@@ -17,7 +17,7 @@ async function get_profile(email) {
     id = doc.id
         profile = doc.data()
      })
-    return [id, profile]
+    return profile
 
 
 }
