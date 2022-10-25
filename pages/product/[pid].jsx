@@ -16,7 +16,7 @@ import {useRouter} from "next/router";
 export default function Product() {
 
   const router = useRouter();
-  //const pid = router.
+  const pid = router.query.pid;
   let starValue = 5;
   let emailAddress = "i5904503668i@gmail.com";
   let price = "$0.99";
@@ -42,18 +42,13 @@ export default function Product() {
         body: JSON.stringify({pid}),
         headers: {'Content-Type': 'application/json'}
       });
-  
       const data = await res.json();
       set_product_info(data);
       //console.log(data.user_data);
       
     }
-    if (session) {
-      getProductInfo(pid); //PUT PRODUCT ID
-      
-    }
-  
-  }, [session]); // Or [] if effect doesn't need props or state
+    getProductInfo(pid); //PUT PRODUCT ID
+  }, []); // Or [] if effect doesn't need props or state
 
   //Set props for product
   return (
