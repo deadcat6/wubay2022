@@ -51,6 +51,9 @@ const CreatProfile = () => {
     });
     const signup_data = await response.json();
   }
+  if(!session) {
+    return (<h1> please log in</h1>)
+  }
   return (
     <React.Fragment>
 
