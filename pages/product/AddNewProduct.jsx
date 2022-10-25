@@ -3,12 +3,14 @@ import * as React from 'react';
 import {useState} from 'react';
 import {Box, Container, FormControl, InputLabel, NativeSelect, Stack, TextField} from "@mui/material";
 import NavBar from "../../component/NavBar/NavBar";
+import {useSession} from "next-auth/react";
 import Grid from "@mui/material/Grid";
 
 const AddNewProduct = () => {
-
+  const {data: session} = useSession();
   const [product, setProduct] = useState({
     lister: '', //Lister should be acquired in the backend.
+    lister_email: session.user.email,
     name: '',
     description: '',
     imagePath: ["/image.jpg"], //Dummy path to images for now. Don't know where to put the file yet.
@@ -21,11 +23,12 @@ const AddNewProduct = () => {
 
 
 
-  async function addProductHandler(name, description, imagePath, transactionType, price) {
+  async function addProductHandler(name, lister_email, description, imagePath, transactionType, price) {
     const response = await fetch('/api/add_product', {
       method: 'POST',
       body: JSON.stringify({
         name,
+        lister_email,
         description,
         imagePath,
         transactionType,
@@ -164,7 +167,7 @@ const AddNewProduct = () => {
                       onClick={(e) => {
                         e.preventDefault();
                         //console.log(user);
-                        addProductHandler(product.name, product.description, JSON.stringify(product.imagePath), product.transactionType, product.price);
+                        addProductHandler(product.name, product.lister_email, product.description, JSON.stringify(product.imagePath), product.transactionType, product.price);
 
                         alert("product name: " + product.name + " description: " + product.description + " Image list: " + JSON.stringify(product.imagePath) + " transaction type: " + product.transactionType);
                         // sent to backend and firebase

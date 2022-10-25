@@ -5,7 +5,7 @@ function handler(req, res){
     if (req.method === 'POST'){
         
         const data = req.body;
-        const { name, description, imagePath, transactionType, price } = data;
+        const { name, lister_email, description, imagePath, transactionType, price } = data;
         
         //console.log(p);
         
@@ -13,7 +13,7 @@ function handler(req, res){
         var add_return = '';
         let success = false;
         if (isNaN(price) == false && price > 0){
-            add_return = add_product("DemoLister", price, name, description, imagePath, transactionType);
+            add_return = add_product("DemoLister", lister_email, price, name, description, imagePath, transactionType);
             success = true;
             //console.log('working');
         }

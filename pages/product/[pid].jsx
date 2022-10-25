@@ -31,6 +31,7 @@ export default function Product() {
   const theme = useTheme();
   const [product_info, set_product_info] = useState({
     lister: '', //Lister should be acquired in the backend.
+    lister_email: '',
     name: '',
     description: '',
     imagePath: ["/image.jpg"], //Dummy path to images for now. Don't know where to put the file yet.
@@ -205,7 +206,7 @@ export default function Product() {
                                   from_name: session.user.email,
                                   item_name: product_info.name,
                                   from_email: session.user.email,
-                                  reply_to: "ismark.lu@gmail.com"
+                                  reply_to: product_info.lister_email
                                 };
                                 let send = prompt("Buyer: " + emailData.from_name + " Seller: " + emailData.to_name + " Item: " + emailData.item_name + " Buyer email: " + emailData.from_email + " to: " + emailData.reply_to + ".\n\nEnter confirm to send.");
                                 if (send === "confirm") {
