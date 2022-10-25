@@ -10,20 +10,26 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import emailjs from "@emailjs/browser";
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useRouter} from "next/router";
+import {useSession} from "next-auth/react";
 
 export default function Product() {
 
   const router = useRouter();
-  const pid = router.query.pid;
+
+  const [pid, setPid] = useState();
+  const {data: session} = useSession()
+
+
+
   let starValue = 5;
-  let emailAddress = "i5904503668i@gmail.com";
-  let price = "$0.99";
+  //let emailAddress = "i5904503668i@gmail.com";
+  //let price = "$0.99";
   let methodPayment = 1;
   let paymentIcon = ["", "https://filehandler.revlocal.com/600851", "https://1000logos.net/wp-content/uploads/2021/12/Venmo-Logo.png", "https://www.logo.wine/a/logo/Cash_App/Cash_App-Logo.wine.svg", "https://cdn-icons-png.flaticon.com/512/2489/2489756.png"];
   const theme = useTheme();
-  const [product_info, set_profile_info] = useState({
+  const [product_info, set_product_info] = useState({
     lister: '', //Lister should be acquired in the backend.
     name: '',
     description: '',
@@ -35,7 +41,6 @@ export default function Product() {
   });
 
   useEffect(() => {
-
     async function getProductInfo(pid) {
       const res = await fetch('/api/product_info', {
         method: 'POST',
@@ -43,11 +48,13 @@ export default function Product() {
         headers: {'Content-Type': 'application/json'}
       });
       const data = await res.json();
-      set_product_info(data);
-      //console.log(data.user_data);
+      set_product_info(data.product_data);
+      console.log(data.product_data);
       
     }
-    getProductInfo(pid); //PUT PRODUCT ID
+    setPid( router.query.pid);
+    console.log("!!@#@!#@!#@!#@!#" + router.query.pid)
+    getProductInfo(router.query.pid); //PUT PRODUCT ID
   }, []); // Or [] if effect doesn't need props or state
 
   //Set props for product
@@ -112,7 +119,7 @@ export default function Product() {
                         <Grid item container direction="row">
                           <Grid item xs={6.5}>
                             <Typography component="legend">Sold By</Typography>
-                            <a href="seller page" rel="noreferrer">Seller name</a>
+                            <a href="seller page" rel="noreferrer">{product_info.lister}</a>
                           </Grid>
                           <Grid item xs={2.4}>
                             <Typography component="legend">Rating</Typography>
@@ -158,7 +165,7 @@ export default function Product() {
             <Grid item xs={6} sm={6}>
               <Stack spacing={2.5} alignItems="center">
                 <Typography variant={"h3"}>{product_info.name}</Typography>
-                <p>{product_info.description}</p>
+                <p>{product_info.desc}</p>
                 <Card sx={{display: 'flex', width: 0.8}}>
                   <Box sx={{display: 'flex', flexDirection: 'column'}}>
                     <CardContent sx={{flex: '1 0 auto',}}>
@@ -194,14 +201,14 @@ export default function Product() {
                                 e.preventDefault();
                                 //PurchaseHandler
                                 let emailData = {
-                                  to_name: value=product_info.lister,
-                                  from_name: "Buyer Name",
+                                  to_name: product_info.lister,
+                                  from_name: session.user.email,
                                   item_name: product_info.name,
-                                  from_email: "Buyer Email",
-                                  reply_to: "mtngckover@gmail.com"
+                                  from_email: session.user.email,
+                                  reply_to: "ismark.lu@gmail.com"
                                 };
-                                let send = prompt("Buyer: " + emailData.from_name + " Seller: " + emailData.to_name + " Item: " + emailData.item_name + " Buyer email: " + emailData.from_email + " to: " + emailData.reply_to + ".\n\nEnter 1 to send.");
-                                if (send === "1") {
+                                let send = prompt("Buyer: " + emailData.from_name + " Seller: " + emailData.to_name + " Item: " + emailData.item_name + " Buyer email: " + emailData.from_email + " to: " + emailData.reply_to + ".\n\nEnter confirm to send.");
+                                if (send === "confirm") {
                                   emailjs.send('service_32765vj', 'template_2es1tce', emailData, 'iNXQcfJgGe4A7EoEe')
                                     .then((result) => {
                                       alert("email sent. Check the seller's email.");

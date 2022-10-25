@@ -17,9 +17,9 @@ async function get_products() {
     querySnapshot.forEach((doc) => {
     console.log(doc.id, " => ", doc.data());
     products_info.push(doc.data())
-        console.log(typeof(products_info[i]['desc']))
+        //console.log(typeof(products_info[i]['desc']))
         products_info[i]['id'] = doc.id
-        console.log(products_info[i])
+        //console.log(products_info[i])
         i = i + 1
 
     })
