@@ -20,6 +20,7 @@ const ItemListCointainer = () => {
       //data.products.map(e => console.log(e))
       setProducts(data.products);
       setLoading(false);
+      console.log(data.products)
     }
     getProducts();
   }, []); // Or [] if effect doesn't need props or state

@@ -10,8 +10,14 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import emailjs from "@emailjs/browser";
+import {useRouter} from "next/router";
 
 export default function Product() {
+
+  const router = useRouter();
+  console.log(router.query.pid);
+
+
   let starValue = 5;
   let emailAddress = "i5904503668i@gmail.com";
   let price = "$0.99";
