@@ -10,14 +10,16 @@ function handler(req, res){
     const data = req.body;
 
     const { username, password, firstname, lastname, email, phone, rating, postedProducts, BuyerTransactions, sellerTransactions, usersChats } = data;
-    var fields = ['username', 'password', 'firstname', 'lastname', 'email', 'phone', 'rating', 'postedProducts',
-      'BuyerTransactions',
-      'sellerTransactions',
-      'usersChats'];
-    var updates = {username, password, firstname, lastname, email, phone, rating, postedProducts, BuyerTransactions, sellerTransactions, usersChats}
+    var fields = ['username', 'password', 'firstname', 'lastname', 'email', 'phone'];
+    var updates = [username, password, firstname, lastname, email, phone]
+
+    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+    console.log(data)
     const ret = update_profile(email, fields, updates);
     //console.log(ret);
     res.status(201).json({ message: 'inserted profile into database', username: username, worked: ret });
+    console.log("back to middleware")
+
   }
 }
 

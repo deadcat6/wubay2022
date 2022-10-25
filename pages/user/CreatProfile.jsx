@@ -24,8 +24,9 @@ const CreatProfile = () => {
     usersChats: [] //usersChats: [Chats]
   });
 
-  async function profileHandler(username, password, firstname, lastname, email, phone) {
+  async function profileHandler(username, password, firstname, lastname, phone) {
     //console.log("u is " + u);
+
     const response = await fetch('/api/update_profile_info', {
       method: 'POST',
       body: JSON.stringify({
@@ -33,7 +34,7 @@ const CreatProfile = () => {
           username: username,
           password: password,
           confirmPassword: firstname,
-          email: email,
+          email: session.user.email,
           firstname: firstname,
           lastname: lastname,
           phone: phone,
@@ -144,7 +145,7 @@ const CreatProfile = () => {
               }}
               onClick={(e) => {
                 e.preventDefault();
-                profileHandler(register.username, register.password, register.firstname, register.lastname, register.email, register.phone);
+                profileHandler(register.username, register.password, register.firstname, register.lastname, register.phone);
                 //console.log(d);
                 alert("username " + register.username + "  password " + register.password + "  first name " + register.firstname + "  last name " + register.lastname + "  email " + register.email + "  phone " + register.phone);
                 // sent to backend and firebase
