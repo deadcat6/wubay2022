@@ -18,7 +18,7 @@ export default function Auth() {
   const [needProfile, setNeedProfile] = useState(false);
   useEffect(() => {
     async function getUserInfo(email) {
-      const res = await fetch('/api/signup', {
+      const res = await fetch('/api/needProfile', {
         method: 'POST',
         body: JSON.stringify({email}),
         headers: {'Content-Type': 'application/json'}
@@ -26,9 +26,10 @@ export default function Auth() {
 
       const data = await res.json();
       //data.products.map(e => console.log(e))
-      setNeedProfile(data.oldUser);
-      //console.log(data.oldUser);
-      return data.oldUser;
+      setNeedProfile(data.needProfile);
+      console.log("data.needProfile");
+      console.log(data.needProfile);
+      return data.needProfile;
     }
     if (session) {
       getUserInfo(session.user.email);

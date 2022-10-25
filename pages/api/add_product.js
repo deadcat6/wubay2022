@@ -13,7 +13,8 @@ function handler(req, res){
         var add_return = '';
         let success = false;
         if (isNaN(price) == false && price > 0){
-            add_return = add_product("DemoLister", lister_email, price, name, description, imagePath, transactionType);
+            //TODO: name
+            add_return = add_product(lister_email, lister_email, price, name, description, imagePath, transactionType);
             success = true;
             //console.log('working');
         }

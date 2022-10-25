@@ -1,6 +1,7 @@
 //domain,com/product/
 import Button from '@mui/material/Button';
 import * as React from 'react';
+import {useEffect, useState} from 'react';
 import {Box, Container, Rating, Stack, Tooltip, useTheme} from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -10,7 +11,6 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import emailjs from "@emailjs/browser";
-import {useEffect, useState} from 'react';
 import {useRouter} from "next/router";
 import {useSession} from "next-auth/react";
 
@@ -20,7 +20,6 @@ export default function Product() {
 
   const [pid, setPid] = useState();
   const {data: session} = useSession()
-
 
 
   let starValue = 5;
@@ -51,9 +50,10 @@ export default function Product() {
       const data = await res.json();
       set_product_info(data.product_data);
       //console.log(data.product_data);
-      
+
     }
-    setPid( router.query.pid);
+
+    setPid(router.query.pid);
     //console.log("!!@#@!#@!#@!#@!#" + router.query.pid)
     getProductInfo(router.query.pid); //PUT PRODUCT ID
   }, []); // Or [] if effect doesn't need props or state

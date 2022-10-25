@@ -1,6 +1,6 @@
 import { app, database } from './firebaseConfig';
 import { collection, addDoc, getDocs, getDoc , doc} from 'firebase/firestore';
-import signup from "./firebase_signup";
+import signup from "./firebase_needProfile";
 
 async function add_product(lister, lister_email, price, name, description, imagePath, transactionType) { //TODO: add created_time later
     const db = collection(database, "products");

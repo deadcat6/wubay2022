@@ -1,6 +1,6 @@
 //need profile creation from database
 
-import signup from '../../firebase/firebase_signup.js';
+import signup from '../../firebase/firebase_needProfile.js';
 
 
 function handler(req, res){
