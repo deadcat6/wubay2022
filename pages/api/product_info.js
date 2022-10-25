@@ -4,9 +4,9 @@ async function handler(req, res){
     
         const data = req.body;
         const { pid } = data;
-        console.log("---------------------")
+        //console.log("---------------------")
         const product_data = await get_product_by_id(pid);
-        console.log(product_data)
+        //console.log(product_data)
 
         res.status(201).json({ message: 'get product info', product_data: product_data });
 }

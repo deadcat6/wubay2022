@@ -50,11 +50,11 @@ export default function Product() {
       });
       const data = await res.json();
       set_product_info(data.product_data);
-      console.log(data.product_data);
+      //console.log(data.product_data);
       
     }
     setPid( router.query.pid);
-    console.log("!!@#@!#@!#@!#@!#" + router.query.pid)
+    //console.log("!!@#@!#@!#@!#@!#" + router.query.pid)
     getProductInfo(router.query.pid); //PUT PRODUCT ID
   }, []); // Or [] if effect doesn't need props or state
 
@@ -214,7 +214,7 @@ export default function Product() {
                                     .then((result) => {
                                       alert("email sent. Check the seller's email.");
                                     }, (error) => {
-                                      console.log(error.text);
+                                      //console.log(error.text);
                                     });
                                 }
 

@@ -5,16 +5,16 @@ async function update_profile(email, fields, updates) {
     const db = getFirestore(app)
     const profileQ = query(collection(db, "users"), where("email", "==", email));
     const profile = await getDocs(profileQ);
-    console.log(profile)
+    //console.log(profile)
     let products_info = []
     let products_id = []
     profile.forEach((doc) => {
-    console.log(doc.id, " => ", doc.data());
+    //console.log(doc.id, " => ", doc.data());
     products_info.push(doc.data())
         products_id.push(doc.id)
 
      })
-    console.log(products_info)
+    //console.log(products_info)
 
    // const profileRef = collection(database, "users");
    // let profile = query(profileRef, where("email", "==", email))
@@ -28,7 +28,7 @@ async function update_profile(email, fields, updates) {
 
     let ref = profile.ref.path
     const res = await updateDoc(ref, dict);
-    console.log(res)
+    //console.log(res)
 
 }
 

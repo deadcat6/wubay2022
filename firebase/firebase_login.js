@@ -16,7 +16,7 @@ async function login(username, password) {
             logged_in = true
         }
     }
-    console.log("login is " + logged_in)
+    //console.log("login is " + logged_in)
     return logged_in
  }
  export default login;

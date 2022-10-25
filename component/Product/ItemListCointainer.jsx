@@ -19,9 +19,9 @@ const ItemListCointainer = () => {
       const data = await res.json();
       //data.products.map(e => console.log(e))
       setProducts(data.products);
-      console.log(data.products)
+      //console.log(data.products)
       setLoading(false);
-      console.log(data.products)
+      //console.log(data.products)
     }
     getProducts();
   }, []); // Or [] if effect doesn't need props or state

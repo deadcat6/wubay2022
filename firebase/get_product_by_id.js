@@ -9,7 +9,7 @@ async function get_product_by_id(id) {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-        console.log("Document data:", docSnap.data());
+        //console.log("Document data:", docSnap.data());
     }
     return docSnap.data()
 

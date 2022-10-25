@@ -48,7 +48,7 @@ const AccountPage = () => {
       const data = await res.json();
       set_user_products(data.products);
       set_user_info(data.user_data);
-      console.log(data.user_data);
+      //console.log(data.user_data);
       
     }
     if (session) {

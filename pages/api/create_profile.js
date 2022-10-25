@@ -11,7 +11,7 @@ function handler(req, res){
         const { username, password, firstname, lastname, email, phone } = data;
         
         const user_exists = signup(username, password, firstname, lastname, email, phone);
-        console.log(user_exists);
+        //console.log(user_exists);
         res.status(201).json({ message: 'inserted profile into database', username: username, exists: user_exists });
     }
 }

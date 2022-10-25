@@ -27,7 +27,7 @@ export default function Auth() {
       const data = await res.json();
       //data.products.map(e => console.log(e))
       setNeedProfile(!data.oldUser);
-      console.log(data.oldUser);
+      //console.log(data.oldUser);
       return !data.oldUser;
     }
     if (session) {
