@@ -10,7 +10,7 @@ const AddNewProduct = () => {
   const {data: session} = useSession();
   const [product, setProduct] = useState({
     lister: '', //Lister should be acquired in the backend.
-    lister_email: session.user.email,
+    lister_email: '',
     name: '',
     description: '',
     imagePath: ["/image.jpg"], //Dummy path to images for now. Don't know where to put the file yet.
@@ -24,6 +24,9 @@ const AddNewProduct = () => {
 
 
   async function addProductHandler(name, lister_email, description, imagePath, transactionType, price) {
+    if (session) {
+      lister_email = session.user.email;
+    }
     const response = await fetch('/api/add_product', {
       method: 'POST',
       body: JSON.stringify({
@@ -42,8 +45,11 @@ const AddNewProduct = () => {
     alert(product_data.message);
 
   }
-
+  if (!session) {
+    return (<h1>please log in</h1>)
+  }
   return (
+
   <React.Fragment>
 
     <Container id="product"  justifyContent="left" maxWidth="sm">
