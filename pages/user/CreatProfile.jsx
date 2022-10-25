@@ -114,6 +114,7 @@ const CreatProfile = () => {
             <TextField
               id="outlined-basic"
               label="Password"
+              type="password"
               sx={{
                 width: { sm: 200, md: 300 },
               }}
@@ -127,6 +128,7 @@ const CreatProfile = () => {
             <TextField
               id="outlined-basic"
               label="Confirm Password"
+              type="password"
               sx={{
                 width: { sm: 200, md: 300 },
               }}
