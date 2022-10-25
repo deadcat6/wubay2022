@@ -10,11 +10,8 @@ function handler(req, res){
     const data = req.body;
 
     const { username, password, firstname, lastname, email, phone, rating, postedProducts, BuyerTransactions, sellerTransactions, usersChats } = data;
-    var fields = ['username', 'password', 'firstname', 'lastname', 'email', 'phone', 'rating', 'postedProducts',
-      'BuyerTransactions',
-      'sellerTransactions',
-      'usersChats'];
-    var updates = {username, password, firstname, lastname, email, phone, rating, postedProducts, BuyerTransactions, sellerTransactions, usersChats}
+    var fields = ['username', 'password', 'firstname', 'lastname', 'email', 'phone'];
+    var updates = [username, password, firstname, lastname, email, phone]
 
     console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
     console.log(data)
