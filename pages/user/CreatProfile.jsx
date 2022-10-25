@@ -21,7 +21,7 @@ const CreatProfile = () => {
     postedProducts: [], // postedProducts: [Product]: the products user posted but no one has bought yet.
     BuyerTransactions: [], // BuyerTransactions:[Transactions]: the products user bought like {orders}.
     sellerTransactions: [], //sellerTransactions:[Transactions] the products user sold.
-    usersChats: [], //usersChats: [Chats]
+    usersChats: [] //usersChats: [Chats]
   });
 
   async function profileHandler(username, password, firstname, lastname, email, phone) {

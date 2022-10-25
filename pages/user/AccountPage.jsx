@@ -22,7 +22,20 @@ const styles = theme => ({
 const AccountPage = () => {
   const {data: session} = useSession()
   const [user_products, set_user_products] = useState({})
-  const [user_info, set_user_info] = useState({})
+  const [user_info, set_user_info] = useState({
+    username: '',
+    password: '',
+    confirmPassword: '',
+    email: '',
+    firstname: '',
+    lastname: '',
+    phone: '',
+    rating: '',
+    postedProducts: [], // postedProducts: [Product]: the products user posted but no one has bought yet.
+    BuyerTransactions: [], // BuyerTransactions:[Transactions]: the products user bought like {orders}.
+    sellerTransactions: [], //sellerTransactions:[Transactions] the products user sold.
+    usersChats: [] //usersChats: [Chats]
+  })
 
   useEffect(() => {
     async function getUserInfo(email) {
@@ -70,7 +83,7 @@ const AccountPage = () => {
                         id="standard-basic"
                         label="Username"
 
-                        value={"user_info.username"}
+                        value={user_info.username}
 
                         disabled={true}
                         variant="standard"
@@ -89,7 +102,7 @@ const AccountPage = () => {
                               label="First name"
                               disabled={true}
                               variant="standard"
-
+                              value={user_info.firstname}
                               onChange={(v) => {
 
                               }}
@@ -101,7 +114,7 @@ const AccountPage = () => {
                               label="Last Name"
                               disabled={true}
                               variant="standard"
-
+                              value={user_info.lastname}
                               onChange={(v) => {
 
                               }}
