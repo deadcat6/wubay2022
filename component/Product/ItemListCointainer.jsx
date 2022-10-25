@@ -21,6 +21,7 @@ const ItemListCointainer = () => {
       setProducts(data.products);
       console.log(data.products)
       setLoading(false);
+      console.log(data.products)
     }
     getProducts();
   }, []); // Or [] if effect doesn't need props or state
