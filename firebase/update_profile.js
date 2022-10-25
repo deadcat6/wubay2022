@@ -4,7 +4,8 @@ import {collection, setDoc, addDoc, getDocs, getDoc, doc, query, where, updateDo
 async function update_profile(email, fields, updates) {
     const db = getFirestore(app)
     email = "ismark.lu@gmail.com" //hard coded, remove once correct parameters are passed
-
+    fields = ["phone", "lastname"]
+    updates = ["802-923-6813", "Cafiero"]
     const profileQ = query(collection(db, "users"), where("email", "==", email));
     const profileSnapshot = await getDocs(profileQ);
 
@@ -26,9 +27,14 @@ async function update_profile(email, fields, updates) {
    // let dict = {phone:profile["phone"], first_name: profile["firstname"], last_name: profile["lastname"],
         //username: profile["username"], password:profile["password"], needProfile:false}
     let dict = {phone:"802", first_name:"802", last_name: "802",
-        username: "802", password:"802", needProfile:false}
+        username: "802", password:"802", needProfile:false, email:email}
    for(let i = 0; i < fields.length; i++) {
-        dict[fields[i]] = updates[i]
+       dict[fields[i]] = updates[i]
+       console.log(fields[i])
+       console.log(updates[i])
+       //console.log(dict[fields[i]])
+
+       let j = 0
     }
 
     //let ref = profile.ref.path
@@ -38,4 +44,3 @@ async function update_profile(email, fields, updates) {
 }
 
 export default update_profile;
-//export default get_profile_from_id;
