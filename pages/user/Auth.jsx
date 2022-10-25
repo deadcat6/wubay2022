@@ -68,10 +68,7 @@ export default function Auth() {
 
           <h1>AccountPage page</h1>
           <AccountPage/>
-          <button
-            onClick={() => signOut()}
 
-          >Sign out</button>
         </>
       )
     }

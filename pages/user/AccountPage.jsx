@@ -1,4 +1,4 @@
-import {useSession} from "next-auth/react";
+import {signOut, useSession} from "next-auth/react";
 import Button from '@mui/material/Button';
 import * as React from 'react';
 import {useEffect, useState} from 'react';
@@ -199,11 +199,22 @@ const AccountPage = () => {
                         id="outlined-basic"
                         label="Product 4"
                     />
+
                   </Stack>
 
                 </Grid>
               </Grid>
             </Grid>
+            <Button
+              variant="contained"
+              sx={{
+                width: { sm: 50, md: 100 },
+                height: { sm: 30, md: 60 },
+              }}
+              // onClick={() => signOut({callbackUrl: 'http://localhost:3000/user/Auth'})}
+              onClick={() => signOut()}
+
+            >Sign Out</Button>
           </Stack>
         </Container>
       </React.Fragment>

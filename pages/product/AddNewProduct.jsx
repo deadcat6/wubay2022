@@ -51,7 +51,7 @@ const AddNewProduct = () => {
   return (
 
   <React.Fragment>
-
+<NavBar/>
     <Container id="product"  justifyContent="left" maxWidth="sm">
       {/*这个box只是让你看到container的大小*/}
       <Box my={10} sx={{backgroundColor: 'white',}}>
