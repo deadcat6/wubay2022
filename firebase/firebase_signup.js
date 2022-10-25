@@ -12,15 +12,30 @@ async function signup(email) {
 
        //console.log(userList[i]['username'])
        if(email === userList[i]['email']){
+
          needProfile = userList[i]['needProfile'];
          userExists = true;
+
        }
    }
-   
+   // //'username', 'password', 'firstname', 'lastname', 'email', 'phone', 'rating', 'postedProducts',
+    //        //       'BuyerTransactions',
+    //        //       'sellerTransactions',
+    //        //       'usersChats'
    if(!userExists){
         addDoc(db, {
-          email: email,
-          needProfile: true,
+            username: "",
+            password: "",
+            firstname: "",
+            lastname: "",
+            phone: "",
+            rating: "",
+            postedProducts: "",
+            BuyerTransactions: "",
+            sellerTransactions: "",
+            userChats: "",
+            email: email,
+            needProfile: true
        })
    }
    return needProfile
