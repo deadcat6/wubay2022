@@ -1,35 +1,41 @@
 import { app, database } from './firebaseConfig';
-import {collection, addDoc, getDocs, getDoc, doc, query, where, updateDoc, getFirestore} from 'firebase/firestore';
+import {collection, setDoc, addDoc, getDocs, getDoc, doc, query, where, updateDoc, getFirestore} from 'firebase/firestore';
 
 async function update_profile(email, fields, updates) {
     const db = getFirestore(app)
+    email = "ismark.lu@gmail.com" //hard coded, remove once correct parameters are passed
+
     const profileQ = query(collection(db, "users"), where("email", "==", email));
-    const profile = await getDocs(profileQ);
-    console.log(profile)
-    let products_info = []
-    let products_id = []
-    profile.forEach((doc) => {
+    const profileSnapshot = await getDocs(profileQ);
+
+
+    let id = ""
+    let profile = {}
+    profileSnapshot.forEach((doc) => {
     console.log(doc.id, " => ", doc.data());
-    products_info.push(doc.data())
-        products_id.push(doc.id)
-
+    id = doc.id
+        profile = doc.data()
      })
-    console.log(products_info)
+    console.log(id)
+    const docRef = await doc(db, "users", id);
 
-   // const profileRef = collection(database, "users");
-   // let profile = query(profileRef, where("email", "==", email))
+    //const docRef = await doc(db, "users", id);
 
-    let dict = {phone:profile["phone"], first_name: profile["firstname"], last_name: profile["lastname"],
-        username: profile["username"], password:profile["password"], needProfile:false}
+    //console.log(docRef)
 
-    for(let i = 0; i < fields.length; i++) {
+   // let dict = {phone:profile["phone"], first_name: profile["firstname"], last_name: profile["lastname"],
+        //username: profile["username"], password:profile["password"], needProfile:false}
+    let dict = {phone:"802", first_name:"802", last_name: "802",
+        username: "802", password:"802", needProfile:false}
+   for(let i = 0; i < fields.length; i++) {
         dict[fields[i]] = updates[i]
     }
 
-    let ref = profile.ref.path
-    const res = await updateDoc(ref, dict);
-    console.log(res)
+    //let ref = profile.ref.path
+   const res = await setDoc(docRef, dict);
+   console.log(res)
 
 }
 
 export default update_profile;
+//export default get_profile_from_id;
