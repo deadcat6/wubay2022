@@ -1,23 +1,23 @@
 //get email given a username
 
-import {collection, query, where} from "firebase/firestore";
-import {database} from "./firebaseConfig";
+import {collection, getDocs, getFirestore, query, where} from "firebase/firestore";
+import {app, database} from "./firebaseConfig";
 
 async function get_profile(email) {
 
-    // Create a reference to the cities collection
 
-    //const db = collection(database, "products");
-    const profileRef = collection(database, "users");
+    const db = getFirestore(app)
+    const quer = query(collection(db, "users"), where("email", "==", email));
 
-    // Create a query against the collection.
-    let profileSnapshot =  query(profileRef, where("email", "==", email))
-
-    profileSnapshot.once('value').then(function(snapshot) {
-    console.log(snapshot.val());
-    console.log("here")
-    return snapshot.val()
-    });
+    const querySnapshot = await getDocs(quer);
+    let id = ""
+    let profile = {}
+    querySnapshot.forEach((doc) => {
+    console.log(doc.id, " => ", doc.data());
+    id = doc.id
+        profile = doc.data()
+     })
+    return [id, profile]
 
 
 }

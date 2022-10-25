@@ -1,20 +1,21 @@
-import {collection, query, where} from "firebase/firestore";
-import {database} from "./firebaseConfig";
+import {collection, query, where, getFirestore, getDocs} from "firebase/firestore";
+import {app,database} from "./firebaseConfig";
 
 async function get_user_product(username) {
 
-    // Create a reference to the cities collection
+    const db = getFirestore(app)
+    const quer = query(collection(db, "products"), where("lister", "==", username));
 
-    //const db = collection(database, "products");
-    const productsRef = collection(database, "products");
+    const querySnapshot = await getDocs(quer);
+    let products_info = []
+    let products_id = []
+    querySnapshot.forEach((doc) => {
+    console.log(doc.id, " => ", doc.data());
+    products_info.append(doc.data())
+        products_id.append(doc.id)
 
-    // Create a query against the collection.
-    let quer =  query(productsRef, where("lister", "==", username))
-
-    quer.once('value').then(function(snapshot) {
-    console.log(snapshot.val());
-    return snapshot.val()
-    });
+     })
+    return [products_info,products_id]
 }
 
 export default get_user_product;
