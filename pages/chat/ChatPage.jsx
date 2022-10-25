@@ -1,7 +1,7 @@
 
 const ChatPage = () => {
   return (
-    <h1>TODO: Chat Page.</h1>
+    <h1>TODO: Chat Page to de.</h1>
   )
 }
 

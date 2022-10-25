@@ -8,8 +8,8 @@ async function update_profile(email, fields, updates) {
     // updates = ["802-923-6813", "Cafiero"]
     const profileQ = query(collection(db, "users"), where("email", "==", email));
     const profileSnapshot = await getDocs(profileQ);
-    console.log("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM")
-    console.log(email,fields, updates)
+    //console.log("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM")
+    //console.log(email,fields, updates)
 
 
   let id = ""
