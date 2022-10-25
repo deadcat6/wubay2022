@@ -15,9 +15,14 @@ function handler(req, res){
       'sellerTransactions',
       'usersChats'];
     var updates = {username, password, firstname, lastname, email, phone, rating, postedProducts, BuyerTransactions, sellerTransactions, usersChats}
+
+    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+    console.log(data)
     const ret = update_profile(email, fields, updates);
-    console.log(ret);
+    //console.log(ret);
     res.status(201).json({ message: 'inserted profile into database', username: username, worked: ret });
+    console.log("back to middleware")
+
   }
 }
 
