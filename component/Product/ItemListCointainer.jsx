@@ -19,6 +19,7 @@ const ItemListCointainer = () => {
       const data = await res.json();
       //data.products.map(e => console.log(e))
       setProducts(data.products);
+      console.log(data.products)
       setLoading(false);
     }
     getProducts();

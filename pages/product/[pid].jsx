@@ -11,8 +11,12 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import emailjs from "@emailjs/browser";
 import {useState} from 'react';
+import {useRouter} from "next/router";
 
 export default function Product() {
+
+  const router = useRouter();
+  //const pid = router.
   let starValue = 5;
   let emailAddress = "i5904503668i@gmail.com";
   let price = "$0.99";
@@ -31,6 +35,7 @@ export default function Product() {
   });
 
   useEffect(() => {
+
     async function getProductInfo(pid) {
       const res = await fetch('/api/product_info', {
         method: 'POST',
