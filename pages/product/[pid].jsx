@@ -10,6 +10,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import emailjs from "@emailjs/browser";
+import {useState} from 'react';
 
 export default function Product() {
   let starValue = 5;
@@ -18,6 +19,37 @@ export default function Product() {
   let methodPayment = 1;
   let paymentIcon = ["", "https://filehandler.revlocal.com/600851", "https://1000logos.net/wp-content/uploads/2021/12/Venmo-Logo.png", "https://www.logo.wine/a/logo/Cash_App/Cash_App-Logo.wine.svg", "https://cdn-icons-png.flaticon.com/512/2489/2489756.png"];
   const theme = useTheme();
+  const [product_info, set_profile_info] = useState({
+    lister: '', //Lister should be acquired in the backend.
+    name: '',
+    description: '',
+    imagePath: ["/image.jpg"], //Dummy path to images for now. Don't know where to put the file yet.
+    timeCreated: '',    //This should be acquired in the backend.
+    transactionType: '',
+    price: '',
+    sellProgress: ''   //This should be defaulted to 0 in the backend.
+  });
+
+  useEffect(() => {
+    async function getProductInfo(pid) {
+      const res = await fetch('/api/product_info', {
+        method: 'POST',
+        body: JSON.stringify({pid}),
+        headers: {'Content-Type': 'application/json'}
+      });
+  
+      const data = await res.json();
+      set_product_info(data);
+      //console.log(data.user_data);
+      
+    }
+    if (session) {
+      getProductInfo(pid); //PUT PRODUCT ID
+      
+    }
+  
+  }, [session]); // Or [] if effect doesn't need props or state
+
   //Set props for product
   return (
     <React.Fragment>
@@ -125,12 +157,8 @@ export default function Product() {
             </Grid>
             <Grid item xs={6} sm={6}>
               <Stack spacing={2.5} alignItems="center">
-                <Typography variant={"h3"}>Product name</Typography>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                  et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                  aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-                  officia deserunt mollit anim id est laborum.</p>
+                <Typography variant={"h3"}>{product_info.name}</Typography>
+                <p>{product_info.description}</p>
                 <Card sx={{display: 'flex', width: 0.8}}>
                   <Box sx={{display: 'flex', flexDirection: 'column'}}>
                     <CardContent sx={{flex: '1 0 auto',}}>
@@ -142,7 +170,7 @@ export default function Product() {
                               Price
                             </Typography>
                             <Typography variant="h6" color="text.primary" component="div">
-                              {price}
+                              {product_info.price}
                             </Typography>
                           </Grid>
                           <Grid item xs={4} md={4}>
@@ -166,9 +194,9 @@ export default function Product() {
                                 e.preventDefault();
                                 //PurchaseHandler
                                 let emailData = {
-                                  to_name: "Seller Name",
+                                  to_name: value=product_info.lister,
                                   from_name: "Buyer Name",
-                                  item_name: "Item Name",
+                                  item_name: product_info.name,
                                   from_email: "Buyer Email",
                                   reply_to: "mtngckover@gmail.com"
                                 };
