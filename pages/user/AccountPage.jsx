@@ -24,45 +24,29 @@ const AccountPage = () => {
   const [user_products, set_user_products] = useState({})
   const [user_info, set_user_info] = useState({})
 
-  // useEffect(() => {
-  //   async function getUserInfo(email) {
-  //     const res = await fetch('/api/signup', {
-  //       method: 'POST',
-  //       body: JSON.stringify({email}),
-  //       headers: {'Content-Type': 'application/json'}
-  //     });
-  //
-  //     const data = await res.json();
-  //     //data.products.map(e => console.log(e))
-  //     setNeedProfile(!data.oldUser);
-  //     console.log(data.oldUser);
-  //     return !data.oldUser;
-  //   }
-  //   if (session) {
-  //     getUserInfo(session.user.email);
-  //   }
-  //
-  // }, [session]); // Or [] if effect doesn't need props or state
-  //
   useEffect(() => {
-    const getUserInfo = async () => {
-      setLoading(true);
-      //const {data: session} = useSession();
+    async function getUserInfo(email) {
       const res = await fetch('/api/user_data', {
         method: 'POST',
-        body: JSON.stringify(session.user.email),
+        body: JSON.stringify({email}),
         headers: {'Content-Type': 'application/json'}
       });
-      
+  
       const data = await res.json();
-      //data.products.map(e => console.log(e))
+      
       set_user_products(data.products);
-      alert(data.products)
-      setLoading(false);
+      set_user_info(data.user_info);
+      //console.log(data);
+      
     }
-    
-    getUserInfo();
-  }, []);
+    if (session) {
+      getUserInfo(session.user.email);
+      
+    }
+  
+  }, [session]); // Or [] if effect doesn't need props or state
+  
+  
 
 
   
