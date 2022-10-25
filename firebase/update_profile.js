@@ -28,11 +28,10 @@ async function update_profile(email, fields, updates) {
         //username: profile["username"], password:profile["password"], needProfile:false}
     let dict = {phone:"802", first_name:"802", last_name: "802",
         username: "802", password:"802", needProfile:false, email:email}
-   for(let i = 0; i < fields.length; i++) {
+    for(let i = 0; i < fields.length; i++) {
        dict[fields[i]] = updates[i]
        console.log(fields[i])
        console.log(updates[i])
-       //console.log(dict[fields[i]])
 
        let j = 0
     }
