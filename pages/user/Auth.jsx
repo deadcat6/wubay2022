@@ -26,9 +26,9 @@ export default function Auth() {
 
       const data = await res.json();
       //data.products.map(e => console.log(e))
-      setNeedProfile(!data.oldUser);
+      setNeedProfile(data.oldUser);
       //console.log(data.oldUser);
-      return !data.oldUser;
+      return data.oldUser;
     }
     if (session) {
       getUserInfo(session.user.email);
@@ -63,7 +63,7 @@ export default function Auth() {
           <NavBar/>
 
           <h1>AccountPage page</h1>
-          {/*<AccountPage/>*/}
+          <AccountPage/>
           <button onClick={() => signOut({callbackUrl: 'http://localhost:3000/user/Auth'})}>Sign out</button>
         </>
       )
