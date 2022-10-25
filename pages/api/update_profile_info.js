@@ -1,6 +1,7 @@
 //need profile creation from database
 
 import update_info from '../../firebase/update_profile.js';
+import update_profile from "../../firebase/update_profile.js";
 
 
 function handler(req, res){
@@ -14,7 +15,7 @@ function handler(req, res){
       'sellerTransactions',
       'usersChats'];
     var updates = {username, password, firstname, lastname, email, phone, rating, postedProducts, BuyerTransactions, sellerTransactions, usersChats}
-    const ret = signup(email, fields, updates);
+    const ret = update_profile(email, fields, updates);
     console.log(ret);
     res.status(201).json({ message: 'inserted profile into database', username: username, worked: ret });
   }

@@ -5,28 +5,28 @@ async function signup(email) {
    const db = collection(database, "users");
    const userSnapshot = await getDocs(db);
    const userList = userSnapshot.docs.map(doc => doc.data());
-   //console.log(userList)
-   let oldUser = false
-   //console.log(username)
-
+   let needProfile = true;
+   let userExists = false;
 
    for(let i = 0; i<userList.length; i++){
 
        //console.log(userList[i]['username'])
        if(email === userList[i]['email']){
-         oldUser = true
+         needProfile = userList[i]['needProfile'];
+         userExists = true;
        }
    //console.log(user_exists)
    }
    
-   if(!oldUser){
+   if(!userExists){
         addDoc(db, {
-         email: email
+          email: email,
+          needProfile: true,
        })
  
    }
-   console.log(oldUser);
-   return oldUser
+   //console.log(needProfile);
+   return needProfile
 }
  
 async function login(username, password) {

@@ -7,10 +7,11 @@ function handler(req, res){
         const data = req.body;
         
         const { email } = data;
-        console.log(email);
-        const oldUser = signup(email);
+        const needProfile = signup(email);
+        console.log(needProfile);
+
         //false = user added i think
-        res.status(201).json({ message: 'inserted user into database', oldUser: oldUser });
+        res.status(201).json({ message: 'inserted user into database', needProfile: needProfile });
     }
 }
 

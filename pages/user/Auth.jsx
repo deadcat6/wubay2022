@@ -15,7 +15,7 @@ import AccountPage from "./AccountPage";
 
 export default function Auth() {
   const {data: session} = useSession()
-  const [needProfile, setNeedProfile] = useState(true);
+  const [needProfile, setNeedProfile] = useState(false);
   useEffect(() => {
     async function getUserInfo(email) {
       const res = await fetch('/api/signup', {
@@ -55,21 +55,16 @@ export default function Auth() {
                 >Sign Out</Button>
             </Stack>
         </>
-
       );
     } //else: it's an old user.
     else {
       return (
         <>
           <NavBar/>
-          {/*TODO - Michael: read user info from db.*/}
-          {/*TODO - MVP: Tony: AccountPage that display user info.*/}
-          {/*TODO - MVP: Ajay: Create a api to fetch the user's info from db.*/}
-          {/*TODO - Alpha: Tony: user can edit their profile.*/}
-          {/*TODO - Alpha: Ajay: user can edit their profile, call a api to update the user's info from db.*/}
+
           <h1>AccountPage page</h1>
-          <AccountPage/>
-          <button onClick={() => signOut({callbackUrl: 'http://localhost:3002/user/Auth'})}>Sign out</button>
+          {/*<AccountPage/>*/}
+          <button onClick={() => signOut({callbackUrl: 'http://localhost:3000/user/Auth'})}>Sign out</button>
         </>
       )
     }

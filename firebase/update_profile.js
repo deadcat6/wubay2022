@@ -7,9 +7,9 @@ async function update_profile(email, fields, updates) {
     let profile = query(profileRef, where("email", "==", email))
 
     let dict = {phone:profile["phone"], first_name: profile["firstname"], last_name: profile["lastname"],
-        username: profile["username"], password:profile["password"]}
+        username: profile["username"], password:profile["password"], needProfile:false}
 
-    for(let i = 0; i<fields.length(); i++){
+    for(let i = 0; i < fields.length; i++) {
         dict[fields[i]] = updates[i]
     }
 
