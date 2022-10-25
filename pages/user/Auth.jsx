@@ -9,6 +9,7 @@ import {useRouter} from "next/router";
 import Login from "./Login";
 
 import NavBar from "../../component/NavBar/NavBar";
+
 import CreatProfile from "./CreatProfile";
 import AccountPage from "./AccountPage";
 
@@ -27,8 +28,8 @@ export default function Auth() {
       const data = await res.json();
       //data.products.map(e => console.log(e))
       setNeedProfile(data.needProfile);
-      console.log("data.needProfile");
-      console.log(data.needProfile);
+      // console.log("data.needProfile");
+      // console.log(data.needProfile);
       return data.needProfile;
     }
     if (session) {

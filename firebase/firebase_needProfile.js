@@ -8,7 +8,7 @@ async function checkProfile(email) {
    let needProfile = true;
    let userExists = false;
 
-   for(let i = 0; i<userList.length; i++){
+   for(let i = 0; i < userList.length; i++){
 
        //console.log(userList[i]['username'])
        if(email === userList[i]['email']){
