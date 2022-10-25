@@ -145,7 +145,7 @@ const CreatProfile = () => {
               }}
               onClick={(e) => {
                 e.preventDefault();
-                profileHandler(register.username, register.password, register.firstname, register.lastname, register.email, register.phone);
+                profileHandler(register.username, register.password, register.firstname, register.lastname, register.phone);
                 //console.log(d);
                 alert("username " + register.username + "  password " + register.password + "  first name " + register.firstname + "  last name " + register.lastname + "  email " + register.email + "  phone " + register.phone);
                 // sent to backend and firebase
