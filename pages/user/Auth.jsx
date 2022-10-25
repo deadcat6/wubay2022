@@ -53,7 +53,9 @@ export default function Auth() {
                         width: { sm: 50, md: 100 },
                         height: { sm: 30, md: 60 },
                     }}
-                    onClick={() => signOut({callbackUrl: 'http://localhost:3000/user/Auth'})}
+                    // onClick={() => signOut({callbackUrl: 'http://localhost:3000/user/Auth'})}
+                    onClick={() => signOut()}
+
                 >Sign Out</Button>
             </Stack>
         </>
@@ -66,7 +68,10 @@ export default function Auth() {
 
           <h1>AccountPage page</h1>
           <AccountPage/>
-          <button onClick={() => signOut({callbackUrl: 'http://localhost:3000/user/Auth'})}>Sign out</button>
+          <button
+            onClick={() => signOut()}
+
+          >Sign out</button>
         </>
       )
     }
@@ -86,7 +91,7 @@ export default function Auth() {
                           width: { sm: 100, md: 200 },
                           height: { sm: 30, md: 60 },
                       }}
-                      onClick={() => signIn('google', {callbackUrl: 'http://localhost:3000/user/Auth'})}
+                      onClick={() => signIn('google')}
                   >Log in with Google</Button>
               </Stack>
           </Container>
