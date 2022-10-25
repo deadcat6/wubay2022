@@ -73,16 +73,22 @@ export default function Auth() {
 
   return ( /* need to logged in */ <>
       <NavBar/>
-      tony will make this page prettier later,
-      <h1>Please log in.</h1> <br/>
-        <Button
-            variant="contained"
-            sx={{
-                width: { sm: 100, md: 200 },
-                height: { sm: 30, md: 60 },
-            }}
-            onClick={() => signIn('google', {callbackUrl: 'http://localhost:3000/user/Auth'})}
-        >Log in with Google</Button>
+       <React.Fragment>
+          <Container id="signup" justifyContent="left" maxWidth="sm">
+              <Stack spacing={2.5} alignItems="center">
+                  <h2>Welcome to WUBay, the harbor where used items receives a second life.</h2>
+                  <h1>Please log in.</h1>
+                  <Button
+                      variant="contained"
+                      sx={{
+                          width: { sm: 100, md: 200 },
+                          height: { sm: 30, md: 60 },
+                      }}
+                      onClick={() => signIn('google', {callbackUrl: 'http://localhost:3000/user/Auth'})}
+                  >Log in with Google</Button>
+              </Stack>
+          </Container>
+      </React.Fragment>
           </>
   )
 }
