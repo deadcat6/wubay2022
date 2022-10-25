@@ -11,8 +11,14 @@ async function get_profile(email) {
     const profileRef = collection(database, "users");
 
     // Create a query against the collection.
+    let profileSnapshot =  query(profileRef, where("email", "==", email))
 
-    return query(profileRef, where("email", "==", email))
+    profileSnapshot.once('value').then(function(snapshot) {
+    console.log(snapshot.val());
+    console.log("here")
+    return snapshot.val()
+    });
+
 
 }
 

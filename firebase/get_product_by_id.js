@@ -1,7 +1,7 @@
 import {collection, query, where} from "firebase/firestore";
 import {database} from "./firebaseConfig";
 
-async function get_user_product(username) {
+async function get_product_by_id(id) {
 
     // Create a reference to the cities collection
 
@@ -9,7 +9,8 @@ async function get_user_product(username) {
     const productsRef = collection(database, "products");
 
     // Create a query against the collection.
-    let quer =  query(productsRef, where("lister", "==", username))
+    let quer = query(productsRef, where("id", "==", id))
+
 
     quer.once('value').then(function(snapshot) {
     console.log(snapshot.val());
@@ -17,4 +18,4 @@ async function get_user_product(username) {
     });
 }
 
-export default get_user_product;
+export default get_product_by_id;

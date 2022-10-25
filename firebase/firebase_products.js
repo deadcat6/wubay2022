@@ -7,6 +7,7 @@ async function get_products() {
     const productList = productSnapshot.docs.map(doc => doc.data());
     //console.log("list: " + productList);
     return productList
+    //TODO: get product ID
 }
 
 export default get_products;
