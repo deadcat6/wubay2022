@@ -1,7 +1,7 @@
 import {collection, query, where} from "firebase/firestore";
 import {database} from "./firebaseConfig";
 
-async function get_user_data(username) {
+async function get_user_product(username) {
 
     // Create a reference to the cities collection
 
@@ -12,4 +12,4 @@ async function get_user_data(username) {
     return query(productsRef, where("lister", "==", username))
 }
 
-export default get_user_data;
+export default get_user_product;
