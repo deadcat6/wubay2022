@@ -21,7 +21,7 @@ import {
 import {useState} from "react";
 export default function Auth() {
 
-    //Const for User Login
+    //Const for User _Login
     const [product, setProduct] = useState({
         lister: '', //Lister should be acquired in the backend.
         name: '',

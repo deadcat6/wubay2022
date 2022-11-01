@@ -1,6 +1,6 @@
 //need profile creation from database
 
-import signup from '../../firebase/firebase_needProfile.js';
+import firebase_need_profile from '../../firebase/firebase_need_profile.js';
 
 
 function handler(req, res){
@@ -10,7 +10,7 @@ function handler(req, res){
         
         const { username, password, firstname, lastname, email, phone } = data;
         
-        const user_exists = signup(username, password, firstname, lastname, email, phone);
+        const user_exists = firebase_need_profile(username, password, firstname, lastname, email, phone);
         //console.log(user_exists);
         res.status(201).json({ message: 'inserted profile into database', username: username, exists: user_exists });
     }

@@ -6,7 +6,7 @@ import {useState} from 'react';
 import {Box, Container, Stack, TextField} from "@mui/material";
 
 
-export default function Signup() {
+export default function _Signup() {
   //Const for User Sign Up
   const [register, setRegister] = useState({
     username: '',

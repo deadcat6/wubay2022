@@ -1,8 +1,8 @@
-import { app, database } from './firebaseConfig';
+import { app, database } from './firebase_config';
 import { collection, addDoc, getDocs, getDoc , doc} from 'firebase/firestore';
-import signup from "./firebase_needProfile";
+import signup from "./firebase_need_profile";
 
-async function add_product(lister, lister_email, price, name, description, imagePath, transactionType) { //TODO: add created_time later
+async function firebase_add_product(lister, lister_email, price, name, description, imagePath, transactionType) { //TODO: add created_time later
     const db = collection(database, "products");
 
     //const transaction_types = ["none", "item swap", "venmo", "cash app", "other"];
@@ -22,7 +22,7 @@ async function add_product(lister, lister_email, price, name, description, image
 
     }
 
-export default add_product;
+export default firebase_add_product;
 
 
 

@@ -15,7 +15,7 @@ const ItemListCointainer = () => {
   useEffect(() => {
     const getProducts = async () => {
       setLoading(true);
-      const res = await fetch('/api/get_products');
+      const res = await fetch('/api/api_listing_products');
       const data = await res.json();
       //data.products.map(e => console.log(e))
       setProducts(data.products);
@@ -26,18 +26,6 @@ const ItemListCointainer = () => {
     getProducts();
   }, []); // Or [] if effect doesn't need props or state
 
-
-
-
-  const getProducts = async () => {
-    const res = await fetch('/api/get_products');
-    const data = await res.json();
-    //data.products.map(e => console.log(e))
-    //console.log(data);
-    setProducts(data.products);
-    //alert(data.products);
-
-  }
 
   return loading ? (
     <LoadingSpinner text='Loading...' />

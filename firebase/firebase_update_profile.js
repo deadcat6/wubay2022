@@ -1,7 +1,7 @@
-import { app, database } from './firebaseConfig';
+import { app, database } from './firebase_config';
 import {collection, setDoc, addDoc, getDocs, getDoc, doc, query, where, updateDoc, getFirestore} from 'firebase/firestore';
 
-async function update_profile(email, fields, updates) {
+async function firebase_update_profile(email, fields, updates) {
     const db = getFirestore(app)
     // email = "ismark.lu@gmail.com" //hard coded, remove once correct parameters are passed
     // fields = ["phone", "lastname"]
@@ -50,4 +50,4 @@ async function update_profile(email, fields, updates) {
 
 }
 
-export default update_profile;
+export default firebase_update_profile;

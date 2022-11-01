@@ -6,7 +6,7 @@ import {useEffect, useState} from 'react';
 import {Box, Container, Grid, Stack, TextField} from "@mui/material";
 import {signIn, signOut, useSession} from "next-auth/react";
 import {useRouter} from "next/router";
-import Login from "./Login";
+import _Login from "./_Login";
 
 import NavBar from "../../component/NavBar/NavBar";
 
@@ -19,7 +19,7 @@ export default function Auth() {
   const [needProfile, setNeedProfile] = useState(false);
   useEffect(() => {
     async function getUserInfo(email) {
-      const res = await fetch('/api/needProfile', {
+      const res = await fetch('/api/api_need_profile', {
         method: 'POST',
         body: JSON.stringify({email}),
         headers: {'Content-Type': 'application/json'}

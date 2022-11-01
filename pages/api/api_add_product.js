@@ -1,4 +1,4 @@
-import add_product from '../../firebase/firebase_add_product.js';
+import firebase_add_product from '../../firebase/firebase_add_product.js';
 
 
 function handler(req, res){
@@ -14,7 +14,7 @@ function handler(req, res){
         let success = false;
         if (isNaN(price) == false && price > 0){
             //TODO: name
-            add_return = add_product(lister_email, lister_email, price, name, description, imagePath, transactionType);
+            add_return = firebase_add_product(lister_email, lister_email, price, name, description, imagePath, transactionType);
             success = true;
             //console.log('working');
         }

@@ -27,7 +27,7 @@ const CreatProfile = () => {
   async function profileHandler(username, password, firstname, lastname, phone) {
     //console.log("u is " + u);
 
-    const response = await fetch('/api/update_profile_info', {
+    const response = await fetch('/api/api_update_profile', {
       method: 'POST',
       body: JSON.stringify({
 

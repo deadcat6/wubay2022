@@ -1,7 +1,7 @@
-import { app, database } from './firebaseConfig';
+import { app, database } from './firebase_config';
 import { collection, addDoc, getDocs, getDoc , doc} from 'firebase/firestore';
  
-async function checkProfile(email) {
+async function firebase_need_profile(email) {
    const db = collection(database, "users");
    const userSnapshot = await getDocs(db);
    const userList = userSnapshot.docs.map(doc => doc.data());
@@ -62,7 +62,7 @@ async function checkProfile(email) {
 // }
 //
 
-export default checkProfile;
+export default firebase_need_profile;
 
 // signup("michaelcafiero", "cafiero.i@wustl.edu") //your data here
   // login()

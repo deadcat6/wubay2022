@@ -1,9 +1,9 @@
 //get email given a username
 
 import {collection, getDocs, getFirestore, query, where} from "firebase/firestore";
-import {app, database} from "./firebaseConfig";
+import {app, database} from "./firebase_config";
 
-async function get_profile(email) {
+async function firebase_get_profile(email) {
 
 
     const db = getFirestore(app)
@@ -23,4 +23,4 @@ async function get_profile(email) {
 }
 
 
-export default get_profile;
+export default firebase_get_profile;

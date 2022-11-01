@@ -1,7 +1,7 @@
 import {collection, doc, getDoc, getDocs, getFirestore, query, where,} from "firebase/firestore";
-import {app, database} from "./firebaseConfig";
+import {app, database} from "./firebase_config";
 
-async function get_product_by_id(id) {
+async function firebase_get_product_by_id(id) {
 
     const db = getFirestore(app)
     //const quer = query(collection(db, "products"), where("id", "==", id));
@@ -16,4 +16,4 @@ async function get_product_by_id(id) {
 
 }
 
-export default get_product_by_id;
+export default firebase_get_product_by_id;

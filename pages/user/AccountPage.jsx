@@ -39,7 +39,7 @@ const AccountPage = () => {
 
   useEffect(() => {
     async function getUserInfo(email) {
-      const res = await fetch('/api/user_data', {
+      const res = await fetch('/api/api_get_user_profile_product', {
         method: 'POST',
         body: JSON.stringify({email}),
         headers: {'Content-Type': 'application/json'}

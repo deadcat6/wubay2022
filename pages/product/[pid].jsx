@@ -42,7 +42,7 @@ export default function Product() {
 
   useEffect(() => {
     async function getProductInfo(pid) {
-      const res = await fetch('/api/product_info', {
+      const res = await fetch('/api/api_get_product_by_id', {
         method: 'POST',
         body: JSON.stringify({pid}),
         headers: {'Content-Type': 'application/json'}

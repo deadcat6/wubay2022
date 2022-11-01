@@ -1,7 +1,8 @@
 import {collection, query, where, getFirestore, getDocs} from "firebase/firestore";
-import {app,database} from "./firebaseConfig";
+import {app,database} from "./firebase_config";
 
-async function get_user_product(username) {
+
+async function firebase_get_user_product(username) {
 
     const db = getFirestore(app)
     const quer = query(collection(db, "products"), where("lister", "==", username));
@@ -19,4 +20,4 @@ async function get_user_product(username) {
     return [products_info,products_id]
 }
 
-export default get_user_product;
+export default firebase_get_user_product;

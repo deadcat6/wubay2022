@@ -1,4 +1,4 @@
-import checkProfile from '../../firebase/firebase_needProfile.js';
+import firebase_need_profile from '../../firebase/firebase_need_profile.js';
 
 
 async function handler(req, res) {
@@ -7,7 +7,7 @@ async function handler(req, res) {
         const data = req.body;
 
         const {email} = data;
-        const needProfile = await checkProfile(email);
+        const needProfile = await firebase_need_profile(email);
         //console.log("bdhjabd jhabvdhjevfhsfbisb")
         console.log(needProfile);
 

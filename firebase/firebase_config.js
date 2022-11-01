@@ -7,7 +7,7 @@ import { initializeApp } from "firebase/app";
  
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
+const firebase_config = {
    apiKey: "AIzaSyD-NjcUVatrOC8Q8BibrkGm9GTiigo5R_Y",
    authDomain: "wubay-26c62.firebaseapp.com",
    projectId: "wubay-26c62",
@@ -18,5 +18,5 @@ const firebaseConfig = {
 };
  
 // Initialize Firebase
-export const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebase_config);
 export const database = getFirestore(app)

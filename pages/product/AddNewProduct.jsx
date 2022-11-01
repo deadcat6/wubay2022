@@ -27,7 +27,7 @@ const AddNewProduct = () => {
     if (session) {
       lister_email = session.user.email;
     }
-    const response = await fetch('/api/add_product', {
+    const response = await fetch('/api/api_add_product', {
       method: 'POST',
       body: JSON.stringify({
         name,
