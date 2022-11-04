@@ -9,7 +9,7 @@ async function handler(req, res) {
         const {email} = data;
         const needProfile = await firebase_need_profile(email);
         //console.log("bdhjabd jhabvdhjevfhsfbisb")
-        console.log(needProfile);
+        //console.log(needProfile);
 
         //false = user added i think
         res.status(201).json({message: 'inserted user into database', needProfile: needProfile});

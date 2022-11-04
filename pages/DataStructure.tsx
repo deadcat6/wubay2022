@@ -1,4 +1,5 @@
 
+// @ts-ignore
 type userType = {
   //id:
   username: string;
@@ -76,7 +77,7 @@ const user = {
 
 const product = {
   //id:
-  lister: {},
+  lister_id: '',
   lister_email: '',
   title: '',
   description: '',

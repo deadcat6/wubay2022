@@ -48,7 +48,7 @@ const AccountPage = () => {
       const data = await res.json();
       set_user_products(data.products);
       set_user_info(data.user_data);
-      //console.log(data.user_data);
+      console.log(data.user_data);
       
     }
     if (session) {
@@ -64,7 +64,6 @@ const AccountPage = () => {
   
   return (
       <React.Fragment>
-
         <Container id="login"  justifyContent="left" maxWidth="sm">
           <h1>Hello, test {/*{session.user.email}*/} </h1>
           <Stack spacing={2.5} alignItems="center">
