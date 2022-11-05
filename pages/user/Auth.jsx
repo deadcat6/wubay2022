@@ -3,37 +3,36 @@
 import Button from '@mui/material/Button';
 import * as React from 'react';
 import {useEffect, useState} from 'react';
-import {Box, Container, Grid, Stack, TextField} from "@mui/material";
+import {Container, Stack} from "@mui/material";
 import {signIn, signOut, useSession} from "next-auth/react";
-import {useRouter} from "next/router";
-import _Login from "./_Login";
 
-import NavBar from "../../component/NavBar/NavBar";
+
+import NavBar from "../component/NavBar/NavBar";
 
 import CreatProfile from "./CreatProfile";
-import AccountPage from "./AccountPage";
+import UserPageContainer from "./UserPageContainer";
 
 
 export default function Auth() {
   const {data: session} = useSession()
   const [needProfile, setNeedProfile] = useState(false);
   useEffect(() => {
-    async function getUserInfo(email) {
-      const res = await fetch('/api/api_need_profile', {
+    async function getUserInfo(user) {
+      const res = await fetch('/api/user/newUser', {
         method: 'POST',
-        body: JSON.stringify({email}),
+        body: JSON.stringify({user: user}),
         headers: {'Content-Type': 'application/json'}
       });
 
       const data = await res.json();
       //data.products.map(e => console.log(e))
       setNeedProfile(data.needProfile);
-      // console.log("data.needProfile");
-      // console.log(data.needProfile);
       return data.needProfile;
     }
+
     if (session) {
-      getUserInfo(session.user.email);
+      //console.log(session)
+      getUserInfo(session.user);
     }
 
   }, [session]); // Or [] if effect doesn't need props or state
@@ -47,17 +46,10 @@ export default function Auth() {
           <h1>CreatProfile page</h1>
           <CreatProfile/>
           <Stack spacing={2.5} alignItems="center">
-                <Button
-                    variant="contained"
-                    sx={{
-                        width: { sm: 50, md: 100 },
-                        height: { sm: 30, md: 60 },
-                    }}
-                    // onClick={() => signOut({callbackUrl: 'http://localhost:3000/user/Auth'})}
-                    onClick={() => signOut()}
-
-                >Sign Out</Button>
-            </Stack>
+            <Button
+              // onClick={() => signOut({callbackUrl: 'http://localhost:3000/user/Auth'})}
+              onClick={() => signOut()}>Sign Out</Button>
+          </Stack>
         </>
       );
     } //else: it's an old user.
@@ -65,9 +57,8 @@ export default function Auth() {
       return (
         <>
           <NavBar/>
-
           <h1>AccountPage page</h1>
-          <AccountPage/>
+          <UserPageContainer/>
 
         </>
       )
@@ -77,22 +68,22 @@ export default function Auth() {
 
   return ( /* need to logged in */ <>
       <NavBar/>
-       <React.Fragment>
-          <Container id="signup" justifyContent="left" maxWidth="sm">
-              <Stack spacing={2.5} alignItems="center">
-                  <h2>Welcome to WUBay, the harbor where used items receives a second life.</h2>
-                  <h1>Please log in.</h1>
-                  <Button
-                      variant="contained"
-                      sx={{
-                          width: { sm: 100, md: 200 },
-                          height: { sm: 30, md: 60 },
-                      }}
-                      onClick={() => signIn('google')}
-                  >Log in with Google</Button>
-              </Stack>
-          </Container>
+      <React.Fragment>
+        <Container id="signup" justifyContent="left" maxWidth="sm">
+          <Stack spacing={2.5} alignItems="center">
+            <h2>Welcome to WUBay, the harbor where used items receives a second life.</h2>
+            <h1>Please log in.</h1>
+            <Button
+              variant="contained"
+              sx={{
+                width: {sm: 100, md: 200},
+                height: {sm: 30, md: 60},
+              }}
+              onClick={() => signIn('google')}
+            >Log in with Google</Button>
+          </Stack>
+        </Container>
       </React.Fragment>
-          </>
+    </>
   )
 }

@@ -77,12 +77,12 @@ const user = {
 
 const product = {
   //id:
-  lister_id: '',
-  lister_email: '',
+  userId: '',
+  userEmail: '',
   title: '',
   description: '',
   imagePath: [],
-  createdTime: new Date(),
+  updateTime: new Date(),
   paymentMethod: '',
   price: 0,
   transaction: {}
