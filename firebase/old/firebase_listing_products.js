@@ -1,4 +1,4 @@
-import { app, database } from './firebase_config';
+import { app, database } from '../firebase_config';
 import {collection, addDoc, getDocs, getDoc, doc, getFirestore, query, where} from 'firebase/firestore';
 
 async function firebase_get_products() {

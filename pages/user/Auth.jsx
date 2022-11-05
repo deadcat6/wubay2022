@@ -5,35 +5,33 @@ import * as React from 'react';
 import {useEffect, useState} from 'react';
 import {Box, Container, Grid, Stack, TextField} from "@mui/material";
 import {signIn, signOut, useSession} from "next-auth/react";
-import {useRouter} from "next/router";
-import _Login from "./_Login";
+
 
 import NavBar from "../../component/NavBar/NavBar";
 
 import CreatProfile from "./CreatProfile";
-import AccountPage from "./AccountPage";
+import UserPageContainer from "./UserPageContainer";
 
 
 export default function Auth() {
   const {data: session} = useSession()
   const [needProfile, setNeedProfile] = useState(false);
   useEffect(() => {
-    async function getUserInfo(email) {
-      const res = await fetch('/api/api_need_profile', {
+    async function getUserInfo(user) {
+      const res = await fetch('/api/user/newUser', {
         method: 'POST',
-        body: JSON.stringify({email}),
+        body: JSON.stringify({user: user}),
         headers: {'Content-Type': 'application/json'}
       });
 
       const data = await res.json();
       //data.products.map(e => console.log(e))
       setNeedProfile(data.needProfile);
-      // console.log("data.needProfile");
-      // console.log(data.needProfile);
       return data.needProfile;
     }
     if (session) {
-      getUserInfo(session.user.email);
+      console.log(session)
+      getUserInfo(session.user);
     }
 
   }, [session]); // Or [] if effect doesn't need props or state
@@ -67,7 +65,7 @@ export default function Auth() {
           <NavBar/>
 
           <h1>AccountPage page</h1>
-          <AccountPage/>
+          <UserPageContainer/>
 
         </>
       )

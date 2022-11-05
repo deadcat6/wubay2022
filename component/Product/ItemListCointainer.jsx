@@ -15,10 +15,10 @@ const ItemListCointainer = () => {
   useEffect(() => {
     const getProducts = async () => {
       setLoading(true);
-      const res = await fetch('/api/api_listing_products');
+      const res = await fetch('/api/product/listingProduct');
       const data = await res.json();
       //data.products.map(e => console.log(e))
-      setProducts(data.products);
+      setProducts(data.list);
       //console.log(data.products)
       setLoading(false);
       //console.log(data.products)

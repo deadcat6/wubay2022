@@ -1,4 +1,4 @@
-import firebase_get_product_by_id from '../../firebase/firebase_get_product_by_id.js';
+import firebase_get_product_by_id from '../../../firebase/old/firebase_get_product_by_id.js';
 
 async function handler(req, res){
     

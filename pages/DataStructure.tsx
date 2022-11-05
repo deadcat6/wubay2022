@@ -77,8 +77,8 @@ const user = {
 
 const product = {
   //id:
-  lister_id: '',
-  lister_email: '',
+  userId: '',
+  userEmail: '',
   title: '',
   description: '',
   imagePath: [],

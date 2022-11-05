@@ -17,51 +17,9 @@ const styles = theme => ({
     color: 'white'
   }
 });
-{/*TODO: Tony: AccountPage that display user info. DONE*/}
-{/*TODO: Ajay: Create a api to fetch the user's info from db using user's email.*/}
-const AccountPage = () => {
-  const {data: session} = useSession()
-  const [user_products, set_user_products] = useState({})
-  const [user_info, set_user_info] = useState({
-    username: '',
-    password: '',
-    confirmPassword: '',
-    email: '',
-    firstname: '',
-    lastname: '',
-    phone: '',
-    rating: '',
-    postedProducts: [], // postedProducts: [Product]: the products user posted but no one has bought yet.
-    BuyerTransactions: [], // BuyerTransactions:[Transactions]: the products user bought like {orders}.
-    sellerTransactions: [], //sellerTransactions:[Transactions] the products user sold.
-    usersChats: [] //usersChats: [Chats]
-  })
 
-  useEffect(() => {
-    async function getUserInfo(email) {
-      const res = await fetch('/api/api_get_user_profile_product', {
-        method: 'POST',
-        body: JSON.stringify({email}),
-        headers: {'Content-Type': 'application/json'}
-      });
-  
-      const data = await res.json();
-      set_user_products(data.products);
-      set_user_info(data.user_data);
-      console.log(data.user_data);
-      
-    }
-    if (session) {
-      getUserInfo(session.user.email);
-      
-    }
-  
-  }, [session]); // Or [] if effect doesn't need props or state
-  
-  
+const UserPage = ({user}) => {
 
-
-  
   return (
       <React.Fragment>
         <Container id="login"  justifyContent="left" maxWidth="sm">
@@ -82,7 +40,7 @@ const AccountPage = () => {
                         id="standard-basic"
                         label="Username"
 
-                        value={user_info.username}
+                        value={user.username}
 
                         disabled={true}
                         variant="standard"
@@ -101,7 +59,7 @@ const AccountPage = () => {
                               label="First name"
                               disabled={true}
                               variant="standard"
-                              value={user_info.firstname}
+                              value={user.firstname}
                               onChange={(v) => {
 
                               }}
@@ -113,7 +71,7 @@ const AccountPage = () => {
                               label="Last Name"
                               disabled={true}
                               variant="standard"
-                              value={user_info.lastname}
+                              value={user.lastname}
                               onChange={(v) => {
 
                               }}
@@ -222,4 +180,4 @@ const AccountPage = () => {
   )
 }
 
-export default AccountPage;
+export default UserPage;

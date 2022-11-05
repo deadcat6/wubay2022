@@ -1,7 +1,7 @@
 //need profile creation from database
 
-import update_info from '../../firebase/firebase_update_profile.js';
-import firebase_update_profile from "../../firebase/firebase_update_profile.js";
+import update_info from '../../../firebase/old/firebase_update_profile.js';
+import firebase_update_profile from "../../../firebase/old/firebase_update_profile.js";
 
 
 function handler(req, res){

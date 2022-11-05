@@ -1,4 +1,4 @@
-import firebase_need_profile from '../../firebase/firebase_need_profile.js';
+import firebase_need_profile from '../../../firebase/old/firebase_need_profile.js';
 
 
 async function handler(req, res) {

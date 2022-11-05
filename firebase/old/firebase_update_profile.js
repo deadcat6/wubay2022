@@ -1,4 +1,4 @@
-import { app, database } from './firebase_config';
+import { app, database } from '../firebase_config';
 import {collection, setDoc, addDoc, getDocs, getDoc, doc, query, where, updateDoc, getFirestore} from 'firebase/firestore';
 
 async function firebase_update_profile(email, fields, updates) {

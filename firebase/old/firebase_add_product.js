@@ -1,4 +1,4 @@
-import { app, database } from './firebase_config';
+import { app, database } from '../firebase_config';
 import { collection, addDoc, getDocs, getDoc , doc} from 'firebase/firestore';
 import signup from "./firebase_need_profile";
 

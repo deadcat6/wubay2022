@@ -1,6 +1,6 @@
 //need profile creation from database
 
-import firebase_need_profile from '../../firebase/firebase_need_profile.js';
+import firebase_need_profile from '../../../firebase/old/firebase_need_profile.js';
 
 
 function handler(req, res){

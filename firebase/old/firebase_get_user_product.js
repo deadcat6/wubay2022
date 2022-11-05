@@ -1,5 +1,5 @@
 import {collection, query, where, getFirestore, getDocs} from "firebase/firestore";
-import {app,database} from "./firebase_config";
+import {app,database} from "../firebase_config";
 
 
 async function firebase_get_user_product(username) {

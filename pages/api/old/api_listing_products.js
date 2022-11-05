@@ -1,4 +1,4 @@
-import firebase_get_products from '../../firebase/firebase_listing_products.js';
+import firebase_get_products from '../../../firebase/old/firebase_listing_products.js';
 
 
 async function handler(req, res){

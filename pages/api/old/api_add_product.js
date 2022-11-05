@@ -1,4 +1,4 @@
-import firebase_add_product from '../../firebase/firebase_add_product.js';
+import firebase_add_product from '../../../firebase/old/firebase_add_product.js';
 
 
 function handler(req, res){

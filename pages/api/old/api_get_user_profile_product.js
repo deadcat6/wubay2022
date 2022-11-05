@@ -1,5 +1,5 @@
-import firebase_get_user_product from '../../firebase/firebase_get_user_product.js';
-import firebase_get_profile from '../../firebase/firebase_get_profile.js';
+import firebase_get_user_product from '../../../firebase/old/firebase_get_user_product.js';
+import firebase_get_profile from '../../../firebase/old/firebase_get_profile.js';
 
 async function handler(req, res){
     

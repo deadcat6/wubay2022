@@ -1,7 +1,7 @@
 //get email given a username
 
 import {collection, getDocs, getFirestore, query, where} from "firebase/firestore";
-import {app, database} from "./firebase_config";
+import {app, database} from "../firebase_config";
 
 async function firebase_get_profile(email) {
 
