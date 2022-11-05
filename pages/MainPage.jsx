@@ -1,14 +1,12 @@
 //domain.com/
 
 import * as React from 'react';
-import ItemListCointainer from "../component/Product/ItemListCointainer";
-import FilterContainer from "../component/Product/FilterContainer";
+import ItemListContainer from "./component/Product/ItemListContainer";
+import FilterContainer from "./component/Product/FilterContainer";
 import Grid from "@mui/material/Grid";
 import {useSession} from "next-auth/react";
-import Auth from "./user/Login";
-import Link from "next/link";
+
 import {useRouter } from 'next/router'
-import Button from '@mui/material/Button';
 
 const MainPage = () => {
   const {data: session} = useSession()
@@ -23,7 +21,7 @@ const MainPage = () => {
           <FilterContainer/>
         </Grid>
         <Grid item xs={9.5}>
-          <ItemListCointainer/>
+          <ItemListContainer/>
         </Grid>
       </Grid>
 

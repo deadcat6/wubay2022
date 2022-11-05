@@ -8,7 +8,7 @@ import {TextField} from "@mui/material";
 import {useState} from "react";
 import Auth from "./user/Auth";
 import MainPage from "./MainPage";
-import NavBar from "../component/NavBar/NavBar";
+import NavBar from "./component/NavBar/NavBar";
 
 
 

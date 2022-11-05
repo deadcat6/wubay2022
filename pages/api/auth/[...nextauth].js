@@ -18,6 +18,30 @@ export const authOptions = {
     })
     // ...add more providers here
   ],
+  session: { jwt: true },
+  callbacks: {
+    async jwt({ token, user,account, profile }) {
+      // Persist the OAuth access_token and or the user id to the token right after signin
+      if(user){
+        //console.log(user)
+        token.id = user.id
+      }
+      if(account) {
+        //console.log(account)
+      }
+      if(profile) {
+        //console.log(profile)
+      }
+      return token
+    },
+    async session({ session, token}) {
+      if (token) {
+        session.accessToken = token.accessToken
+        session.user.id = token.id
+      }
+      return session
+    }
+  }
 }
 
 export default NextAuth(authOptions)
