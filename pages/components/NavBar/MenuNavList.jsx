@@ -59,7 +59,7 @@ const MenuNavList = ({ pages }) => {
             <MenuItem
               key={page}
               onClick={handleCloseNavMenu}
-              // component={NavLink}
+              // components={NavLink}
               to={'/category/' + page.toLowerCase()}
             >
               <Typography textAlign='center'>{page}</Typography>
@@ -72,7 +72,7 @@ const MenuNavList = ({ pages }) => {
           <Button
             key={page}
             onClick={handleCloseNavMenu}
-            // component={NavLink}
+            // components={NavLink}
             to={'/category/' + page.toLowerCase()}
             sx={{
               color: '#bdbdbd',

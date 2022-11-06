@@ -20,28 +20,30 @@ import {createTheme} from "@mui/material/styles";
 
 const NavBar = () => {
   const pages = ['Desktops', 'Notebooks', 'Gadgets'];
-  const theme = createTheme({
-    palette: {
-      primary: {
-        main: "#ffffff",
-        contrastText: "#fff" //button text white instead of black
-      },
-      background: {
-        default: "#394764"
-      }
-    }
-  });
+  // const theme = createTheme({
+  //   palette: {
+  //     primary: {
+  //       main: "#ffffff",
+  //       contrastText: "#fff" //button text white instead of black
+  //     },
+  //     background: {
+  //       default: "#394764"
+  //     }
+  //   }
+  // });
   return (
     // <ThemeContext>
-    <AppBar position='static' sx={{bgcolor: 'rgba(75,134,224,0.88)'}}>
+    <AppBar position='static'
+            // sx={{bgcolor: 'rgba(75,134,224,0.88)'}}
+    >
       <Container maxWidth='xl'>
         <Toolbar disableGutters>
 
-            <ThemeProvider theme={theme}>
+            {/*<ThemeProvider theme={theme}>*/}
               <Link href="/" passHref>
-                <Button size="medium" style={{justifyContent: "flex-start"}}><h1>WUBay</h1></Button>
+                <Button color="logo" size="medium" style={{justifyContent: "flex-start"}}><h1>WUBay</h1></Button>
               </Link>
-            </ThemeProvider>
+            {/*</ThemeProvider>*/}
           {/*<Logo />*/}
           {/*<MenuNavList pages={pages} />*/}
           <Container maxWidth='xs' disableGutters>
@@ -54,7 +56,7 @@ const NavBar = () => {
           {/*  aria-label='carrito'*/}
           {/*  size='large'*/}
           {/*  color='inherit'*/}
-          {/*  // component={Link}*/}
+          {/*  // components={Link}*/}
           {/*  to='/cart'*/}
           {/*>*/}
           {/*  /!*<Badge  color='error'>*!/*/}

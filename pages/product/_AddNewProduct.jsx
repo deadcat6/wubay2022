@@ -2,11 +2,11 @@ import Button from '@mui/material/Button';
 import * as React from 'react';
 import {useState} from 'react';
 import {Box, Container, FormControl, InputLabel, NativeSelect, Stack, TextField} from "@mui/material";
-import NavBar from "../component/NavBar/NavBar";
+import NavBar from "../components/NavBar/NavBar";
 import {useSession} from "next-auth/react";
 import Grid from "@mui/material/Grid";
 
-const AddNewProduct = () => {
+const _AddNewProduct = () => {
   const {data: session} = useSession();
   const [product, setProduct] = useState({
     userId: '',
@@ -194,4 +194,4 @@ const AddNewProduct = () => {
 
 }
 
-export default AddNewProduct;
+export default _AddNewProduct;

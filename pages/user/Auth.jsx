@@ -5,9 +5,9 @@ import * as React from 'react';
 import {useEffect, useState} from 'react';
 import {Container, Stack} from "@mui/material";
 import {signIn, signOut, useSession} from "next-auth/react";
+import Profile from "./profile/index"
 
-
-import NavBar from "../component/NavBar/NavBar";
+import NavBar from "../components/NavBar/NavBar";
 
 import CreatProfile from "./CreatProfile";
 import UserPageContainer from "./UserPageContainer";
@@ -39,6 +39,12 @@ export default function Auth() {
 
 
   if (session) { // already logged in
+    return (
+      <>
+        <Profile/>
+
+      </>
+    );
     if (needProfile) { //New Use First time login?
       return (
         <>

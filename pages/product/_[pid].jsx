@@ -4,10 +4,10 @@ import * as React from 'react';
 import {useEffect, useState} from 'react';
 import {useRouter} from "next/router";
 import {useSession} from "next-auth/react";
-import NavBar from "../component/NavBar/NavBar";
-import LoadingSpinner from "../component/ui/LoadingSpinner";
+import NavBar from "../components/NavBar/NavBar";
+import LoadingSpinner from "../components/ui/LoadingSpinner";
 import UserPage from "../user/UserPage";
-import ProductDetail from "./ProductDetail";
+import _ProductDetail from "./_ProductDetail";
 export default function Product() {
 
   const router = useRouter();
@@ -44,7 +44,7 @@ export default function Product() {
   ) : (
     <React.Fragment>
 
-      <ProductDetail product={product}/>
+      <_ProductDetail product={product}/>
 
     </React.Fragment>
   );

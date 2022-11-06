@@ -1,7 +1,7 @@
 import {useSession} from "next-auth/react";
 import * as React from 'react';
 import {useEffect, useState} from 'react';
-import LoadingSpinner from "../component/ui/LoadingSpinner";
+import LoadingSpinner from "../components/ui/LoadingSpinner";
 import UserPage from "./UserPage";
 
 const UserPageContainer = () => {

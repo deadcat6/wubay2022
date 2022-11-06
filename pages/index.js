@@ -7,8 +7,9 @@ import * as React from 'react';
 import {TextField} from "@mui/material";
 import {useState} from "react";
 import Auth from "./user/Auth";
+import _MainPage from "./_MainPage";
+import NavBar from "./components/NavBar/NavBar";
 import MainPage from "./MainPage";
-import NavBar from "./component/NavBar/NavBar";
 
 
 
@@ -16,13 +17,7 @@ export default function Home() {
 
   return (
   <React.Fragment>
-    <NavBar/>
     <MainPage/>
-
   </React.Fragment>
-
-    
-
-
   )
 }

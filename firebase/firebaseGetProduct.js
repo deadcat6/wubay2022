@@ -35,7 +35,6 @@ export async function getProduct(productId) {
       return product;
     }
   }
-
   return null;
 }
 

@@ -14,7 +14,7 @@ import {
   TextField,
   Tooltip
 } from "@mui/material";
-import NavBar from "../component/NavBar/NavBar";
+import NavBar from "../components/NavBar/NavBar";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -24,7 +24,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import emailjs from "@emailjs/browser";
 
 
-const ProductDetail = ({product}) => {
+const _ProductDetail = ({product}) => {
   let paymentIcon = ["", "https://filehandler.revlocal.com/600851", "https://1000logos.net/wp-content/uploads/2021/12/Venmo-Logo.png", "https://www.logo.wine/a/logo/Cash_App/Cash_App-Logo.wine.svg", "https://cdn-icons-png.flaticon.com/512/2489/2489756.png"];
   const {data: session} = useSession()
 
@@ -210,4 +210,4 @@ const ProductDetail = ({product}) => {
   )
 }
 
-export default ProductDetail;
+export default _ProductDetail;
