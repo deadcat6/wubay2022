@@ -1,8 +1,7 @@
 import {Box, Button} from "@mui/material";
-// import VendorDashboardLayout from "components/layouts/vendor-dashboard";
 import { H3 } from "../../components/Typography";
 import ProductForm  from "./ProductForm";
-import React from "react";
+import React, {useState} from "react";
 import * as yup from "yup";
 import CustomerDashboardLayout from "../customer-dashboard";
 import Person from "@mui/icons-material/Person";
@@ -10,41 +9,65 @@ import CustomerDashboardNavigation from "../customer-dashboard/Navigations";
 import Link from "next/link";
 import UserDashboardHeader from "../UserDashboardHeader";
 import {Inventory2} from "@mui/icons-material";
-// import {useState} from "@types/react"; // form field validation schema
+import {useSession} from "next-auth/react";
+import {useRouter} from "next/router";
 
 const validationSchema = yup.object().shape({
-  name: yup.string().required("required"),
+  title: yup.string().required("required"),
   category: yup.string().required("required"),
   description: yup.string().required("required"),
-  stock: yup.number().required("required"),
+  paymentMethod: yup.string().required("required"),
   price: yup.number().required("required"),
-  sale_price: yup.number().required("required"),
-  tags: yup.object().required("required"),
-}); // =============================================================================
+
+});
 
 
 export default function AddProduct() {
-  // const [product, setProduct] = useState({
-  //   userId: '',
-  //   userEmail: '',
-  //   title: '',
-  //   description: '',
-  //   imagePath: [],
-  //   paymentMethod: '',
-  //   price: 0,
-  //   transaction: {}
-  // });
-  const initialValues = {
-    name: "",
-    tags: "",
-    stock: "",
-    price: "",
-    category: "",
-    sale_price: "",
-    description: "",
-  };
+  const router = useRouter();
+  const {data: session} = useSession();
+  const [product, setProduct] = useState({
+    userId: '',
+    userEmail: '',
+    title: '',
+    category: '',
+    description: '',
+    imagePath: [],
+    paymentMethod: '',
+    price: '',
+    transaction: {}
+  });
 
-  const handleFormSubmit = () => {};
+
+  async function addProductHandler(value) {
+    const response = await fetch('/api/product/newProduct', {
+      method: 'POST',
+      body: JSON.stringify({
+        product: {
+          userId: session.user.id,
+          userEmail: session.user.email,
+          title: value.title,
+          description: value.description,
+          // imagePath: product.imagePath,
+          imagePath: ['/assets/icon.png', '/assets/icon2.png'],
+          category: value.category,
+          paymentMethod: value.paymentMethod,
+          price: value.price,
+          transaction: {}
+        }
+
+      }),
+      headers: {'Content-Type': 'application/json'}
+
+
+    });
+    const product_data = await response.json();
+  }
+  const handleFormSubmit = (value) => {
+    setProduct(value);
+    addProductHandler(value).then(() => {
+     //router.push('/user/products')
+    });
+  };
 
   return (
     <CustomerDashboardLayout>
@@ -54,9 +77,9 @@ export default function AddProduct() {
           title="Post Product"
           navigation={<CustomerDashboardNavigation/>}
           button={
-            <Link href="/profile/edit" passHref>
+            <Link href="/user/products" passHref>
               <Button
-                variant="contained"
+                variant="outlined"
                 color="secondary"
                 sx={{
                   px: 4,
@@ -69,7 +92,7 @@ export default function AddProduct() {
         />
 
         <ProductForm
-          initialValues={initialValues}
+          initialValues={product}
           validationSchema={validationSchema}
           handleFormSubmit={handleFormSubmit}
         />

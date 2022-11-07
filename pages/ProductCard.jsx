@@ -14,44 +14,27 @@ import {FlexBox} from "./components/flex-box";
 import {bgcolor, borderRadius, compose, spacing, typography} from "@mui/system";
 import NextImage from "next/image";
 
-const ProductCard1 = ({
+const ProductCard = ({
                         id,
                         title,
                         price,
-                        imgUrl,
-                        rating = 5,
-                        hideRating,
+                        imagePath,
+                        sellerRating,
                         hoverEffect,
-                        discount = 5,
-                        showProductSize,
                       }) => {
-  // const {state, dispatch} = useAppContext();
-  // const [openModal, setOpenModal] = useState(false);
+
   const [isFavorite, setIsFavorite] = useState(false);
 
   const toggleIsFavorite = () => setIsFavorite((fav) => !fav);
 
   // const toggleDialog = useCallback(() => setOpenModal((open) => !open), []);
   // const cartItem = state.cart.find((item) => item.id === id);
-  const handleCartAmountChange = useCallback(
-    (product) => () =>
-      dispatch({
-        type: "CHANGE_CART_AMOUNT",
-        payload: product,
-      }),
-    []
-  );
+
   return (
     <StyledBazaarCard hoverEffect={hoverEffect}>
       <ImageWrapper>
-        {/*{!!discount && (*/}
-        {/*  <StyledChip color="primary" size="small" label={`${discount}% off`} />*/}
-        {/*)}*/}
 
         <HoverIconWrapper className="hover-box">
-          {/*<IconButton onClick={toggleDialog}>*/}
-          {/*  <RemoveRedEye color="disabled" fontSize="small" />*/}
-          {/*</IconButton>*/}
 
           <IconButton onClick={toggleIsFavorite}>
             {isFavorite ? (
@@ -65,7 +48,7 @@ const ProductCard1 = ({
         <Link href={`/product/${id}`}>
           <a>
             <LazyImage
-              src={imgUrl}
+              src={imagePath[0]}
               width={0}
               height={0}
               layout="responsive"
@@ -74,17 +57,6 @@ const ProductCard1 = ({
           </a>
         </Link>
       </ImageWrapper>
-
-      {/*<ProductViewDialog*/}
-      {/*  openDialog={openModal}*/}
-      {/*  handleCloseDialog={toggleDialog}*/}
-      {/*  product={{*/}
-      {/*    title,*/}
-      {/*    price,*/}
-      {/*    id,*/}
-      {/*    imgGroup: [imgUrl, imgUrl],*/}
-      {/*  }}*/}
-      {/*/>*/}
 
       <ContentWrapper>
         <FlexBox>
@@ -104,9 +76,9 @@ const ProductCard1 = ({
               </a>
             </Link>
 
-            {!hideRating && (
-              <BazaarRating value={rating || 0} color="warn" readOnly/>
-            )}
+            {
+              <BazaarRating value={sellerRating || 0} color="warn" readOnly/>
+            }
 
             {/*{showProductSize && (*/}
             {/*  <Span color="grey.600" mb={1} display="block">*/}
@@ -152,7 +124,7 @@ const ProductCard1 = ({
             {/*    onClick={handleCartAmountChange({*/}
             {/*      id,*/}
             {/*      price,*/}
-            {/*      imgUrl,*/}
+            {/*      imagePath,*/}
             {/*      name: title,*/}
             {/*      qty: (cartItem?.qty || 0) + 1,*/}
             {/*    })}*/}
@@ -175,7 +147,7 @@ const ProductCard1 = ({
             {/*        onClick={handleCartAmountChange({*/}
             {/*          id,*/}
             {/*          price,*/}
-            {/*          imgUrl,*/}
+            {/*          imagePath,*/}
             {/*          name: title,*/}
             {/*          qty: (cartItem?.qty || 0) - 1,*/}
             {/*        })}*/}
@@ -254,7 +226,5 @@ const ContentWrapper = styled(Box)(() => ({
     whiteSpace: "nowrap",
     textOverflow: "ellipsis",
   },
-})); // ========================================================
-
-// ========================================================
-export default ProductCard1;
+}));
+export default ProductCard;

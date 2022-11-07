@@ -11,11 +11,8 @@ import _ProductDetail from "./_ProductDetail";
 export default function Product() {
 
   const router = useRouter();
-
- // const [id, setId] = useState("");
   const {data: session} = useSession()
   const [loading, setLoading] = useState(true);
-
   const [product, setProduct] = useState();
 
   useEffect(() => {
@@ -33,9 +30,6 @@ export default function Product() {
 
     }
     if (router.isReady) {
-      // console.log(router.query.pid)
-      // setId(router.query.pid.toString());
-      // console.log(id);
       getProductInfo(router.query.pid).then().catch(); //PUT PRODUCT ID
     }
   }, [router.isReady]);

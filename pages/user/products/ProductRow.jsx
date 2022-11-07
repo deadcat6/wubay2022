@@ -82,49 +82,50 @@ const StyledTableRow = styled(TableRow)(() => ({
   },
 }));
 // ========================================================================
-const ProductRow = ({ product }) => {
-  const { category, name, price, image, brand, id, published } = product; // state
-
+const ProductRow = ({ product, removeHandler }) => {
+  console.log(product)
+  const { title, imagePath, id, published } = product; // state
+  const state = product.transaction.state;
+  const updateTime = new Date(product.updateTime).toDateString();
   const router = useRouter();
   const [productPulish, setProductPublish] = useState(published);
+
+
   return (
     <StyledTableRow tabIndex={-1} role="checkbox">
       <StyledTableCell align="left">
         <FlexBox alignItems="center" gap={1.5}>
           <Avatar
-            src={image}
+            src={imagePath[0]}
             sx={{
               borderRadius: "8px",
             }}
           />
           <Box>
-            <Paragraph>{name}</Paragraph>
+            <Paragraph>{title}</Paragraph>
             <Small color="grey.600">#{id}</Small>
           </Box>
         </FlexBox>
       </StyledTableCell>
-
       <StyledTableCell align="left">
-        <CategoryWrapper>{category}</CategoryWrapper>
+        <Small>{updateTime}</Small>
+      </StyledTableCell>
+      <StyledTableCell align="left">
+        <CategoryWrapper>{state}</CategoryWrapper>
       </StyledTableCell>
 
-      <StyledTableCell align="left">
-        <Avatar
-          src={brand}
-          sx={{
-            width: 55,
-            height: "auto",
-            borderRadius: 0,
-          }}
-        />
-      </StyledTableCell>
+      {/*<StyledTableCell align="left">*/}
+      {/*  <Avatar*/}
+      {/*    src={brand}*/}
+      {/*    sx={{*/}
+      {/*      width: 55,*/}
+      {/*      height: "auto",*/}
+      {/*      borderRadius: 0,*/}
+      {/*    }}*/}
+      {/*  />*/}
+      {/*</StyledTableCell>*/}
 
-      <StyledTableCell align="left">
-        {/*{currency(price, {*/}
-        {/*  separator: ",",*/}
-        {/*}).format()}*/}
-        {price}
-      </StyledTableCell>
+
 
       <StyledTableCell align="left">
         <BazaarSwitch
@@ -135,16 +136,16 @@ const ProductRow = ({ product }) => {
       </StyledTableCell>
 
       <StyledTableCell align="center">
-        <StyledIconButton onClick={() => router.push(`/admin/products/${id}`)}>
+        <StyledIconButton onClick={() => router.push(`/user/products/${id}`)}>
           <Edit />
         </StyledIconButton>
 
-        <StyledIconButton>
+        <StyledIconButton onClick={() => router.push(`/product/${id}`)}>
           <RemoveRedEye />
         </StyledIconButton>
 
         <StyledIconButton>
-          <Delete />
+          <Delete onClick={() => {removeHandler(id)}}/>
         </StyledIconButton>
       </StyledTableCell>
     </StyledTableRow>

@@ -1,92 +1,51 @@
 import {Container} from "@mui/material";
 import MainLayout from "../components/MainLayout";
-import ProductIntro from "./ProductIntro";
+import ProductInfo from "./ProductInfo";
 import {H2} from "../components/Typography";
-import bazaarReactDatabase from "./bazaar-react-database";
-import {useState} from "react";
-// const StyledTabs = styled(Tabs)(({ theme }) => ({
-//   minHeight: 0,
-//   marginTop: 80,
-//   marginBottom: 24,
-//   borderBottom: `1px solid ${theme.palette.text.disabled}`,
-//   "& .inner-tab": {
-//     minHeight: 40,
-//     fontWeight: 600,
-//     textTransform: "capitalize",
-//   },
-// })); // ===============================================================
+import * as React from "react";
+import {useEffect, useState} from "react";
+import {useRouter} from "next/router";
+import {useSession} from "next-auth/react";
+import LoadingSpinner from "../components/ui/LoadingSpinner";
 
-// ===============================================================
 const ProductDetails = (props) => {
-  // const { frequentlyBought, relatedProducts } = props;
-  const [product, setProduct] = useState(bazaarReactDatabase[0]);
-  // const [selectedOption, setSelectedOption] = useState(0);
-  // const [relatedProducts, setRelatedProducts] = useState([]);
-  // const [frequentlyBought, setFrequentlyBought] = useState([]);
-  /**
-   * Note:
-   * ==============================================================
-   * 1. We used client side rendering with dummy fake data for related products and frequently product
-   * 2. Product details data is static data, we didn't call any rest api
-   * 3. If you fetch data from server we recommended you to call getStaticProps function in below.
-   *    The code is commented if want to call it just uncomment code and put the server url
-   */
+  const router = useRouter();
+  const {data: session} = useSession()
+  const [loading, setLoading] = useState(true);
+  const [product, setProduct] = useState(null);
 
-  // useEffect(() => {
-  //   getRelatedProducts().then((data) => setRelatedProducts(data));
-  //   getFrequentlyBought().then((data) => setFrequentlyBought(data));
-  // }, []);
-
-  const handleOptionClick = (_, value) => setSelectedOption(value);
-
-  return (
+  useEffect(() => {
+    async function getProductInfo(id) {
+      setLoading(true);
+      const res = await fetch('/api/product/getProductDetail', {
+        method: 'POST',
+        body: JSON.stringify({productId: id}),
+        headers: {'Content-Type': 'application/json'}
+      });
+      const data = await res.json();
+      setProduct(data.product);
+      //console.log(data.product);
+      setLoading(false);
+    }
+    if (router.isReady) {
+      getProductInfo(router.query.id).then().catch(); //PUT PRODUCT ID
+    }
+  }, [router.isReady]);
+  return (loading || !product) ? (
+    <MainLayout>
+      <LoadingSpinner text='Loading...'/>
+    </MainLayout>
+  ) : (
     <MainLayout>
       <Container
         sx={{
           my: 4,
         }}
       >
-        {product ? <ProductIntro product={product} /> : <H2>Loading...</H2>}
-        {/*<ProductDescription />*/}
-        {/*<StyledTabs*/}
-        {/*  textColor="primary"*/}
-        {/*  value={selectedOption}*/}
-        {/*  indicatorColor="primary"*/}
-        {/*  onChange={handleOptionClick}*/}
-        {/*>*/}
-        {/*  <Tab className="inner-tab" label="Description" />*/}
-        {/*  <Tab className="inner-tab" label="Review (3)" />*/}
-        {/*</StyledTabs>*/}
-
-
-        {/*<Box mb={6}>*/}
-        {/*  {selectedOption === 0 && }*/}
-        {/*  {selectedOption === 1 && <ProductReview />}*/}
-        {/*</Box>*/}
-
-        {/*{frequentlyBought && (*/}
-        {/*  <FrequentlyBought productsData={frequentlyBought} />*/}
-        {/*)}*/}
-
-        {/*<AvailableShops />*/}
-
-        {/*{relatedProducts && <RelatedProducts productsData={relatedProducts} />}*/}
+        <ProductInfo product={product} id={router.query.id}/>
       </Container>
     </MainLayout>
   );
-}; // export const getStaticPaths: GetStaticPaths = async () => {
-//   const paths = bazaarReactDatabase.slice(0, 2).map((pro) => ({ params: { id: pro.id } }));
-//   return {
-//     paths: [], //indicates that no page needs be created at build time
-//     fallback: "blocking", //indicates the type of fallback
-//   };
-// };
-// export async function getStaticProps() {
-//   const frequentlyBought = await getFrequentlyBought();
-//   const relatedProducts = await getRelatedProducts();
-//   return {
-//     props: { frequentlyBought, relatedProducts },
-//   };
-// }
+};
 
 export default ProductDetails;

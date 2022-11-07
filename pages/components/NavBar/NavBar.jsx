@@ -73,18 +73,33 @@ const NavBar = () => {
           {/*</IconButton>*/}
           <Stack direction="row" spacing={1}>
             <Tooltip title='Sell Your Product'>
-              <Link href="/product/AddNewProduct" passHref>
-                <IconButton size="large" color='inherit' aria-label="">
+              {session ? (
+                <Link href="/user/products/new" passHref>
+                  <IconButton size="large" color='inherit' aria-label="">
+                    <PostAddIcon fontSize="inherit"/>
+                  </IconButton>
+                </Link>
+              ) : (
+                <IconButton onClick={toggleDialog} size="large" color='inherit' aria-label="">
                   <PostAddIcon fontSize="inherit"/>
                 </IconButton>
-              </Link>
+              )
+              }
+
             </Tooltip>
             <Tooltip title='Your Messages'>
-              <Link href="/chat/ChatPage" passHref>
-                <IconButton size="large" color='inherit' aria-label="">
+              {session ? (
+                <Link href="/chat/ChatPage" passHref>
+                  <IconButton size="large" color='inherit' aria-label="">
+                    <NotificationsIcon fontSize="inherit"/>
+                  </IconButton>
+                </Link>
+              ) : (
+                <IconButton onClick={toggleDialog} size="large" color='inherit' aria-label="">
                   <NotificationsIcon fontSize="inherit"/>
                 </IconButton>
-              </Link>
+              )
+              }
             </Tooltip>
             <Tooltip title='Your Account'>
               {session ?  (

@@ -78,7 +78,7 @@ const ProfileData = ({profile}) => {
       navigation={<CustomerDashboardNavigation/>}
       button={
         <Button
-          onClick={() => signOut({callbackUrl:'/'})}
+          onClick={() => signOut({ callbackUrl: '/' })}
           variant="outlined"
           color="secondary"
           sx={{

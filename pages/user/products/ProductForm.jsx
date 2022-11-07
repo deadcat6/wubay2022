@@ -30,16 +30,16 @@ const ProductForm = (props) => {
               <Grid item sm={6} xs={12}>
                 <TextField
                   fullWidth
-                  name="name"
-                  label="Name"
+                  name="title"
+                  label="Title"
                   color="info"
                   size="medium"
                   placeholder="Name"
-                  value={values.name}
+                  value={values.title}
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  error={!!touched.name && !!errors.name}
-                  helperText={touched.name && errors.name}
+                  error={!!touched.title && !!errors.title}
+                  helperText={touched.title && errors.title}
                 />
               </Grid>
               <Grid item sm={6} xs={12}>
@@ -83,36 +83,7 @@ const ProductForm = (props) => {
                   helperText={touched.description && errors.description}
                 />
               </Grid>
-              <Grid item sm={6} xs={12}>
-                <TextField
-                  fullWidth
-                  name="stock"
-                  color="info"
-                  size="medium"
-                  label="Stock"
-                  placeholder="Stock"
-                  onBlur={handleBlur}
-                  value={values.stock}
-                  onChange={handleChange}
-                  error={!!touched.stock && !!errors.stock}
-                  helperText={touched.stock && errors.stock}
-                />
-              </Grid>
-              <Grid item sm={6} xs={12}>
-                <TextField
-                  fullWidth
-                  name="tags"
-                  label="Tags"
-                  color="info"
-                  size="medium"
-                  placeholder="Tags"
-                  onBlur={handleBlur}
-                  value={values.tags}
-                  onChange={handleChange}
-                  error={!!touched.tags && !!errors.tags}
-                  helperText={touched.tags && errors.tags}
-                />
-              </Grid>
+
               <Grid item sm={6} xs={12}>
                 <TextField
                   fullWidth
@@ -122,28 +93,31 @@ const ProductForm = (props) => {
                   type="number"
                   onBlur={handleBlur}
                   value={values.price}
-                  label="Regular Price"
+                  label="Price"
                   onChange={handleChange}
-                  placeholder="Regular Price"
+                  placeholder="Price"
                   error={!!touched.price && !!errors.price}
                   helperText={touched.price && errors.price}
                 />
               </Grid>
               <Grid item sm={6} xs={12}>
                 <TextField
+                  select
                   fullWidth
                   color="info"
                   size="medium"
-                  type="number"
-                  name="sale_price"
-                  label="Sale Price"
+                  name="paymentMethod"
                   onBlur={handleBlur}
+                  placeholder="paymentMethod"
                   onChange={handleChange}
-                  placeholder="Sale Price"
-                  value={values.sale_price}
-                  error={!!touched.sale_price && !!errors.sale_price}
-                  helperText={touched.sale_price && errors.sale_price}
-                />
+                  value={values.paymentMethod}
+                  label="Select Payment Method"
+                  error={!!touched.paymentMethod && !!errors.paymentMethod}
+                  helperText={touched.paymentMethod && errors.paymentMethod}
+                >
+                  <MenuItem value="electronics">Electronics</MenuItem>
+                  <MenuItem value="fashion">Fashion</MenuItem>
+                </TextField>
               </Grid>
 
               <Grid item sm={6} xs={12}>

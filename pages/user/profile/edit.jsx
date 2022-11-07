@@ -103,8 +103,9 @@ const ProfileEditor = () => {
         title="Edit Profile"
         navigation={<CustomerDashboardNavigation />}
         button={
-          <Link href="/user/profile" passHref>
+          //<Link href="/user/profile" passHref>
             <Button
+              onClick={() => {router.push("/user/profile")}}
               variant="outlined"
               color="secondary"
               sx={{
@@ -114,7 +115,7 @@ const ProfileEditor = () => {
             >
               Back to Profile
             </Button>
-          </Link>
+          // </Link>
         }
       />
 

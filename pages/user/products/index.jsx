@@ -12,6 +12,10 @@ import Person from "@mui/icons-material/Person";
 import CustomerDashboardNavigation from "../customer-dashboard/Navigations";
 import Link from "next/link";
 import CustomerDashboardLayout from "../customer-dashboard";
+import {Inventory2} from "@mui/icons-material";
+import {useEffect, useState} from "react";
+import {useSession} from "next-auth/react";
+import LoadingSpinner from "../../components/ui/LoadingSpinner";
 // import UserDashboardHeader from "../UserDashboardHeader";
 
 
@@ -37,80 +41,6 @@ const StyledScrollBar = styled(SimpleBar)(({theme}) => ({
 })); // props type
 // =============================================================================
 const ProductList = () => {
-  const products = [
-    {
-      price: 250,
-      published: true,
-      id: "6ed34Edf65d",
-      category: "Gadgets",
-      name: "Samsung Galaxy-M1",
-      brand: "/assets/images/brands/samsung.png",
-      image: "/assets/images/products/samsung.png",
-    },
-    {
-      price: 10,
-      published: true,
-      id: "6ed34Edf65d",
-      category: "Grocery",
-      name: "Tomatto",
-      brand: "/assets/images/brands/brokshire.png",
-      image: "/assets/images/products/tomato.png",
-    },
-    {
-      price: 24,
-      published: false,
-      id: "6ed34Edf65d",
-      category: "Beauty",
-      name: "Boston Round Cream Pack",
-      brand: "/assets/images/brands/levis.png",
-      image: "/assets/images/products/beauty-cream.png",
-    },
-    {
-      price: 35,
-      published: true,
-      id: "6ed34Edf65d",
-      category: "Fashion",
-      name: "Woman Party Dress",
-      brand: "/assets/images/brands/raymond.png",
-      image: "/assets/images/products/red-dress.png",
-    },
-    {
-      price: 16,
-      published: true,
-      id: "6ed34Edf65d",
-      category: "Fashion",
-      name: "White Tops",
-      brand: "/assets/images/brands/raymond.png",
-      image: "/assets/images/products/white-tops.png",
-    },
-    {
-      price: 26,
-      published: false,
-      id: "6ed34Edf65d",
-      category: "Fashion",
-      name: "Casual Shirt for Man",
-      brand: "/assets/images/brands/raymond.png",
-      image: "/assets/images/products/formal-shirt.png",
-    },
-    {
-      price: 21,
-      published: true,
-      id: "6ed34Edf65d",
-      category: "Fashion",
-      name: "Blue Premium T-shirt",
-      brand: "/assets/images/brands/raymond.png",
-      image: "/assets/images/products/blu-tshirt.png",
-    },
-    {
-      price: 12,
-      published: false,
-      id: "6ed34Edf65d",
-      category: "Fashion",
-      name: "Man Trowzer Pant",
-      brand: "/assets/images/brands/raymond.png",
-      image: "/assets/images/products/pnat.png",
-    },
-  ];
   const tableHeading = [
     {
       id: "name",
@@ -118,18 +48,13 @@ const ProductList = () => {
       align: "left",
     },
     {
-      id: "category",
-      label: "Category",
+      id: "date",
+      label: "Date",
       align: "left",
     },
     {
-      id: "brand",
-      label: "Brand",
-      align: "left",
-    },
-    {
-      id: "price",
-      label: "Price",
+      id: "state",
+      label: "State",
       align: "left",
     },
     {
@@ -143,6 +68,8 @@ const ProductList = () => {
       align: "center",
     },
   ];
+  const [myProduct, setMyProduct] = useState();
+
   // const {products} = props;
   const {
     order,
@@ -153,73 +80,93 @@ const ProductList = () => {
     handleChangePage,
     handleRequestSort,
   } = useMuiTable({
-    listData: products,
+    listData: myProduct,
   });
 
-  return (
+  const {data: session} = useSession()
+  const [loading, setLoading] = useState(true);
+
+  async function removeHandler(id) {
+    setLoading(true);
+    const res = await fetch('/api/product/removeProduct', {
+      method: 'POST',
+      body: JSON.stringify({productId: id}),
+      headers: {'Content-Type': 'application/json'}
+    });
+    const data = await res.json();
+  }
+  useEffect(() => {
+    async function getMyProducts(userId) {
+      setLoading(true);
+      const res = await fetch('/api/product/getMyProducts', {
+        method: 'POST',
+        body: JSON.stringify({userId: userId}),
+        headers: {'Content-Type': 'application/json'}
+      });
+      const data = await res.json();
+      setMyProduct(data.myProducts);
+      console.log("data.myProducts")
+      console.log(data.myProducts);
+      setLoading(false);
+
+    }
+    if (session){
+      getMyProducts(session.user.id); //PUT PRODUCT ID
+    }
+  }, [session]);
+  return loading ? (
+    <LoadingSpinner text='Loading...' />
+  ) : (
     // <UserDashboardHeader>
     <CustomerDashboardLayout>
       <UserDashboardHeader
-        icon={Person}
-        title="My Profile"
+        icon={Inventory2}
+        title="My Products"
         navigation={<CustomerDashboardNavigation/>}
         button={
-          <Link href="/profile/edit" passHref>
+          <Link href="/user/products/new" passHref>
             <Button
-              color="primary"
+              variant="outlined"
+              color="secondary"
               sx={{
                 px: 4,
-                bgcolor: "primary.light",
               }}
             >
-              Edit Profile
+              Post New Product
             </Button>
           </Link>
         }
       />
-      <Box py={4}>
-        {/*<H3 mb={2}>Product List</H3>*/}
-
-        {/*<SearchArea*/}
-        {/*  handleSearch={() => {}}*/}
-        {/*  buttonText="Add Product"*/}
-        {/*  handleBtnClick={() => {}}*/}
-        {/*  searchPlaceholder="Search Product..."*/}
-        {/*/>*/}
-
+      <Box py={0}>
         <Card>
-          <StyledScrollBar>
-            <TableContainer
-              sx={{
-                minWidth: 900,
-              }}
-            >
+          {/*<StyledScrollBar>*/}
+            <TableContainer>
               <Table>
                 <TableHeader
                   order={order}
                   hideSelectBtn
                   orderBy={orderBy}
                   heading={tableHeading}
-                  rowCount={products.length}
+                  rowCount={myProduct.length}
                   numSelected={selected.length}
                   onRequestSort={handleRequestSort}
                 />
 
                 <TableBody>
                   {filteredList.map((product, index) => (
-                    <ProductRow product={product} key={index}/>
+                    <ProductRow product={product} key={index} removeHandler={removeHandler}/>
                   ))}
                 </TableBody>
               </Table>
             </TableContainer>
-          </StyledScrollBar>
+          {/*</StyledScrollBar>*/}
 
-          <Stack alignItems="center" my={4}>
-            <TablePagination
-              onChange={handleChangePage}
-              count={Math.ceil(products.length / rowsPerPage)}
-            />
-          </Stack>
+          {/*<Stack alignItems="center" my={4}>*/}
+          {/*  <TablePagination*/}
+          {/*    onChange={handleChangePage}*/}
+          {/*    count={Math.ceil(products.length / rowsPerPage)}*/}
+          {/*  />*/}
+          {/*</Stack>*/}
         </Card>
       </Box>
     </CustomerDashboardLayout>

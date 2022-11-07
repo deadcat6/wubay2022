@@ -49,40 +49,40 @@ const ProductFilterCard = () => {
         }}
       />
 
-      <H6 mb={2}>Brands</H6>
-      {brandList.map((item) => (
-        <FormControlLabel
-          key={item}
-          sx={{
-            display: "flex",
-          }}
-          label={<Span color="inherit">{item}</Span>}
-          control={<Checkbox size="small" color="secondary" />}
-        />
-      ))}
+      {/*<H6 mb={2}>Brands</H6>*/}
+      {/*{brandList.map((item) => (*/}
+      {/*  <FormControlLabel*/}
+      {/*    key={item}*/}
+      {/*    sx={{*/}
+      {/*      display: "flex",*/}
+      {/*    }}*/}
+      {/*    label={<Span color="inherit">{item}</Span>}*/}
+      {/*    control={<Checkbox size="small" color="secondary" />}*/}
+      {/*  />*/}
+      {/*))}*/}
 
-      <Divider
-        sx={{
-          my: 3,
-        }}
-      />
+      {/*<Divider*/}
+      {/*  sx={{*/}
+      {/*    my: 3,*/}
+      {/*  }}*/}
+      {/*/>*/}
 
-      {otherOptions.map((item) => (
-        <FormControlLabel
-          key={item}
-          sx={{
-            display: "flex",
-          }}
-          label={<Span color="inherit">{item}</Span>}
-          control={<Checkbox size="small" color="secondary" />}
-        />
-      ))}
+      {/*{otherOptions.map((item) => (*/}
+      {/*  <FormControlLabel*/}
+      {/*    key={item}*/}
+      {/*    sx={{*/}
+      {/*      display: "flex",*/}
+      {/*    }}*/}
+      {/*    label={<Span color="inherit">{item}</Span>}*/}
+      {/*    control={<Checkbox size="small" color="secondary" />}*/}
+      {/*  />*/}
+      {/*))}*/}
 
-      <Divider
-        sx={{
-          my: 3,
-        }}
-      />
+      {/*<Divider*/}
+      {/*  sx={{*/}
+      {/*    my: 3,*/}
+      {/*  }}*/}
+      {/*/>*/}
 
       <H6 mb={2}>Ratings</H6>
       {[5, 4, 3, 2, 1].map((item) => (
@@ -96,28 +96,28 @@ const ProductFilterCard = () => {
         />
       ))}
 
-      <Divider
-        sx={{
-          my: 3,
-        }}
-      />
+      {/*<Divider*/}
+      {/*  sx={{*/}
+      {/*    my: 3,*/}
+      {/*  }}*/}
+      {/*/>*/}
 
-      <H6 mb={2}>Colors</H6>
-      <FlexBox mb={2} flexWrap="wrap" gap={1}>
-        {colorList.map((item) => (
-          <Box
-            flexShrink={0}
-            sx={{
-              width: 25,
-              height: 25,
-              bgcolor: item,
-              cursor: "pointer",
-              borderRadius: "50%",
-            }}
-            key={item}
-          />
-        ))}
-      </FlexBox>
+      {/*<H6 mb={2}>Colors</H6>*/}
+      {/*<FlexBox mb={2} flexWrap="wrap" gap={1}>*/}
+      {/*  {colorList.map((item) => (*/}
+      {/*    <Box*/}
+      {/*      flexShrink={0}*/}
+      {/*      sx={{*/}
+      {/*        width: 25,*/}
+      {/*        height: 25,*/}
+      {/*        bgcolor: item,*/}
+      {/*        cursor: "pointer",*/}
+      {/*        borderRadius: "50%",*/}
+      {/*      }}*/}
+      {/*      key={item}*/}
+      {/*    />*/}
+      {/*  ))}*/}
+      {/*</FlexBox>*/}
     </Card>
   );
 };
@@ -125,7 +125,6 @@ const ProductFilterCard = () => {
 const categroyList = [
   {
     title: "Bath Preparations",
-    subCategories: ["Bubble Bath", "Bath Capsules", "Others"],
   },
   {
     title: "Eye Makeup Preparations",

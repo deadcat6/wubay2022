@@ -8,9 +8,7 @@ import LoadingSpinner from "../ui/LoadingSpinner";
 
 const ItemListContainer = () => {
 
-  //const [items, setItems] = useState(null);
   const [loading, setLoading] = useState(true);
-  //const {categoryId, term} = useParams();
   const [products, setProducts] = useState({});
   useEffect(() => {
     const getProducts = async () => {
