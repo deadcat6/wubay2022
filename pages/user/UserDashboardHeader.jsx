@@ -40,6 +40,12 @@ const UserDashboardHeader = ({title, button, navigation, ...props}) => {
             {title}
           </Box>
         </Box>
+        <Box display="flex" alignItems="right">
+          {button}
+
+        </Box>
+
+
 
         {/*<Box className="sidenav">*/}
         {/*  <Sidenav position="left" handle={<Menu fontSize="small" />}>*/}
@@ -48,7 +54,7 @@ const UserDashboardHeader = ({title, button, navigation, ...props}) => {
         {/*</Box>*/}
 
         {/*{!isTablet && button}*/}
-        {button}
+
       </Box>
 
       {/*{isTablet && !!button && <Box mt={2}>{button}</Box>}*/}

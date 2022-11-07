@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -8,7 +8,7 @@ import SearchBar from './SearchBar';
 //import CartWidget from '../Cart/CartWidget';
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
-import {ThemeProvider, Tooltip} from "@mui/material";
+import {Dialog, ThemeProvider, Tooltip} from "@mui/material";
 import PersonIcon from '@mui/icons-material/Person';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import PostAddIcon from '@mui/icons-material/PostAdd';
@@ -16,6 +16,8 @@ import Link from 'next/link';
 import ChatPage from "../../chat/ChatPage";
 import Button from "@mui/material/Button";
 import {createTheme} from "@mui/material/styles";
+import {useSession} from "next-auth/react";
+import Login from "../Login";
 
 
 const NavBar = () => {
@@ -31,6 +33,12 @@ const NavBar = () => {
   //     }
   //   }
   // });
+
+  const {data: session} = useSession()
+
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const toggleDialog = () => setDialogOpen(!dialogOpen);
+
   return (
     // <ThemeContext>
     <AppBar position='static'
@@ -79,11 +87,20 @@ const NavBar = () => {
               </Link>
             </Tooltip>
             <Tooltip title='Your Account'>
-              <Link href="/user/Auth" passHref>
-                <IconButton size="large" color='inherit' aria-label="">
+              {session ?  (
+                <Link href="/user/profile" passHref>
+                  <IconButton  size="large" color='inherit' aria-label="">
+                    <PersonIcon fontSize="inherit"/>
+                  </IconButton>
+                </Link>
+              ) : (
+                <IconButton onClick={toggleDialog} size="large" color='inherit' aria-label="">
                   <PersonIcon fontSize="inherit"/>
                 </IconButton>
-              </Link>
+              )
+
+              }
+
 
             </Tooltip>
 
@@ -94,6 +111,14 @@ const NavBar = () => {
           {/*<CartWidget />*/}
 
         </Toolbar>
+        <Dialog
+          open={dialogOpen}
+          //fullWidth={isMobile}
+          scroll="body"
+          onClose={toggleDialog}
+        >
+          <Login />
+        </Dialog>
       </Container>
     </AppBar>
     // </ThemeContext>

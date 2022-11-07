@@ -5,6 +5,7 @@ import * as React from 'react';
 import {useEffect, useState} from 'react';
 import {Container, Stack} from "@mui/material";
 import {signIn, signOut, useSession} from "next-auth/react";
+
 import Profile from "./profile/index"
 
 import NavBar from "../components/NavBar/NavBar";
@@ -39,32 +40,36 @@ export default function Auth() {
 
 
   if (session) { // already logged in
-    return (
-      <>
-        <Profile/>
-
-      </>
-    );
+    // return (
+    //   <>
+    //     {/*<Profile/>*/}
+    //     <h1>auth page</h1>
+    //
+    //   </>
+    // );
     if (needProfile) { //New Use First time login?
       return (
         <>
-          <NavBar/>
-          <h1>CreatProfile page</h1>
-          <CreatProfile/>
-          <Stack spacing={2.5} alignItems="center">
-            <Button
-              // onClick={() => signOut({callbackUrl: 'http://localhost:3000/user/Auth'})}
-              onClick={() => signOut()}>Sign Out</Button>
-          </Stack>
+          {/*/!*<NavBar/>*!/*/}
+          {/*<h1>CreatProfile page</h1>*/}
+          {/*/!*<CreatProfile/>*!/*/}
+          {/*<Stack spacing={2.5} alignItems="center">*/}
+          {/*  <Button*/}
+          {/*    // onClick={() => signOut({callbackUrl: 'http://localhost:3000/user/Auth'})}*/}
+          {/*    onClick={() => signOut()}>Sign Out</Button>*/}
+          {/*</Stack>*/}
         </>
       );
     } //else: it's an old user.
     else {
       return (
         <>
-          <NavBar/>
+          {/*/!*<NavBar/>*!/*/}
           <h1>AccountPage page</h1>
-          <UserPageContainer/>
+          {/*<UserPageContainer/>*/}
+          <Button
+            // onClick={() => signOut({callbackUrl: 'http://localhost:3000/user/Auth'})}
+            onClick={() => signOut()}>Sign Out</Button>
 
         </>
       )
@@ -72,8 +77,9 @@ export default function Auth() {
 
   }
 
-  return ( /* need to logged in */ <>
-      <NavBar/>
+  return ( /* need to logged in */
+    <>
+      {/*<NavBar/>*/}
       <React.Fragment>
         <Container id="signup" justifyContent="left" maxWidth="sm">
           <Stack spacing={2.5} alignItems="center">

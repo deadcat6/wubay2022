@@ -62,10 +62,10 @@ const linkList = [
     title: "YOUR ACCOUNT",
     list: [
       {
-        href: "/user/orders",
-        title: "Orders",
-        icon: ShoppingCart,
-        count: 5,
+        href: "/user/profile",
+        title: "Profile",
+        icon: Person,
+        count: 1,
       },
       {
         href: "/user/products",
@@ -74,42 +74,19 @@ const linkList = [
         count: 19,
       },
       {
+        href: "/user/orders",
+        title: "Orders",
+        icon: ShoppingCart,
+        count: 5,
+      },
+      {
         href: "/user/chats",
         title: "Chats",
         icon: Email,
         count: 1,
       },
-      {
-        href: "/user/profile",
-        title: "Profile",
-        icon: Person,
-        count: 1,
-      },
+
     ],
   }
-  // },
-  // {
-  //   title: "ACCOUNT SETTINGS",
-  //   list: [
-  //     {
-  //       href: "/profile",
-  //       title: "Profile",
-  //       icon: Person,
-  //       count: 3,
-  //     },
-  //     {
-  //       href: "/address",
-  //       title: "Addresses",
-  //       icon: Place,
-  //       count: 16,
-  //     },
-  //     {
-  //       href: "/payment-methods",
-  //       title: "Payment Methods",
-  //       icon: CreditCard,
-  //       count: 4,
-  //     },
-  //   ],
-  // },
 ];
 export default Navigations;

@@ -1,7 +1,7 @@
 import {doc, setDoc, getFirestore, getDoc} from "firebase/firestore";
 import { app } from './firebase_config';
 
-async function firebaseNewUser(user) {
+async function FirebaseLogin(user) {
   const db = getFirestore(app);
   const docRef = doc(db, "users", user.id);
   const docSnap = await getDoc(docRef);
@@ -21,7 +21,7 @@ async function firebaseNewUser(user) {
     });
     return true;
   }
-  return docSnap.data().newUser;
+  return docSnap.data();
 }
 
-export default firebaseNewUser;
+export default FirebaseLogin;
