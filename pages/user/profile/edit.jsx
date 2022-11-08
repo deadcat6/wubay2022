@@ -6,8 +6,8 @@ import DateTimePicker from "@mui/lab/DateTimePicker";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import {Card, styled, Avatar, Box, Button, Grid, TextField, Divider} from "@mui/material";
 // import Card1 from "components/Card1";
-import { FlexBox } from "../../components/flex-box";
-import UserDashboardHeader from "../UserDashboardHeader";
+import { FlexBox } from "../../../components/flex-box";
+import UserDashboardHeader from "../../../components/UserDashboardHeader";
 import CustomerDashboardLayout from "../customer-dashboard/index";
 import CustomerDashboardNavigation from "../customer-dashboard/Navigations";
 import { Formik } from "formik";
@@ -15,9 +15,8 @@ import Link from "next/link";
 import * as yup from "yup";
 import {signOut, useSession} from "next-auth/react";
 import React, {useEffect, useState} from "react";
-import MainLayout from "../../components/MainLayout";
-import LoadingSpinner from "../../components/ui/LoadingSpinner";
-import {router} from "next/client";
+import MainLayout from "../../../components/MainLayout";
+import LoadingSpinner from "../../../components/ui/LoadingSpinner";
 import {useRouter} from "next/router";
 const Card1 = styled(Card)({
   position: "relative",

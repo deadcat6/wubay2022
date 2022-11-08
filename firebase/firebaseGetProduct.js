@@ -51,13 +51,13 @@ export async function getMyProducts(userId) {
   const myProducts = [];
 
   for (const id of userProductIds) {
-    //console.log(id)
-
-    const docRef = doc(db, "products", id);
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      const p = docSnap.data();
-      myProducts.push({...p, id, updateTime: p.updateTime.toDate(),});
+    if (id) {
+      const docRef = doc(db, "products", id);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const p = docSnap.data();
+        myProducts.push({...p, id, updateTime: p.updateTime.toDate(),});
+      }
     }
   }
   return myProducts;

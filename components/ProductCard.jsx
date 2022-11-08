@@ -6,11 +6,11 @@ import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 // import BazaarRating from "components/BazaarRating";
 // import LazyImage from "components/LazyImage";
 // import ProductViewDialog from "components/products/ProductViewDialog";
-import {H2, H3} from "./components/Typography";
+import {H2, H3} from "./Typography";
 // import {useAppContext} from "contexts/AppContext";
 import Link from "next/link";
 import React, {useCallback, useState} from "react";
-import {FlexBox} from "./components/flex-box";
+import {FlexBox} from "./flex-box";
 import {bgcolor, borderRadius, compose, spacing, typography} from "@mui/system";
 import NextImage from "next/image";
 

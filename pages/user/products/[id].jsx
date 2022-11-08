@@ -1,15 +1,15 @@
 import {Box, Button} from "@mui/material";
-import ProductForm from "./ProductForm";
+import ProductForm from "../../../components/user/product/ProductForm";
 import React, {useEffect, useState} from "react";
 import * as yup from "yup";
 import CustomerDashboardLayout from "../customer-dashboard";
 import CustomerDashboardNavigation from "../customer-dashboard/Navigations";
 import Link from "next/link";
-import UserDashboardHeader from "../UserDashboardHeader";
+import UserDashboardHeader from "../../../components/UserDashboardHeader";
 import {Inventory2} from "@mui/icons-material";
 import {useSession} from "next-auth/react";
 import {useRouter} from "next/router";
-import LoadingSpinner from "../../components/ui/LoadingSpinner";
+import LoadingSpinner from "../../../components/ui/LoadingSpinner";
 
 const validationSchema = yup.object().shape({
   title: yup.string().required("required"),

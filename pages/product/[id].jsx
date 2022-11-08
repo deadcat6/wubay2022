@@ -1,12 +1,12 @@
 import {Container} from "@mui/material";
-import MainLayout from "../components/MainLayout";
-import ProductInfo from "./ProductInfo";
-import {H2} from "../components/Typography";
+import MainLayout from "../../components/MainLayout";
+import ProductInfo from "../../components/ProductInfo";
+import {H2} from "../../components/Typography";
 import * as React from "react";
 import {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import {useSession} from "next-auth/react";
-import LoadingSpinner from "../components/ui/LoadingSpinner";
+import LoadingSpinner from "../../components/ui/LoadingSpinner";
 
 const ProductDetails = (props) => {
   const router = useRouter();

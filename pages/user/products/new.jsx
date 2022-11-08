@@ -1,13 +1,13 @@
 import {Box, Button} from "@mui/material";
-import { H3 } from "../../components/Typography";
-import ProductForm  from "./ProductForm";
+import { H3 } from "../../../components/Typography";
+import ProductForm  from "../../../components/user/product/ProductForm";
 import React, {useState} from "react";
 import * as yup from "yup";
 import CustomerDashboardLayout from "../customer-dashboard";
 import Person from "@mui/icons-material/Person";
 import CustomerDashboardNavigation from "../customer-dashboard/Navigations";
 import Link from "next/link";
-import UserDashboardHeader from "../UserDashboardHeader";
+import UserDashboardHeader from "../../../components/UserDashboardHeader";
 import {Inventory2} from "@mui/icons-material";
 import {useSession} from "next-auth/react";
 import {useRouter} from "next/router";

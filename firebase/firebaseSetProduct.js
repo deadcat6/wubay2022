@@ -65,7 +65,7 @@ export async function setTransaction(transactions, productId) {
   const docRef = doc(db, "products", productId);
 
   await updateDoc(docRef, {
-    "transaction.state": product.state,
+    "transaction.state": transactions,
   });
 }
 

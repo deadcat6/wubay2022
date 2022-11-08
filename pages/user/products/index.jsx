@@ -1,19 +1,19 @@
 import {alpha, Box, Button, Card, Divider, styled, Table, TableContainer} from "@mui/material";
 import TableBody from "@mui/material/TableBody";
-import TableHeader from "./TableHeader";
-import useMuiTable from "./useMuiTable";
-import ProductRow from "./ProductRow";
+import TableHeader from "../../../components/user/product/TableHeader";
+import useMuiTable from "../../../components/user/useMuiTable";
+import ProductRow from "../../../components/user/product/ProductRow";
 import React, {useEffect, useState} from "react";
 import SimpleBar from "simplebar-react";
-import UserDashboardHeader from "../UserDashboardHeader";
+import UserDashboardHeader from "../../../components/UserDashboardHeader";
 import CustomerDashboardNavigation from "../customer-dashboard/Navigations";
 import Link from "next/link";
 import CustomerDashboardLayout from "../customer-dashboard";
 import {Inventory2} from "@mui/icons-material";
 import {useSession} from "next-auth/react";
-import LoadingSpinner from "../../components/ui/LoadingSpinner";
-import OrdertRow from "./OrdertRow";
-import {H2} from "../../components/Typography";
+import LoadingSpinner from "../../../components/ui/LoadingSpinner";
+import OrdertRow from "../../../components/user/product/OrdertRow";
+import {H2} from "../../../components/Typography";
 
 
 const ProductList = () => {
@@ -42,9 +42,10 @@ const ProductList = () => {
     setLoading(true);
     const res = await fetch('/api/product/removeProduct', {
       method: 'POST',
-      body: JSON.stringify({productId: id}),
+      body: JSON.stringify({userId: session.user.id, productId: id}),
       headers: {'Content-Type': 'application/json'}
     });
+    setLoading(false);
     const data = await res.json();
   }
 
@@ -57,6 +58,7 @@ const ProductList = () => {
         headers: {'Content-Type': 'application/json'}
       });
       const data = await res.json();
+      //console.log(data.myProducts)
       data.myProducts.map(p => {
         if (p.transaction.state !== 'Published') {
           setHasActiveProduct(true);
@@ -106,7 +108,7 @@ const ProductList = () => {
             alignItems="center"
             justifyContent="center"
           >
-            <H2>You Have No Products</H2>
+            <H2>You Have No Product</H2>
           </Box>
         </Card>
       )}
@@ -121,7 +123,7 @@ const ProductList = () => {
                     order={order}
                     hideSelectBtn
                     orderBy={orderBy}
-                    heading={tableHeading}
+                    heading={orderTableHeading}
                     rowCount={myProduct.length}
                     numSelected={selected.length}
                     onRequestSort={handleRequestSort}
@@ -217,8 +219,8 @@ const orderTableHeading = [
   },
 
   {
-    id: "category",
-    label: "Category",
+    id: "paymentMethod",
+    label: "Payment Method",
     align: "left",
   },
   {

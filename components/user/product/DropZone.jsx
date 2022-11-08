@@ -2,7 +2,7 @@
 import { Box, Button, Divider } from "@mui/material";
 import React, { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
-import { H5, Small } from "../../components/Typography";
+import { H5, Small } from "../../Typography";
 
 const DropZone = ({ onChange, title, imageSize }) => {
   const onDrop = useCallback((acceptedFiles) => {

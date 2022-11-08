@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {Avatar, Box, Button, Grid, Rating} from "@mui/material";
-import {H1, H2, H3, H6, Small} from "../components/Typography";
+import {H1, H2, H3, H6, Small} from "./Typography";
 import Link from "next/link";
 import ImageViewer from "react-simple-image-viewer";
 import {useRouter} from "next/router";
 import React, {useCallback, useState} from "react"; // import ImageViewer from "react-simple-image-viewer";
-import {FlexBox, FlexRowCenter} from "../components/flex-box"; // ================================================================
+import {FlexBox, FlexRowCenter} from "./flex-box"; // ================================================================
 import {bgcolor, border, borderRadius, compose, sizing, spacing, styled, typography,} from "@mui/system";
 import NextImage from "next/image";
 import emailjs from "@emailjs/browser";
@@ -89,6 +89,7 @@ const ProductInfo = ({product, id}) => {
 
     });
     await response.json();
+    await router.push('/user/orders')
   }
   return (
     <Box width="100%">

@@ -1,7 +1,7 @@
 import { Container, Grid } from "@mui/material";
 import React from "react";
 import Navigations from "./Navigations";
-import MainLayout from "../../components/MainLayout";
+import MainLayout from "../../../components/MainLayout";
 
 
 const CustomerDashboardLayout = ({ children }) => (

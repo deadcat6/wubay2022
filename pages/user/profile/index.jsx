@@ -1,17 +1,17 @@
 import Person from "@mui/icons-material/Person";
 import {Avatar, Box, Button, Card, Grid, Typography} from "@mui/material";
-import {FlexBetween, FlexBox} from "../../components/flex-box";
-import UserDashboardHeader from "../UserDashboardHeader";
+import {FlexBetween, FlexBox} from "../../../components/flex-box";
+import UserDashboardHeader from "../../../components/UserDashboardHeader";
 import CustomerDashboardLayout from "../customer-dashboard/index";
 import CustomerDashboardNavigation from "../customer-dashboard/Navigations";
 import Link from "next/link";
 import React, {useEffect, useState} from "react";
 import {signOut, useSession} from "next-auth/react";
 import {useRouter} from "next/router";
-import LoadingSpinner from "../../components/ui/LoadingSpinner";
-import MainLayout from "../../components/MainLayout";
+import LoadingSpinner from "../../../components/ui/LoadingSpinner";
+import MainLayout from "../../../components/MainLayout";
 import {Stack} from "@mui/system";
-import {H1, H2, H3, H6} from "../../components/Typography";
+import {H1, H2, H3, H6} from "../../../components/Typography";
 
 
 const Profile = () => {

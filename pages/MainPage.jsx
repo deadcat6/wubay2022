@@ -1,14 +1,14 @@
 import {Box, Card, Container, Grid, MenuItem, Pagination, TextField,} from "@mui/material";
 // import useMediaQuery from "@mui/material/useMediaQuery";
-import {FlexBetween, FlexBox} from "./components/flex-box";
-import MainLayout from "./components/MainLayout";
-import ProductFilterCard from "./ProductFilterCard";
-import {H5, Paragraph, Span} from "./components/Typography";
+import {FlexBetween, FlexBox} from "../components/flex-box";
+import MainLayout from "../components/MainLayout";
+import ProductFilterCard from "../components/ProductFilterCard";
+import {H5, Paragraph, Span} from "../components/Typography";
 import {useEffect, useState} from "react";
-import LoadingSpinner from "./components/ui/LoadingSpinner";
+import LoadingSpinner from "../components/ui/LoadingSpinner";
 import * as React from "react";
 import {Fragment} from "react";
-import ProductCard from "./ProductCard";
+import ProductCard from "../components/ProductCard";
 const MainPage = () => {
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState({});

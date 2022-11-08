@@ -1,15 +1,14 @@
 import {Box, Button} from "@mui/material";
-import ProductForm from "./ProductForm";
 import React, {useEffect, useState} from "react";
 import * as yup from "yup";
 import CustomerDashboardLayout from "../customer-dashboard";
 import CustomerDashboardNavigation from "../customer-dashboard/Navigations";
 import Link from "next/link";
-import UserDashboardHeader from "../UserDashboardHeader";
+import UserDashboardHeader from "../../../components/UserDashboardHeader";
 import {Inventory2} from "@mui/icons-material";
 import {useSession} from "next-auth/react";
 import {useRouter} from "next/router";
-import LoadingSpinner from "../../components/ui/LoadingSpinner";
+import LoadingSpinner from "../../../components/ui/LoadingSpinner";
 
 const validationSchema = yup.object().shape({
   title: yup.string().required("required"),
@@ -92,32 +91,7 @@ export default function AddProduct() {
     <LoadingSpinner text='Loading...'/>
   ) : (
     <CustomerDashboardLayout>
-      <Box py={0}>
-        <UserDashboardHeader
-          icon={Inventory2}
-          title="Post Product"
-          navigation={<CustomerDashboardNavigation/>}
-          button={
-            <Link href="/user/products" passHref>
-              <Button
-                variant="outlined"
-                color="secondary"
-                sx={{
-                  px: 4,
-                }}
-              >
-                Go Back
-              </Button>
-            </Link>
-          }
-        />
 
-        <ProductForm
-          initialValues={product}
-          validationSchema={validationSchema}
-          handleFormSubmit={handleFormSubmit}
-        />
-      </Box>
     </CustomerDashboardLayout>
   );
 }

@@ -1,7 +1,7 @@
 import {ManageAccounts, RemoveRedEye} from "@mui/icons-material";
 import {Avatar, Box, IconButton, styled, Switch, TableCell, TableRow} from "@mui/material";
-import {FlexBox} from "../../components/flex-box";
-import {H6, Paragraph, Small} from "../../components/Typography";
+import {FlexBox} from "../../flex-box";
+import {H6, Paragraph, Small} from "../../Typography";
 import {useRouter} from "next/router";
 import React from "react";
 

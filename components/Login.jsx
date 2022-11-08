@@ -1,6 +1,6 @@
 import {Box, Button, Card, Divider} from "@mui/material";
 import {styled} from "@mui/material/styles";
-import {H3, Small} from "../components/Typography";
+import {H3, Small} from "./Typography";
 import React, {Fragment} from "react";
 import {signIn, signOut, useSession} from "next-auth/react";
 

@@ -1,6 +1,6 @@
 import {Box, Card, Checkbox, Divider, FormControlLabel, Rating, TextField,} from "@mui/material";
-import {FlexBetween, FlexBox} from "./components/flex-box";
-import {H5, H6, Paragraph, Span} from "./components/Typography";
+import {FlexBetween, FlexBox} from "./flex-box";
+import {H5, H6, Paragraph, Span} from "./Typography";
 
 const ProductFilterCard = () => {
   return (

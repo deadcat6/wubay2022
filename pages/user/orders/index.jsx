@@ -1,18 +1,17 @@
 import {alpha, Box, Button, Card, styled, Table, TableContainer} from "@mui/material";
-import TableBody from "@mui/material/TableBody";
-import TableHeader from "./TableHeader";
-import useMuiTable from "./useMuiTable";
-import OrdertRow from "./OrdertRow";
+import useMuiTable from "../../../components/user/useMuiTable";
 import React, {useEffect, useState} from "react";
 import SimpleBar from "simplebar-react";
-import UserDashboardHeader from "../UserDashboardHeader";
+import UserDashboardHeader from "../../../components/UserDashboardHeader";
 import CustomerDashboardNavigation from "../customer-dashboard/Navigations";
-import Link from "next/link";
 import CustomerDashboardLayout from "../customer-dashboard";
-import {Inventory2, ShoppingCart} from "@mui/icons-material";
+import {ShoppingCart} from "@mui/icons-material";
 import {useSession} from "next-auth/react";
-import LoadingSpinner from "../../components/ui/LoadingSpinner";
-
+import LoadingSpinner from "../../../components/ui/LoadingSpinner";
+import {H2} from "../../../components/Typography";
+import TableHeader from "../../../components/user/order/TableHeader";
+import TableBody from "@mui/material/TableBody";
+import OrdertRow from "../../../components/user/order/OrdertRow";
 
 
 const ProductList = () => {
@@ -73,51 +72,67 @@ const ProductList = () => {
         title="My Orders"
         navigation={<CustomerDashboardNavigation/>}
         button={
-            <Button
-              onClick={() => {router.push("/user/profile")}}
-              variant="outlined"
-              color="secondary"
-              sx={{
-                px: 4,
-                //bgcolor: "primary.light",
-              }}
-            >
-              Back to Profile
-            </Button>
+          <Button
+            onClick={() => {
+              router.push("/user/profile")
+            }}
+            variant="outlined"
+            color="secondary"
+            sx={{
+              px: 4,
+              //bgcolor: "primary.light",
+            }}
+          >
+            Back to Profile
+          </Button>
         }
       />
-      <Box py={0}>
+      {myProduct.length === 0 ? (
         <Card>
-          {/*<StyledScrollBar>*/}
-          <TableContainer>
-            <Table>
-              <TableHeader
-                order={order}
-                hideSelectBtn
-                orderBy={orderBy}
-                heading={orderTableHeading}
-                rowCount={myProduct.length}
-                numSelected={selected.length}
-                onRequestSort={handleRequestSort}
-              />
-
-              <TableBody>
-                {filteredList.map((product, index) => (
-                  <OrdertRow product={product} key={index} removeHandler={removeHandler}/>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          {/*</StyledScrollBar>*/}
-
-          {/*<Stack alignItems="center" my={4}>*/}
-          {/*  <TablePagination*/}
-          {/*    onChange={handleChangePage}*/}
-          {/*    count={Math.ceil(products.length / rowsPerPage)}*/}
-          {/*  />*/}
-          {/*</Stack>*/}
+          <Box
+            py={8}
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <H2>You Have No Order</H2>
+          </Box>
         </Card>
-      </Box>
+      ) : (
+        <Box py={0}>
+          <Card>
+            {/*<StyledScrollBar>*/}
+            <TableContainer>
+              <Table>
+                <TableHeader
+                  order={order}
+                  hideSelectBtn
+                  orderBy={orderBy}
+                  heading={orderTableHeading}
+                  rowCount={myProduct.length}
+                  numSelected={selected.length}
+                  onRequestSort={handleRequestSort}
+                />
+
+                <TableBody>
+                  {filteredList.map((product, index) => (
+                    <OrdertRow product={product} key={index} removeHandler={removeHandler}/>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            {/*</StyledScrollBar>*/}
+
+            {/*<Stack alignItems="center" my={4}>*/}
+            {/*  <TablePagination*/}
+            {/*    onChange={handleChangePage}*/}
+            {/*    count={Math.ceil(products.length / rowsPerPage)}*/}
+            {/*  />*/}
+            {/*</Stack>*/}
+          </Card>
+        </Box>
+      )
+      }
     </CustomerDashboardLayout>
 
   );
@@ -135,8 +150,8 @@ const orderTableHeading = [
   },
 
   {
-    id: "category",
-    label: "Category",
+    id: "paymentMethod",
+    label: "Payment Method",
     align: "left",
   },
   {
