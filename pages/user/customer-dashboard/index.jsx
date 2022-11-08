@@ -3,15 +3,6 @@ import React from "react";
 import Navigations from "./Navigations";
 import MainLayout from "../../components/MainLayout";
 
-/**
- *  Used in:
- *  1. wish-list page
- *  2. address and address-details page
- *  3. orders and order-details page
- *  4. payment-methods and payment-method-details page
- *  5. profile and edit profile page
- *  6. support-tickets page
- */
 
 const CustomerDashboardLayout = ({ children }) => (
   <MainLayout>
@@ -33,7 +24,7 @@ const CustomerDashboardLayout = ({ children }) => (
             },
           }}
         >
-          <Navigations />
+          <Navigations/>
         </Grid>
 
         <Grid item lg={9} xs={12}>

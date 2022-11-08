@@ -19,9 +19,10 @@ async function FirebaseLogin(user) {
       usersChats: [],
       newUser: true,
     });
-    return true;
   }
-  return docSnap.data();
+  const docsRef = doc(db, "users", user.id);
+  const docsSnap = await getDoc(docsRef);
+  return docsSnap.data();
 }
 
 export default FirebaseLogin;

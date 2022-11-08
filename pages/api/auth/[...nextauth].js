@@ -20,24 +20,28 @@ export const authOptions = {
   ],
   session: { jwt: true },
   callbacks: {
-    // async jwt({ token, user,account, profile }) {
-    //   // Persist the OAuth access_token and or the user id to the token right after signin
-    //   if(user){
-    //     //console.log(user)
-    //     token.id = user.id
-    //   }
-    //   if(account) {
-    //     //console.log(account)
-    //   }
-    //   if(profile) {
-    //     //console.log(profile)
-    //   }
-    //   return token
-    // },
+    async jwt({ token, user,account, profile }) {
+      // console.log(user)
+      // console.log(profile)
+      // Persist the OAuth access_token and or the user id to the token right after signin
+      if(user){
+        //console.log(user)
+        token.id = user.id
+      }
+      if(account) {
+
+      }
+      if(profile) {
+
+      }
+      return token
+    },
     async session({ session, token}) {
+      //console.log(token)
+
       if (token) {
         session.accessToken = token.accessToken
-        session.user.id = token.id
+        session.user.id = token.sub
       }
       return session
     }

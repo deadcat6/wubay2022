@@ -65,7 +65,7 @@ export default function AddProduct() {
   const handleFormSubmit = (value) => {
     setProduct(value);
     addProductHandler(value).then(() => {
-     //router.push('/user/products')
+     router.push('/user/products')
     });
   };
 

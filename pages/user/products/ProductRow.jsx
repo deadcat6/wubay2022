@@ -83,7 +83,7 @@ const StyledTableRow = styled(TableRow)(() => ({
 }));
 // ========================================================================
 const ProductRow = ({ product, removeHandler }) => {
-  console.log(product)
+  //console.log(product)
   const { title, imagePath, id, published } = product; // state
   const state = product.transaction.state;
   const updateTime = new Date(product.updateTime).toDateString();

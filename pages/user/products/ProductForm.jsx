@@ -57,8 +57,14 @@ const ProductForm = (props) => {
                   error={!!touched.category && !!errors.category}
                   helperText={touched.category && errors.category}
                 >
-                  <MenuItem value="electronics">Electronics</MenuItem>
-                  <MenuItem value="fashion">Fashion</MenuItem>
+                  <MenuItem value="Textbook">Textbook</MenuItem>
+                  <MenuItem value="Grocery">Grocery</MenuItem>
+                  <MenuItem value="Clothing & Beauty">Clothing & Beauty</MenuItem>
+                  <MenuItem value="Electronic & Entertainment">Electronic & Entertainment</MenuItem>
+                  <MenuItem value="Furniture & Household">Furniture & Household</MenuItem>
+                  <MenuItem value="Office & School Supplies">Office & School Supplies</MenuItem>
+                  <MenuItem value="Other">Other</MenuItem>
+
                 </TextField>
               </Grid>
 
@@ -115,8 +121,10 @@ const ProductForm = (props) => {
                   error={!!touched.paymentMethod && !!errors.paymentMethod}
                   helperText={touched.paymentMethod && errors.paymentMethod}
                 >
-                  <MenuItem value="electronics">Electronics</MenuItem>
-                  <MenuItem value="fashion">Fashion</MenuItem>
+                  <MenuItem value="Face-To-Face">Face-To-Face</MenuItem>
+                  <MenuItem value="Stripe">Stripe</MenuItem>
+                  <MenuItem value="Venmo">Venmo</MenuItem>
+                  <MenuItem value="Contact Me">Contact Me</MenuItem>
                 </TextField>
               </Grid>
 

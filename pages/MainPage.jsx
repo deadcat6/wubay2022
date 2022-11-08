@@ -35,7 +35,7 @@ const MainPage = () => {
       const data = await res.json();
       //data.products.map(e => console.log(e))
       setProducts(data.list);
-      console.log(data.list)
+      //console.log(data.list)
       setLoading(false);
       //console.log(data.products)
     }
@@ -44,7 +44,9 @@ const MainPage = () => {
 
 
   return loading ? (
-    <LoadingSpinner text='Loading...' />
+    <MainLayout>
+      <LoadingSpinner text='Loading...' />
+    </MainLayout>
   ) : (
     <MainLayout>
       <Container

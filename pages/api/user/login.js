@@ -7,6 +7,7 @@ async function handler(req, res) {
     const data = req.body;
     const {user} = data;
     const userData = await FirebaseLogin(user);
+
     res.status(201).json({message: 'inserted user into database', userData: userData});
   }
 }

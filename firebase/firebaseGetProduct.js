@@ -72,12 +72,12 @@ export async function getMyOrders(userId) {
   }
   const userOrdersIds = userSnap.data().myOrders;
   const myOrders = [];
-  for (let id in userOrdersIds) {
+  for (let id of userOrdersIds) {
     const docRef = doc(db, "products", id);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
       const p = docSnap.data();
-      myProducts.push({...p, id, updateTime: p.updateTime.toDate(),});
+      myOrders.push({...p, id, updateTime: p.updateTime.toDate(),});
     }
   }
   return myOrders;

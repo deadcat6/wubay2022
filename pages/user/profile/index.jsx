@@ -33,6 +33,7 @@ const Profile = () => {
   });
   useEffect(() => {
     async function getUserInfo(user) {
+      //console.log(user)
       setLoading(true);
       const res = await fetch('/api/user/login', {
         method: 'POST',
@@ -42,21 +43,22 @@ const Profile = () => {
       const data = await res.json();
       //data.products.map(e => console.log(e))
       if (data.userData.newUser) {
-        router.push('profile/edit');
+        await router.push('/user/profile/edit');
+      } else {
+        const p = {...data.userData, imageUrl: session.user.image};
+        console.log(p)
+        setProfile(p);
+        setLoading(false);
       }
-      const p = {...data.userData, imageUrl: session.user.image};
-
-      setProfile(p);
-      setLoading(false);
-      return data.userData;
     }
 
     if (session) {
-      console.log(session)
+      //console.log(session)
       getUserInfo(session.user);
     }
 
   }, [session]); // Or [] if effect doesn't need props or state
+
 
   return loading ? (
     <MainLayout>
@@ -71,14 +73,14 @@ export default Profile;
 
 const ProfileData = ({profile}) => {
   return (
-  <CustomerDashboardLayout>
+    <CustomerDashboardLayout>
     <UserDashboardHeader
       icon={Person}
       title="My Profile"
       navigation={<CustomerDashboardNavigation/>}
       button={
         <Button
-          onClick={() => signOut({ callbackUrl: '/' })}
+          onClick={() => signOut({callbackUrl:'/'})}
           variant="outlined"
           color="secondary"
           sx={{

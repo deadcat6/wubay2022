@@ -3,7 +3,9 @@ import {Card, styled, Typography} from "@mui/material";
 import {useRouter} from "next/router";
 import {Fragment} from "react";
 import {Box} from "@mui/system";
-import Link from "next/link"; // custom styled components
+import Link from "next/link";
+import {useEffect, useState} from "react";
+import {useSession} from "next-auth/react"; // custom styled components
 
 const StyledNavLink = styled(({children, isCurrentPath, ...rest}) => (
   <a
@@ -19,8 +21,66 @@ const StyledNavLink = styled(({children, isCurrentPath, ...rest}) => (
   color: isCurrentPath ? "#9e1418" : "inherit",
 }));
 
+
+
 const Navigations = () => {
+  const [linkList, setLinkList] = useState([]);
+  const {data: session} = useSession()
+
+  useEffect(() => {
+    async function getUserInfo(user) {
+      const res = await fetch('/api/user/login', {
+        method: 'POST',
+        body: JSON.stringify({user: user}),
+        headers: {'Content-Type': 'application/json'}
+      });
+      const data = await res.json();
+      const profile = data.userData;
+
+      setLinkList([
+        {
+          title: "YOUR ACCOUNT",
+          list: [
+            {
+              href: "/user/profile",
+              title: "Profile",
+              icon: Person,
+              count: profile.myProducts.length + profile.myOrders.length + profile.usersChats.length,
+            },
+            {
+              href: "/user/products",
+              title: "Products",
+              icon: Inventory2,
+              count: profile.myProducts.length,
+            },
+            {
+              href: "/user/orders",
+              title: "Orders",
+              icon: ShoppingCart,
+              count: profile.myOrders.length,
+            },
+            {
+              href: "/user/chats",
+              title: "Chats",
+              icon: Email,
+              count: profile.usersChats.length,
+            },
+
+          ],
+        }
+      ]);
+      return data.userData;
+    }
+
+    if (session) {
+      //console.log(session)
+      getUserInfo(session.user);
+    }
+
+  }, [session]);
   const {pathname} = useRouter();
+  //console.log(profile);
+
   return (
     <Card>
       {linkList.map((item) => (
@@ -30,9 +90,7 @@ const Navigations = () => {
           </Typography>
 
           {item.list.map((item) => (
-            <Link href={item.href} passHref>
-
-
+            <Link href={item.href} passHref key={item.title}>
               <StyledNavLink
                 href={item.href}
                 key={item.title}
@@ -57,36 +115,4 @@ const Navigations = () => {
   );
 };
 
-const linkList = [
-  {
-    title: "YOUR ACCOUNT",
-    list: [
-      {
-        href: "/user/profile",
-        title: "Profile",
-        icon: Person,
-        count: 1,
-      },
-      {
-        href: "/user/products",
-        title: "Products",
-        icon: Inventory2,
-        count: 19,
-      },
-      {
-        href: "/user/orders",
-        title: "Orders",
-        icon: ShoppingCart,
-        count: 5,
-      },
-      {
-        href: "/user/chats",
-        title: "Chats",
-        icon: Email,
-        count: 1,
-      },
-
-    ],
-  }
-];
 export default Navigations;

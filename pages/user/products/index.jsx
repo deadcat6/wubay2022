@@ -1,76 +1,30 @@
-import {alpha, Box, Button, Card, Stack, styled, Table, TableContainer} from "@mui/material";
+import {alpha, Box, Button, Card, Divider, styled, Table, TableContainer} from "@mui/material";
 import TableBody from "@mui/material/TableBody";
 import TableHeader from "./TableHeader";
-import TablePagination from "./TablePagination";
-// import VendorDashboardLayout from "../../../src/components/layouts/vendor-dashboard";
 import useMuiTable from "./useMuiTable";
 import ProductRow from "./ProductRow";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import SimpleBar from "simplebar-react";
 import UserDashboardHeader from "../UserDashboardHeader";
-import Person from "@mui/icons-material/Person";
 import CustomerDashboardNavigation from "../customer-dashboard/Navigations";
 import Link from "next/link";
 import CustomerDashboardLayout from "../customer-dashboard";
 import {Inventory2} from "@mui/icons-material";
-import {useEffect, useState} from "react";
 import {useSession} from "next-auth/react";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
-// import UserDashboardHeader from "../UserDashboardHeader";
+import OrdertRow from "./OrdertRow";
+import {H2} from "../../components/Typography";
 
 
-const StyledScrollBar = styled(SimpleBar)(({theme}) => ({
-  maxHeight: "100%",
-  "& .simplebar-scrollbar": {
-    "&.simplebar-visible:before": {
-      opacity: 1,
-    },
-    "&:before": {
-      backgroundColor: alpha(theme.palette.grey[400], 0.6),
-    },
-  },
-  "& .simplebar-track.simplebar-vertical": {
-    width: 9,
-  },
-  "& .simplebar-track.simplebar-horizontal .simplebar-scrollbar": {
-    height: 6,
-  },
-  "& .simplebar-mask": {
-    zIndex: "inherit",
-  },
-})); // props type
-// =============================================================================
 const ProductList = () => {
-  const tableHeading = [
-    {
-      id: "name",
-      label: "Name",
-      align: "left",
-    },
-    {
-      id: "date",
-      label: "Date",
-      align: "left",
-    },
-    {
-      id: "state",
-      label: "State",
-      align: "left",
-    },
-    {
-      id: "published",
-      label: "Published",
-      align: "left",
-    },
-    {
-      id: "action",
-      label: "Action",
-      align: "center",
-    },
-  ];
-  const [myProduct, setMyProduct] = useState();
 
-  // const {products} = props;
+
+  const {data: session} = useSession()
+  const [loading, setLoading] = useState(true);
+  const [myProduct, setMyProduct] = useState();
+  const [hasActiveProduct, setHasActiveProduct] = useState(false);
+  const [hasProduct, setHasProduct] = useState(false);
+
   const {
     order,
     orderBy,
@@ -83,8 +37,6 @@ const ProductList = () => {
     listData: myProduct,
   });
 
-  const {data: session} = useSession()
-  const [loading, setLoading] = useState(true);
 
   async function removeHandler(id) {
     setLoading(true);
@@ -95,6 +47,7 @@ const ProductList = () => {
     });
     const data = await res.json();
   }
+
   useEffect(() => {
     async function getMyProducts(userId) {
       setLoading(true);
@@ -104,20 +57,28 @@ const ProductList = () => {
         headers: {'Content-Type': 'application/json'}
       });
       const data = await res.json();
+      data.myProducts.map(p => {
+        if (p.transaction.state !== 'Published') {
+          setHasActiveProduct(true);
+        }
+        if (p.transaction.state === 'Published') {
+          setHasProduct(true)
+        }
+      })
       setMyProduct(data.myProducts);
-      console.log("data.myProducts")
-      console.log(data.myProducts);
       setLoading(false);
 
     }
-    if (session){
+
+    if (session) {
       getMyProducts(session.user.id); //PUT PRODUCT ID
     }
   }, [session]);
   return loading ? (
-    <LoadingSpinner text='Loading...' />
+    <CustomerDashboardLayout>
+      <LoadingSpinner text='Loading...'/>
+    </CustomerDashboardLayout>
   ) : (
-    // <UserDashboardHeader>
     <CustomerDashboardLayout>
       <UserDashboardHeader
         icon={Inventory2}
@@ -137,41 +98,185 @@ const ProductList = () => {
           </Link>
         }
       />
-      <Box py={0}>
+      {!hasActiveProduct && !hasProduct && (
         <Card>
-          {/*<StyledScrollBar>*/}
-            <TableContainer>
-              <Table>
-                <TableHeader
-                  order={order}
-                  hideSelectBtn
-                  orderBy={orderBy}
-                  heading={tableHeading}
-                  rowCount={myProduct.length}
-                  numSelected={selected.length}
-                  onRequestSort={handleRequestSort}
-                />
-
-                <TableBody>
-                  {filteredList.map((product, index) => (
-                    <ProductRow product={product} key={index} removeHandler={removeHandler}/>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          {/*</StyledScrollBar>*/}
-
-          {/*<Stack alignItems="center" my={4}>*/}
-          {/*  <TablePagination*/}
-          {/*    onChange={handleChangePage}*/}
-          {/*    count={Math.ceil(products.length / rowsPerPage)}*/}
-          {/*  />*/}
-          {/*</Stack>*/}
+          <Box
+            py={8}
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <H2>You Have No Products</H2>
+          </Box>
         </Card>
-      </Box>
+      )}
+      {hasActiveProduct && (
+        <>
+          <Box py={0}>
+            <Card>
+              {/*<StyledScrollBar>*/}
+              <TableContainer>
+                <Table>
+                  <TableHeader
+                    order={order}
+                    hideSelectBtn
+                    orderBy={orderBy}
+                    heading={tableHeading}
+                    rowCount={myProduct.length}
+                    numSelected={selected.length}
+                    onRequestSort={handleRequestSort}
+                  />
+
+                  <TableBody>
+                    {filteredList.map((product, index) => {
+                        if (product.transaction.state !== 'Published') {
+                          return (
+                            <OrdertRow product={product} key={index} removeHandler={removeHandler}/>
+                          )
+                        }
+                      }
+                    )
+                    }
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              {/*</StyledScrollBar>*/}
+
+              {/*<Stack alignItems="center" my={4}>*/}
+              {/*  <TablePagination*/}
+              {/*    onChange={handleChangePage}*/}
+              {/*    count={Math.ceil(products.length / rowsPerPage)}*/}
+              {/*  />*/}
+              {/*</Stack>*/}
+            </Card>
+          </Box>
+
+
+        </>
+      )}
+
+      {hasProduct && (
+        <>
+          <Box my={5}>
+            <Divider/>
+          </Box>
+          <Box py={0}>
+            <Card>
+              {/*<StyledScrollBar>*/}
+              <TableContainer>
+                <Table>
+                  <TableHeader
+                    order={order}
+                    hideSelectBtn
+                    orderBy={orderBy}
+                    heading={tableHeading}
+                    rowCount={myProduct.length}
+                    numSelected={selected.length}
+                    onRequestSort={handleRequestSort}
+                  />
+
+                  <TableBody>
+                    {filteredList.map((product, index) => {
+                        if (product.transaction.state === 'Published') {
+                          return (
+                            <ProductRow product={product} key={index} removeHandler={removeHandler}/>
+                          )
+                        }
+                      }
+                    )
+                    }
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              {/*</StyledScrollBar>*/}
+
+              {/*<Stack alignItems="center" my={4}>*/}
+              {/*  <TablePagination*/}
+              {/*    onChange={handleChangePage}*/}
+              {/*    count={Math.ceil(products.length / rowsPerPage)}*/}
+              {/*  />*/}
+              {/*</Stack>*/}
+            </Card>
+          </Box>
+        </>
+      )}
     </CustomerDashboardLayout>
 
   );
 }
+const orderTableHeading = [
+  {
+    id: "name",
+    label: "Title",
+    align: "left",
+  },
+  {
+    id: "date",
+    label: "Date",
+    align: "left",
+  },
 
+  {
+    id: "category",
+    label: "Category",
+    align: "left",
+  },
+  {
+    id: "state",
+    label: "State",
+    align: "left",
+  },
+  {
+    id: "action",
+    label: "Action",
+    align: "center",
+  },
+];
+const tableHeading = [
+  {
+    id: "name",
+    label: "Name",
+    align: "left",
+  },
+  {
+    id: "date",
+    label: "Date",
+    align: "left",
+  },
+  {
+    id: "state",
+    label: "State",
+    align: "left",
+  },
+  {
+    id: "published",
+    label: "Published",
+    align: "left",
+  },
+  {
+    id: "action",
+    label: "Action",
+    align: "center",
+  },
+];
+const StyledScrollBar = styled(SimpleBar)(({theme}) => ({
+  maxHeight: "100%",
+  "& .simplebar-scrollbar": {
+    "&.simplebar-visible:before": {
+      opacity: 1,
+    },
+    "&:before": {
+      backgroundColor: alpha(theme.palette.grey[400], 0.6),
+    },
+  },
+  "& .simplebar-track.simplebar-vertical": {
+    width: 9,
+  },
+  "& .simplebar-track.simplebar-horizontal .simplebar-scrollbar": {
+    height: 6,
+  },
+  "& .simplebar-mask": {
+    zIndex: "inherit",
+  },
+}));
 export default ProductList;

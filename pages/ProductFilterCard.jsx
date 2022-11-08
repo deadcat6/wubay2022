@@ -124,17 +124,29 @@ const ProductFilterCard = () => {
 
 const categroyList = [
   {
-    title: "Bath Preparations",
+    title: "All Categories",
   },
   {
-    title: "Eye Makeup Preparations",
+    title: "Textbook",
   },
   {
-    title: "Fragrance",
+    title: "Grocery",
   },
   {
-    title: "Hair Preparations",
+    title: "Clothing & Beauty",
   },
+  {
+    title: "Electronic & Entertainment",
+  },
+  {
+    title: "Furniture & Household",
+  },
+  {
+    title: "Office & School Supplies",
+  },
+  {
+    title: "Other",
+  }
 ];
 const brandList = ["Maccs", "Karts", "Baars", "Bukks", "Luasis"];
 const otherOptions = ["On Sale", "In Stock", "Featured"];

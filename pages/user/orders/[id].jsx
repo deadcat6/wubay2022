@@ -64,11 +64,10 @@ export default function AddProduct() {
       body: JSON.stringify({
         productId: router.query.id,
         product: {
-          ...product,
           title: value.title,
           description: value.description,
           // imagePath: product.imagePath,
-          imagePath: ['/assets/icon.png', '/assets/icon2.png'],
+          imagePath: '/assets/icon.png',
           category: value.category,
           paymentMethod: value.paymentMethod,
           price: value.price,

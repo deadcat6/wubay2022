@@ -13,7 +13,7 @@ import CustomerDashboardNavigation from "../customer-dashboard/Navigations";
 import { Formik } from "formik";
 import Link from "next/link";
 import * as yup from "yup";
-import {useSession} from "next-auth/react";
+import {signOut, useSession} from "next-auth/react";
 import React, {useEffect, useState} from "react";
 import MainLayout from "../../components/MainLayout";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
@@ -264,10 +264,26 @@ const ProfileEditor = () => {
                   {/*</Grid>*/}
                 </Grid>
               </Box>
+              <Grid container spacing={1}>
+                <Grid item xs={3}>
+                  <Button type="submit" variant="contained" color="primary" >
+                    Save Changes
+                  </Button>
+                </Grid>
+                <Grid item xs={3}>
+                  <Button
+                    onClick={() => signOut({ callbackUrl: '/' })}
+                    variant="contained"
+                    color="secondary"
+                    sx={{
+                      px: 4,
+                    }}
+                  >
+                    Sign Out
+                  </Button>
+                </Grid>
+              </Grid>
 
-              <Button type="submit" variant="contained" color="primary" >
-                Save Changes
-              </Button>
             </form>
           )}
         </Formik>

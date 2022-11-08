@@ -38,6 +38,7 @@ export async function removeProduct( productId) {
 
 }
 export async function setProduct(product, productId) {
+  //console.log(product, productId)
   const db = getFirestore(app);
   const docRef = doc(db, "products", productId);
   const userRef = doc(db, "users", product.userId);
@@ -64,7 +65,7 @@ export async function setTransaction(transactions, productId) {
   const docRef = doc(db, "products", productId);
 
   await updateDoc(docRef, {
-    "transaction.paymentMethod": product.state,
+    "transaction.state": product.state,
   });
 }
 
