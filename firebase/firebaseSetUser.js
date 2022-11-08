@@ -22,12 +22,28 @@ export async function addProduct(userId, productId) {
     myProducts: arrayUnion(productId)
   });
 }
+export async function removeMyProduct(userId, productId) {
+  const db = getFirestore(app);
+  const docRef = doc(db, "users", userId);
+
+  await updateDoc(docRef, {
+    myProducts: arrayRemove(productId)
+  });
+}
 export async function addOrder(userId, productId) {
   const db = getFirestore(app);
   const docRef = doc(db, "users", userId);
 
   await updateDoc(docRef, {
     myOrders: arrayUnion(productId)
+  });
+}
+export async function removeMyOrder(userId, productId) {
+  const db = getFirestore(app);
+  const docRef = doc(db, "users", userId);
+
+  await updateDoc(docRef, {
+    myOrders: arrayRemove(productId)
   });
 }
 export async function setRating(productId) {

@@ -5,7 +5,7 @@ async function handler(req, res) {
   if (req.method === 'POST') {
     const data = req.body;
     const {userId, profile} = data;
-    console.log(userId, profile);
+    //console.log(userId, profile);
     await setUserProfile(userId, profile);
     res.status(201).json({message: 'success'});
   }
