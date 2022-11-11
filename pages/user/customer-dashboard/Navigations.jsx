@@ -36,7 +36,7 @@ const Navigations = () => {
       });
       const data = await res.json();
       const profile = data.userData;
-
+      let lengthOfChats = 0;
       setLinkList([
         {
           title: "YOUR ACCOUNT",
@@ -45,7 +45,8 @@ const Navigations = () => {
               href: "/user/profile",
               title: "Profile",
               icon: Person,
-              count: profile.myProducts.length + profile.myOrders.length + profile.usersChats.length,
+              count: profile.myProducts.length + profile.myOrders.length,
+                //+ profile.usersChats.length,
             },
             {
               href: "/user/products",
@@ -63,7 +64,7 @@ const Navigations = () => {
               href: "/user/chats",
               title: "Chats",
               icon: Email,
-              count: profile.usersChats.length,
+              count: 999,
             },
 
           ],

@@ -18,19 +18,7 @@ const Profile = () => {
   const router = useRouter();
   const {data: session} = useSession()
   const [loading, setLoading] = useState(true);
-  const [profile, setProfile] = useState({
-    username: '',
-    password: '',
-    email: '',
-    firstname: '',
-    lastname: '',
-    phone: '',
-    rating: 5,
-    myProducts: [],
-    myOrders: [],
-    usersChats: [],
-    newUser: true,
-  });
+  const [profile, setProfile] = useState({});
   useEffect(() => {
     async function getUserInfo(user) {
       //console.log(user)
@@ -45,15 +33,15 @@ const Profile = () => {
       if (data.userData.newUser) {
         await router.push('/user/profile/edit');
       } else {
-        const p = {...data.userData, imageUrl: session.user.image};
-        console.log(p)
-        setProfile(p);
+        //const p = {...data.userData, imageUrl: session.user.image};
+        console.log(data.userData)
+        setProfile(data.userData);
         setLoading(false);
       }
     }
 
     if (session) {
-      //console.log(session)
+      console.log(session)
       getUserInfo(session.user);
     }
 
@@ -106,7 +94,7 @@ const ProfileData = ({profile}) => {
             }}
           >
             <Avatar
-              src={profile.imageUrl}
+              src={profile.avatarUrl}
               sx={{
                 height: 64,
                 width: 64,

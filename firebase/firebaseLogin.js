@@ -1,5 +1,6 @@
 import {doc, setDoc, getFirestore, getDoc} from "firebase/firestore";
 import { app } from './firebase_config';
+import {Avatar} from "@mui/material";
 
 async function FirebaseLogin(user) {
   const db = getFirestore(app);
@@ -18,8 +19,10 @@ async function FirebaseLogin(user) {
       myOrders: [],
       usersChats: [],
       newUser: true,
+      avatarUrl: user.image,
     });
   }
+
   const docsRef = doc(db, "users", user.id);
   const docsSnap = await getDoc(docsRef);
   return docsSnap.data();

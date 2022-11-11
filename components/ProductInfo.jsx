@@ -11,6 +11,8 @@ import emailjs from "@emailjs/browser";
 import {useSession} from "next-auth/react";
 import Login from "./Login";
 
+
+
 const LazyImage = styled(({borderRadius, ...rest}) => (
   <NextImage {...rest} />
 ))(compose(spacing, borderRadius, bgcolor));
@@ -47,6 +49,7 @@ const ProductInfo = ({product, id}) => {
     }
     return true;
   }
+
   const handleContact = (e) => {
     if (checkSessions()) {
       e.preventDefault();
@@ -93,6 +96,7 @@ const ProductInfo = ({product, id}) => {
         method: 'POST',
         body: JSON.stringify({
           userId: session.user.id,
+          sellerId: product.userId,
           productId: id,
         }),
         headers: {'Content-Type': 'application/json'}
@@ -101,6 +105,7 @@ const ProductInfo = ({product, id}) => {
       await router.push('/user/orders')
     }
   }
+
 
   return (
     <>
