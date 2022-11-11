@@ -103,7 +103,7 @@ const PaymentMethodEditor = () => {
               </H5>
 
               <Span color="grey.600">
-                {formatTime(item.date)}
+                {formatTime(item.date.seconds * 1000)}
               </Span>
 
               <Box borderRadius="10px" bgcolor="grey.200" p={2} mt={2}>
