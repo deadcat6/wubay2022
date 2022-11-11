@@ -16,7 +16,11 @@ export function formatTime(time) {
     return Math.floor((d.getTime()-time)/60000) + " minutes ago";
   } else if (d.getTime()-time <= 82800000) {
     if (Math.floor((d.getTime()-time)/3600000) === 1) {
-      return Math.floor((d.getTime()-time)/3600000) + " hour "+Math.floor((d.getTime()-time)/60000)%60 + " minute ago";
+      if (Math.floor((d.getTime()-time)/60000)%60 > 1){
+        return Math.floor((d.getTime()-time)/3600000) + " hour 1 minute ago";
+      }else{
+        return Math.floor((d.getTime()-time)/3600000) + " hour "+Math.floor((d.getTime()-time)/60000)%60 + " minutes ago";
+      }
     } else {
       return Math.floor((d.getTime()-time)/3600000) + " hours "+Math.floor((d.getTime()-time)/60000)%60 + " minutes ago";
     }} else if (d.getMonth() + "" + d.getDate() + d.getFullYear() === e.getMonth() + "" + e.getDate() + e.getFullYear()) {

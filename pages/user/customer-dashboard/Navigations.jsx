@@ -5,7 +5,9 @@ import {Fragment} from "react";
 import {Box} from "@mui/system";
 import Link from "next/link";
 import {useEffect, useState} from "react";
-import {useSession} from "next-auth/react"; // custom styled components
+import {useSession} from "next-auth/react";
+import {doc, onSnapshot} from "firebase/firestore";
+import {database} from "../../../firebase/firebase_config"; // custom styled components
 
 const StyledNavLink = styled(({children, isCurrentPath, ...rest}) => (
   <a
@@ -26,9 +28,10 @@ const StyledNavLink = styled(({children, isCurrentPath, ...rest}) => (
 const Navigations = () => {
   const [linkList, setLinkList] = useState([]);
   const {data: session} = useSession()
+  const [chats, setChats] = useState([]);
 
   useEffect(() => {
-    async function getUserInfo(user) {
+    async function getUserInfo(user, length) {
       const res = await fetch('/api/user/login', {
         method: 'POST',
         body: JSON.stringify({user: user}),
@@ -64,7 +67,7 @@ const Navigations = () => {
               href: "/user/chats",
               title: "Chats",
               icon: Email,
-              count: 999,
+              count: length,
             },
 
           ],
@@ -72,13 +75,29 @@ const Navigations = () => {
       ]);
       return data.userData;
     }
+    const getChats = () => {
+      const unsub = onSnapshot(doc(database, "userChats", session.user.id), (doc) => {
+        setChats(doc.data());
+      });
+      return () => {
+        unsub();
+      };
+    };
 
     if (session) {
       //console.log(session)
-      getUserInfo(session.user);
+      getChats();
+      let length = 0;
+      Object.entries(chats)?.map((chat) => {
+        length++;
+      });
+      getUserInfo(session.user, length);
+
+
     }
 
   }, [session]);
+
   const {pathname} = useRouter();
   //console.log(profile);
 
