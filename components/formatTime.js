@@ -1,7 +1,7 @@
 
 export function formatTime(time) {
   let d = new Date();
-  let e = new Date(time.seconds * 1000);
+  let e = new Date(time);
   let dow = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   let mo = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   let k = e.getMinutes();
@@ -9,15 +9,16 @@ export function formatTime(time) {
     k = "0";
   }else{
     k = "";
-  }if (d.getTime()-time >= -9990000 && d.getTime()-time <= 119000) {
-    return "Just Now";
+  }
+  if (d.getTime()-time >= -9990000 && d.getTime()-time <= 119000) {
+    return "Just now";
   } else if (d.getTime()-time <= 3600000) {
-    return Math.floor((d.getTime()-time)/60000) + " mins";
+    return Math.floor((d.getTime()-time)/60000) + " minutes ago";
   } else if (d.getTime()-time <= 82800000) {
     if (Math.floor((d.getTime()-time)/3600000) === 1) {
-      return Math.floor((d.getTime()-time)/3600000) + " hr "+Math.floor((d.getTime()-time)/60000)%60 + " mins";
+      return Math.floor((d.getTime()-time)/3600000) + " hour "+Math.floor((d.getTime()-time)/60000)%60 + " minute ago";
     } else {
-      return Math.floor((d.getTime()-time)/3600000) + " hrs "+Math.floor((d.getTime()-time)/60000)%60 + " mins";
+      return Math.floor((d.getTime()-time)/3600000) + " hours "+Math.floor((d.getTime()-time)/60000)%60 + " minutes ago";
     }} else if (d.getMonth() + "" + d.getDate() + d.getFullYear() === e.getMonth() + "" + e.getDate() + e.getFullYear()) {
     if (e.getHours() == 0) {
       return "12:" +k+ e.getMinutes() + " AM";
