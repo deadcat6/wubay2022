@@ -49,14 +49,8 @@ const TicketList = () => {
 
   useEffect(() => {
     const getChats = () => {
-      //setLoading(true);
-      //console.log( session.user.id);
       const unsub = onSnapshot(doc(database, "userChats", session.user.id), (doc) => {
-        //console.log("userChats")
         setChats(doc.data());
-        //console.log(doc.data())
-
-
       });
       //setLoading(false);
       return () => {

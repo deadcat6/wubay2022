@@ -1,7 +1,7 @@
 import {arrayUnion, doc, onSnapshot, getDoc, serverTimestamp, setDoc, Timestamp, updateDoc,} from "firebase/firestore";
 import {database, storage} from "./firebase_config";
 import {getDownloadURL, ref, uploadBytesResumable} from "firebase/storage";
-import uuid from "uuid";
+import { v4 as uuidv4 } from "uuid";
 
 export async function getMessages(chatId) {
   const chatDocRef = doc(database, "chats", chatId);
@@ -28,8 +28,8 @@ export async function newMessage(chatId, myId, img, text) {
 
   console.log(myId, theirId, myName, myAvatar)
   if (img) {
-    //console.log("if img"+img.toString());
-    const storageRef = ref(storage, uuid());
+    console.log("if img"+img);
+    const storageRef = ref(storage, uuidv4());
 
     const uploadTask =  uploadBytesResumable(storageRef, img);
     // alert(uploadTask.snapshot.ref);

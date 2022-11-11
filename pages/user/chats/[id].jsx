@@ -7,7 +7,7 @@ import {H5, Span} from "components/Typography";
 import {formatTime} from '../../../components/formatTime';
 import Link from "next/link";
 import LoadingSpinner from "../../../components/ui/LoadingSpinner";
-import {Email} from "@mui/icons-material";
+import {AttachFile, Email} from "@mui/icons-material";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import {useSession} from "next-auth/react";
@@ -49,19 +49,20 @@ const PaymentMethodEditor = () => {
     return true;
   }
 
-  async function sendHandler() {
+  async function sendHandler(img) {
     if (checkSessions() && router.isReady) {
       const response = await fetch('/api/chat/newMessage', {
         method: 'POST',
         body: JSON.stringify({
           chatId: router.query.id,
           myId: session.user.id,
-          img,
+          img: img,
           text
         }),
         headers: {'Content-Type': 'application/json'}
       });
-      await response.json();
+      const data = await response.json();
+      console.log(data.message);
       // await router.push('/user/orders')
     }
   }
@@ -92,13 +93,13 @@ const PaymentMethodEditor = () => {
       />
 
       <Box sx={{
-        maxHeight: 640,
+        maxHeight: 610,
         overflowY: "scroll",
       }}>
 
 
       {messages?.map((item, ind) => {
-        console.log(item)
+        //console.log(item)
         if (item.senderId === session.user.id) {
           return (
             <FlexBox gap={2} mb={4} key={ind} sx={{flexDirection: 'row-reverse'}}>
@@ -157,7 +158,7 @@ const PaymentMethodEditor = () => {
             onChange={(e) => {
               setText(e.target.value);
             }}
-            rows={8}
+            //rows={8}
             fullWidth
             multiline
             sx={{
@@ -165,11 +166,23 @@ const PaymentMethodEditor = () => {
             }}
             placeholder="Write your message here..."
           />
+          <input
+            type="file"
+            style={{ display: "none" }}
+            id="file"
+            onChange={(e) => {
+              console.log(e.target.files)
+              setImg(e.target.files)
+            }}
+          />
+          <label htmlFor="file">
+           <AttachFile/>
+          </label>
 
           <Button
             color="primary"
             variant="contained"
-            onClick={sendHandler}
+            onClick={ImageWrapper}
             sx={{
               ml: "auto",
               display: "block",
