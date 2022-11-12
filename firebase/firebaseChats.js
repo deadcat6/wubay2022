@@ -1,5 +1,7 @@
-import {arrayUnion, doc, getDoc, serverTimestamp, setDoc, Timestamp, updateDoc,} from "firebase/firestore";
-import {database} from "./firebase_config";
+import {arrayUnion, doc, onSnapshot, getDoc, serverTimestamp, setDoc, Timestamp, updateDoc,} from "firebase/firestore";
+import {database, storage} from "./firebase_config";
+import {getDownloadURL, ref, uploadBytesResumable} from "firebase/storage";
+import { v4 as uuidv4 } from "uuid";
 
 export async function getMessages(chatId) {
   const chatDocRef = doc(database, "chats", chatId);
@@ -8,7 +10,8 @@ export async function getMessages(chatId) {
 }
 
 
-export async function newMessage(chatId, myId, imgUrl, text) {
+
+export async function newMessage(chatId, myId, img, text) {
 
   const chatDocRef = doc(database, "chats", chatId);
   const chatDocSnap = await getDoc(chatDocRef);
@@ -24,7 +27,46 @@ export async function newMessage(chatId, myId, imgUrl, text) {
   const myAvatar = myDocSnap.data().avatarUrl;
 
   console.log(myId, theirId, myName, myAvatar)
+  if (img) {
+    //console.log("if img"+img);
+    const storageRef = ref(storage, uuidv4());
 
+    const uploadTask =  uploadBytesResumable(storageRef, img);
+    // alert(uploadTask.snapshot.ref);
+    uploadTask.on(
+      (snapshot) => {
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        //console.log('Upload is ' + progress + '% done');
+        switch (snapshot.state) {
+          case 'paused':
+            console.log('Upload is paused');
+            break;
+          case 'running':
+            console.log('Upload is running');
+            break;
+        }
+      }, () => {}, () => {},
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+          //alert(downloadURL);
+          await updateDoc(doc(database, "chats", chatId), {
+            messages: arrayUnion({
+              //id: uuid(),
+              text,
+              senderId: myId,
+              senderName: myName,
+              senderAvatar: myAvatar,
+              date: Timestamp.now(),
+              img: downloadURL,
+            }),
+          });
+        })
+      },
+      (error) => {
+        alert(error);
+      }
+    );
+  } else {
     await updateDoc(doc(database, "chats", chatId), {
       messages: arrayUnion({
         //id: uuid(),
@@ -33,12 +75,9 @@ export async function newMessage(chatId, myId, imgUrl, text) {
         senderName: myName,
         senderAvatar: myAvatar,
         date: Timestamp.now(),
-        img: imgUrl,
       }),
     });
-
-
-
+  }
 
   await updateDoc(doc(database, "userChats", myId), {
     [chatId + ".lastMessage"]: {
@@ -90,7 +129,7 @@ export async function newChat(myId, theirId) {
     //create a chat in chats collection
     await setDoc(doc(database, "chats", combinedId), {
       UserIdA: myId,
-      UserIdB: theirId,
+      UserIdB:theirId,
       messages: []
     });
     //const time = new Date();

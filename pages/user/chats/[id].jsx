@@ -13,7 +13,6 @@ import {useRouter} from "next/router";
 import {useSession} from "next-auth/react";
 import {doc, onSnapshot} from "firebase/firestore";
 import {database} from "../../../firebase/firebase_config";
-import {uploadImage} from "../../../firebase/firebaseUpload";
 
 const PaymentMethodEditor = () => {
 
@@ -54,42 +53,19 @@ const PaymentMethodEditor = () => {
     if (checkSessions() && router.isReady) {
 
       let formData = new FormData();
-      formData.set("testFile", img[0])
+      formData.append("chatId", router.query.id);
+      formData.append("myId", session.user.id);
+      formData.append("text", text);
+      if (img) {
+        formData.append("imageFile", img[0]);
+      }
 
       fetch('/api/chat/newMessage', {
         method: "POST",
         body: formData,
       }).then(r => {
-        console.log(r);
+        //console.log(r);
       })
-
-
-
-      // let imgUrl = null;
-      // if (img) {
-      //   //console.log("yes" + img[0])
-      //   uploadImage(img[0]).then(
-      //     async(imgUrl) => {
-      //       console.log("45645456456456456456" +imgUrl)
-      //
-      //       const response = await fetch('/api/chat/newMessage', {
-      //         method: 'POST',
-      //         body: JSON.stringify({
-      //           chatId: router.query.id,
-      //           myId: session.user.id,
-      //           imgUrl: imgUrl,
-      //           text
-      //         }),
-      //         headers: {'Content-Type': 'application/json'}
-      //       });
-      //       const data = await response.json();
-      //       console.log(data.message);
-      //     }
-      //   );
-      //}
-
-
-
       //await router.push('/user/orders')
     }
   }
