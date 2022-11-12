@@ -92,7 +92,7 @@ const ProductInfo = ({product, id}) => {
 
   async function orderHandler() {
     if (checkSessions()) {
-      const response = await fetch('/api/user/addOrder', {
+      await fetch('/api/user/addOrder', {
         method: 'POST',
         body: JSON.stringify({
           userId: session.user.id,
@@ -101,7 +101,7 @@ const ProductInfo = ({product, id}) => {
         }),
         headers: {'Content-Type': 'application/json'}
       });
-      await response.json();
+      //response.json();
       await router.push('/user/orders')
     }
   }
@@ -176,7 +176,7 @@ const ProductInfo = ({product, id}) => {
             </FlexBox>
             <Box mb={3}>
               <H2 color="primary.main" mb={0.5} lineHeight="1">
-                ${product.price.toFixed(2)}
+                ${product.price}
               </H2>
 
               {/*<Box color="inherit">Stock Available</Box>*/}

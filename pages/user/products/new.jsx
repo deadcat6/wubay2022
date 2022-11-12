@@ -1,10 +1,8 @@
 import {Box, Button} from "@mui/material";
-import { H3 } from "../../../components/Typography";
-import ProductForm  from "../../../components/user/product/ProductForm";
+import ProductForm from "../../../components/user/product/ProductForm";
 import React, {useState} from "react";
 import * as yup from "yup";
 import CustomerDashboardLayout from "../customer-dashboard";
-import Person from "@mui/icons-material/Person";
 import CustomerDashboardNavigation from "../customer-dashboard/Navigations";
 import Link from "next/link";
 import UserDashboardHeader from "../../../components/UserDashboardHeader";
@@ -37,36 +35,65 @@ export default function AddProduct() {
     transaction: {}
   });
 
+  const [img, setImg] = useState(null);
+
 
   async function addProductHandler(value) {
-    const response = await fetch('/api/product/newProduct', {
-      method: 'POST',
-      body: JSON.stringify({
-        product: {
-          userId: session.user.id,
-          userEmail: session.user.email,
-          title: value.title,
-          description: value.description,
-          // imagePath: product.imagePath,
-          imagePath: ['/assets/icon.png', '/assets/icon2.png'],
-          category: value.category,
-          paymentMethod: value.paymentMethod,
-          price: value.price,
-          transaction: {}
-        }
+    let formData = new FormData();
+    formData.append("userId", session.user.id);
+    formData.append("userEmail", session.user.email);
+    formData.append("title", value.title);
+    formData.append("description", value.description);
+    formData.append("category", value.category);
+    formData.append("paymentMethod", value.paymentMethod);
+    formData.append("price", value.price);
+    if (img) {
+      img.map((i) => {
+        formData.append(`imageFile${index}`, i);
+      })
+    }
+    fetch('/api/product/newProduct', {
+      method: "POST",
+      body: formData,
+    }).then(r => {
+      router.push('/user/products')
+    })
 
-      }),
-      headers: {'Content-Type': 'application/json'}
 
-
-    });
-    const product_data = await response.json();
+    // const response = await fetch('/api/product/newProduct', {
+    //   method: 'POST',
+    //   body: JSON.stringify({
+    //     product: {
+    //       userId: session.user.id,
+    //       userEmail: session.user.email,
+    //       title: value.title,
+    //       description: value.description,
+    //       // imagePath: product.imagePath,
+    //       imagePath: ['/assets/icon.png', '/assets/icon2.png'],
+    //       category: value.category,
+    //       paymentMethod: value.paymentMethod,
+    //       price: value.price,
+    //       transaction: {}
+    //     }
+    //
+    //   }),
+    //   headers: {'Content-Type': 'application/json'}
+    //
+    //
+    // });
+    // const product_data = await response.json();
   }
+
   const handleFormSubmit = (value) => {
-    setProduct(value);
-    addProductHandler(value).then(() => {
-     router.push('/user/products')
-    });
+    if (session) {
+      setProduct(value);
+      addProductHandler(value).then(() => {
+        //router.push('/user/products')
+      });
+    } else {
+      alert("please login")
+    }
+
   };
 
   return (
@@ -92,6 +119,7 @@ export default function AddProduct() {
         />
 
         <ProductForm
+          setImg={setImg}
           initialValues={product}
           validationSchema={validationSchema}
           handleFormSubmit={handleFormSubmit}

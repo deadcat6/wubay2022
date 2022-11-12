@@ -5,7 +5,7 @@ import React from "react";
 
 // ================================================================
 const ProductForm = (props) => {
-  const { initialValues, validationSchema, handleFormSubmit } = props;
+  const { initialValues, validationSchema, handleFormSubmit, setImg} = props;
   return (
     <Card
       sx={{
@@ -69,7 +69,7 @@ const ProductForm = (props) => {
               </Grid>
 
               <Grid item xs={12}>
-                <DropZone onChange={(files) => console.log(files)} />
+                <DropZone onChange={(files) => setImg(files)} />
               </Grid>
 
               <Grid item xs={12}>

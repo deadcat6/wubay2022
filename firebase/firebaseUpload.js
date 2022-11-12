@@ -35,7 +35,7 @@ export async function uploadImage(img) {
   let result;
   const storageRef = ref(storage, uuidv4());
   const uploadTask = uploadBytesResumable(storageRef, img);
-  uploadTask.on(
+  await uploadTask.on(
     (snapshot) => {
     }, () => {
     }, () => {
@@ -44,14 +44,15 @@ export async function uploadImage(img) {
       getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
         result = downloadURL;
         console.log("resultresultresultresultresultresult" + result)
-        return result;
+        //return result;
        // return downloadURL;;
       })
+      return result;
     },
     (error) => {
       console.log(error);
     }
   );
-  return result;
+
 
 };

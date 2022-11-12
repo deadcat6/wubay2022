@@ -69,9 +69,7 @@ const ProductList = () => {
       })
       setMyProduct(data.myProducts);
       setLoading(false);
-
     }
-
     if (session) {
       getMyProducts(session.user.id); //PUT PRODUCT ID
     }

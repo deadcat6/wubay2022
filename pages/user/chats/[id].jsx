@@ -37,8 +37,6 @@ const PaymentMethodEditor = () => {
       };
     };
     checkSessions() && router.isReady && getMegs();
-
-
   }, [router.isReady, session]);
 
   const checkSessions = () => {
@@ -51,7 +49,6 @@ const PaymentMethodEditor = () => {
 
   async function sendHandler() {
     if (checkSessions() && router.isReady) {
-
       let formData = new FormData();
       formData.append("chatId", router.query.id);
       formData.append("myId", session.user.id);
@@ -59,14 +56,12 @@ const PaymentMethodEditor = () => {
       if (img) {
         formData.append("imageFile", img[0]);
       }
-
       fetch('/api/chat/newMessage', {
         method: "POST",
         body: formData,
       }).then(r => {
         //console.log(r);
       })
-      //await router.push('/user/orders')
     }
   }
 

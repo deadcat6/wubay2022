@@ -1,7 +1,23 @@
-import {deleteDoc, getFirestore, serverTimestamp, addDoc, collection, doc, updateDoc, getDoc} from "firebase/firestore";
-import { app } from './firebase_config';
+import {
+  addDoc,
+  arrayUnion,
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getFirestore,
+  serverTimestamp, Timestamp,
+  updateDoc
+} from "firebase/firestore";
+import {app, database, storage} from './firebase_config';
+import {getDownloadURL, ref, uploadBytesResumable} from "firebase/storage";
+import {v4 as uuidv4} from "uuid";
 
-export async function newProduct( product) {
+export async function newProduct(product, imageArray) {
+  console.log("newProduct")
+  console.log(product, imageArray)
+
+
   const db = getFirestore(app);
   const userRef = doc(db, "users", product.userId);
   const userSnap = await getDoc(userRef);
@@ -14,7 +30,7 @@ export async function newProduct( product) {
     userEmail: product.userEmail,
     title: product.title,
     description: product.description,
-    imagePath: product.imagePath,
+    imagePath: [],
     updateTime: serverTimestamp(),
     paymentMethod: product.paymentMethod,
     category: product.category,
@@ -25,18 +41,52 @@ export async function newProduct( product) {
       state: 'Published',
       createdTime: null,
       buyer: null,
-      seller: product.userId ,
+      seller: product.userId,
       paymentMethod: product.paymentMethod,
     }
   });
+  if (imageArray.length === 0) {
+    await updateDoc(doc(db, "products", docRef.id), {
+      imagePath: arrayUnion(
+        `https://picsum.photos/seed/${docRef.id}/200/300`
+      ),
+    });
+    return docRef.id;
+  }
+
+  imageArray.map(async (img) => {
+    const storageRef = ref(storage, uuidv4());
+    const uploadTask = uploadBytesResumable(storageRef, img);
+    uploadTask.on(
+      () => {
+      }, () => {
+      }, () => {
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+          await updateDoc(doc(db, "products", docRef.id), {
+            imagePath: arrayUnion(
+             downloadURL
+            ),
+          });
+        })
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  });
+
+
   return docRef.id;
 }
 
-export async function removeProduct( productId) {
+export async function removeProduct(productId) {
   const db = getFirestore(app);
   await deleteDoc(doc(db, "products", productId));
 
 }
+
 export async function setProduct(product, productId) {
   //console.log(product, productId)
   const db = getFirestore(app);
