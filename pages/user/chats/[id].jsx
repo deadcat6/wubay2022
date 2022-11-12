@@ -1,4 +1,4 @@
-import {alpha, Avatar, Box, Button, Divider, Paper, styled, TextField} from "@mui/material";
+import {Avatar, Box, Button, Divider, TextField} from "@mui/material";
 import {FlexBox} from "components/flex-box";
 import UserDashboardHeader from "../../../components/UserDashboardHeader";
 import CustomerDashboardNavigation from "../customer-dashboard/Navigations";
@@ -13,6 +13,7 @@ import {useRouter} from "next/router";
 import {useSession} from "next-auth/react";
 import {doc, onSnapshot} from "firebase/firestore";
 import {database} from "../../../firebase/firebase_config";
+import {uploadImage} from "../../../firebase/firebaseUpload";
 
 const PaymentMethodEditor = () => {
 
@@ -49,21 +50,47 @@ const PaymentMethodEditor = () => {
     return true;
   }
 
-  async function sendHandler(img) {
+  async function sendHandler() {
     if (checkSessions() && router.isReady) {
-      const response = await fetch('/api/chat/newMessage', {
-        method: 'POST',
-        body: JSON.stringify({
-          chatId: router.query.id,
-          myId: session.user.id,
-          img: img,
-          text
-        }),
-        headers: {'Content-Type': 'application/json'}
-      });
-      const data = await response.json();
-      console.log(data.message);
-      // await router.push('/user/orders')
+
+      let formData = new FormData();
+      formData.set("testFile", img[0])
+
+      fetch('/api/chat/newMessage', {
+        method: "POST",
+        body: formData,
+      }).then(r => {
+        console.log(r);
+      })
+
+
+
+      // let imgUrl = null;
+      // if (img) {
+      //   //console.log("yes" + img[0])
+      //   uploadImage(img[0]).then(
+      //     async(imgUrl) => {
+      //       console.log("45645456456456456456" +imgUrl)
+      //
+      //       const response = await fetch('/api/chat/newMessage', {
+      //         method: 'POST',
+      //         body: JSON.stringify({
+      //           chatId: router.query.id,
+      //           myId: session.user.id,
+      //           imgUrl: imgUrl,
+      //           text
+      //         }),
+      //         headers: {'Content-Type': 'application/json'}
+      //       });
+      //       const data = await response.json();
+      //       console.log(data.message);
+      //     }
+      //   );
+      //}
+
+
+
+      //await router.push('/user/orders')
     }
   }
 
@@ -98,51 +125,66 @@ const PaymentMethodEditor = () => {
       }}>
 
 
-      {messages?.map((item, ind) => {
-        //console.log(item)
-        if (item.senderId === session.user.id) {
+        {messages?.map((item, ind) => {
+          //console.log(item)
+          if (item.senderId === session.user.id) {
+            return (
+              <FlexBox gap={2} mb={4} key={ind} sx={{flexDirection: 'row-reverse'}}>
+                <Avatar src={item.senderAvatar}/>
+                <Box>
+                  <FlexBox sx={{justifyContent: "flex-end"}}>
+                    <H5 fontWeight="600" mt={0} mb={0}>
+                      {item.senderName}
+                    </H5>
+                  </FlexBox>
+                  <FlexBox sx={{justifyContent: "flex-end"}}>
+                    <Span color="grey.600">
+                      {formatTime(item.date.seconds * 1000)}
+                    </Span>
+                  </FlexBox>
+                  <Box borderRadius="10px" bgcolor="grey.200" p={2} mt={2}>
+                    <FlexBox sx={{justifyContent: "flex-end"}}>
+                      {item.text}
+                    </FlexBox>
+
+                    <Avatar
+                      src={item.img}
+                      sx={{
+                        borderRadius: "8px",
+                      }}
+                    />
+                  </Box>
+                </Box>
+              </FlexBox>
+            )
+          }
           return (
-            <FlexBox gap={2} mb={4} key={ind} sx={{flexDirection: 'row-reverse'}}>
+            <FlexBox gap={2} mb={4} key={ind}>
               <Avatar src={item.senderAvatar}/>
               <Box>
-                <FlexBox sx={{justifyContent: "flex-end"}}>
-                  <H5 fontWeight="600" mt={0} mb={0}>
-                    {item.senderName}
-                  </H5>
-                </FlexBox>
-                <FlexBox sx={{justifyContent: "flex-end"}}>
-                  <Span color="grey.600">
-                    {formatTime(item.date.seconds * 1000)}
-                  </Span>
-                </FlexBox>
-                <Box borderRadius="10px" bgcolor="grey.200" p={2} mt={2} >
-                  <FlexBox sx={{justifyContent: "flex-end"}}>
-                    {item.text}
-                  </FlexBox>
+                <H5 fontWeight="600" mt={0} mb={0}>
+                  {item.senderName}
+                </H5>
+
+                <Span color="grey.600">
+                  {formatTime(item.date.seconds * 1000)}
+                </Span>
+
+                <Box borderRadius="10px" bgcolor="grey.200" p={2} mt={2}>
+                  {item.text}
                 </Box>
-              </Box>
-        </FlexBox>
-        )
-        }
-        return (
-          <FlexBox gap={2} mb={4} key={ind}>
-            <Avatar src={item.senderAvatar}/>
-            <Box>
-              <H5 fontWeight="600" mt={0} mb={0}>
-                {item.senderName}
-              </H5>
+                <Avatar
+                  src={item.img}
+                  sx={{
+                    borderRadius: "8px",
+                  }}
+                />
+                {/*<img src={item.img} alt=""/>*/}
 
-              <Span color="grey.600">
-                {formatTime(item.date.seconds * 1000)}
-              </Span>
-
-              <Box borderRadius="10px" bgcolor="grey.200" p={2} mt={2}>
-                {item.text}
               </Box>
-            </Box>
-          </FlexBox>
-        )
-      })}
+            </FlexBox>
+          )
+        })}
       </Box>
 
       {messages && (
@@ -168,7 +210,7 @@ const PaymentMethodEditor = () => {
           />
           <input
             type="file"
-            style={{ display: "none" }}
+            style={{display: "none"}}
             id="file"
             onChange={(e) => {
               console.log(e.target.files)
@@ -176,13 +218,13 @@ const PaymentMethodEditor = () => {
             }}
           />
           <label htmlFor="file">
-           <AttachFile/>
+            <AttachFile/>
           </label>
 
           <Button
             color="primary"
             variant="contained"
-            onClick={ImageWrapper}
+            onClick={sendHandler}
             sx={{
               ml: "auto",
               display: "block",
@@ -197,5 +239,6 @@ const PaymentMethodEditor = () => {
     </CustomerDashboardLayout>
   );
 };
+
 
 export default PaymentMethodEditor;
