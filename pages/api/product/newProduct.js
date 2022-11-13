@@ -20,9 +20,9 @@ export default async (req, res) => {
 
   form.parse(req, async (err, fields, files) => {
     // console.log(fields, files);
-    const { userId, userEmail, title, description, category, paymentMethod, price} = fields;
+    let { userId, userEmail, title, description, category, paymentMethod, price} = fields;
+    price = parseInt(price)
     const ProductInfo = {userId, userEmail, title, description, category, paymentMethod, price};
-
     const id = await newProduct(ProductInfo, imageArray);
     await addProduct(userId, id);
     res.status(201).json({message: 'inserted product into database'});

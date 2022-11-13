@@ -15,7 +15,7 @@ import {bgcolor, borderRadius, compose, spacing, typography} from "@mui/system";
 import NextImage from "next/image";
 
 const ProductCard = ({
-                        id,
+  productId,
                         title,
                         price,
                         imagePath,
@@ -45,7 +45,7 @@ const ProductCard = ({
           </IconButton>
         </HoverIconWrapper>
 
-        <Link href={`/product/${id}`}>
+        <Link href={`/product/${productId}`}>
           <a>
             <LazyImage
               src={imagePath[0]}
@@ -61,7 +61,7 @@ const ProductCard = ({
       <ContentWrapper>
         <FlexBox>
           <Box flex="1 1 0" minWidth="0px" mr={1}>
-            <Link href={`/product/${id}`}>
+            <Link href={`/product/${productId}`}>
               <a>
                 <H3
                   mb={1}

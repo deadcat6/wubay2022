@@ -11,5 +11,30 @@ async function handler(req, res) {
     res.status(201).json({message: 'success', myOrders});
   }
 }
-
+const categroyList = [
+  {
+    title: "All Categories",
+  },
+  {
+    title: "Textbook",
+  },
+  {
+    title: "Grocery",
+  },
+  {
+    title: "Clothing & Beauty",
+  },
+  {
+    title: "Electronic & Entertainment",
+  },
+  {
+    title: "Furniture & Household",
+  },
+  {
+    title: "Office & School Supplies",
+  },
+  {
+    title: "Other",
+  }
+];
 export default handler;

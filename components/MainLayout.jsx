@@ -27,7 +27,7 @@ const theme = createTheme({
       darker: '#053e85',
     },
     neutral: {
-      main: '#64748B',
+      main: '#f4f5f5',
       contrastText: '#fff',
     },
   },

@@ -4,8 +4,6 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
 
-import SearchBar from './SearchBar';
-//import CartWidget from '../Cart/CartWidget';
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 import {Dialog, Tooltip} from "@mui/material";
@@ -18,6 +16,7 @@ import {useSession} from "next-auth/react";
 import Login from "../Login";
 import {useRouter} from "next/router";
 import {Box} from "@mui/system";
+import SearchBox from "./SearchBox"
 
 
 const NavBar = () => {
@@ -55,7 +54,7 @@ const NavBar = () => {
           </Box>
 
           <Container maxWidth='xs' disableGutters>
-            <SearchBar/>
+            <SearchBox/>
           </Container>
 
           <Stack direction="row" spacing={1}>

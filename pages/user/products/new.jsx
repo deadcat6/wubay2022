@@ -39,6 +39,7 @@ export default function AddProduct() {
 
 
   async function addProductHandler(value) {
+
     let formData = new FormData();
     formData.append("userId", session.user.id);
     formData.append("userEmail", session.user.email);
@@ -48,7 +49,7 @@ export default function AddProduct() {
     formData.append("paymentMethod", value.paymentMethod);
     formData.append("price", value.price);
     if (img) {
-      img.map((i) => {
+      img.map((i, index) => {
         formData.append(`imageFile${index}`, i);
       })
     }
@@ -56,7 +57,7 @@ export default function AddProduct() {
       method: "POST",
       body: formData,
     }).then(r => {
-      router.push('/user/products')
+      //router.push('/user/products')
     })
 
 

@@ -1,13 +1,14 @@
 import {Box, Card, Container, Grid, MenuItem, Pagination, TextField,} from "@mui/material";
 // import useMediaQuery from "@mui/material/useMediaQuery";
-import {FlexBetween, FlexBox} from "../components/flex-box";
-import MainLayout from "../components/MainLayout";
-import ProductFilterCard from "../components/ProductFilterCard";
-import {H5, Paragraph, Span} from "../components/Typography";
+import {FlexBetween, FlexBox} from "../../components/flex-box";
+import MainLayout from "../../components/MainLayout";
+import ProductFilterCard from "../../components/ProductFilterCard";
+import {H5, Paragraph, Span} from "../../components/Typography";
+import {useEffect, useState} from "react";
+import LoadingSpinner from "../../components/ui/LoadingSpinner";
 import * as React from "react";
-import {Fragment, useEffect, useState} from "react";
-import LoadingSpinner from "../components/ui/LoadingSpinner";
-import ProductCard from "../components/ProductCard";
+import {Fragment} from "react";
+import ProductCard from "../../components/ProductCard";
 import algoliasearch from "algoliasearch";
 import {useRouter} from "next/router";
 
@@ -27,7 +28,7 @@ const MainPage = () => {
   let [page, setPage] = useState(1);
   const PER_PAGE = 12;
 
-  const count = products ? Math.ceil(products.length / PER_PAGE) : 1;
+  const count = products ? Math.ceil(products.length / PER_PAGE) : 0;
   const productsData = usePagination(products, PER_PAGE);
 
   const handlePageChange = (e, p) => {
@@ -36,17 +37,18 @@ const MainPage = () => {
   };
 
   useEffect(() => {
-    const getProducts = async () => {
+    const getProducts = async (queryString) => {
       setPage(1);
       productsData.jump(1);
       const opt = getRanking(sort);
-      console.log(opt, queryOptions)
+      //console.log(opt, queryOptions)
       setProducts()
       //setLoading(true);
       index.setSettings(opt).wait().then(() => {
-        index.search('', queryOptions).then(({hits}) => {
-          console.log(hits);
+        index.search(queryString, queryOptions).then(({ hits }) => {
+          //console.log(hits);
           setProducts(hits)
+
 
         }).catch(err => console.log(err));
       });
@@ -54,8 +56,8 @@ const MainPage = () => {
 
 
     };
-    getProducts();
-  }, [sort, queryOptions]);
+    router.isReady && getProducts(router.query.id);
+  }, [router.isReady, router, sort, queryOptions]);
 
 
   const sortOptions = [
@@ -77,22 +79,23 @@ const MainPage = () => {
     },
   ];
   const getRanking = (sort) => {
-    let opt = {};
-    if (sort === "Latest") {
+    let opt = {
+    };
+    if (sort === "Latest")  {
       opt = {
         customRanking: [
           'desc(updateTime)'
         ]
       }
     }
-    if (sort === "Price Low to High") {
+    if (sort === "Price Low to High")  {
       opt = {
         customRanking: [
           'asc(price)'
         ]
       }
     }
-    if (sort === "Price High to Low") {
+    if (sort === "Price High to Low")  {
       opt = {
         customRanking: [
           'desc(price)'
@@ -101,6 +104,7 @@ const MainPage = () => {
     }
     return opt;
   }
+
 
   const setFilter = (cateState, rating, lowBound, upBound) => {
 
@@ -179,12 +183,14 @@ const MainPage = () => {
     setQueryOptions(queryOptions);
 
 
+
   };
+
 
 
   return loading ? (
     <MainLayout>
-      <LoadingSpinner text='Loading...'/>
+      <LoadingSpinner text='Loading...' />
     </MainLayout>
   ) : (
     <MainLayout>
@@ -210,8 +216,8 @@ const MainPage = () => {
           }}
         >
           <Box>
-            <H5>Welcome to WuBay</H5>
-            <Paragraph color="grey.600">{products ? products.length : 0} results found</Paragraph>
+            <H5>Searching for “ {router.query.id} ”</H5>
+            <Paragraph color="grey.600">{products?.length}  results found</Paragraph>
           </Box>
 
           <FlexBox
@@ -267,28 +273,25 @@ const MainPage = () => {
               <Grid item md={9} xs={12}>
                 <Fragment>
                   <Grid container spacing={3}>
-                    {productsData.currentData().map((item, ind) => {
-                      //console.log("item" + JSON.stringify(item))
-                      return (
-                        <Grid item lg={4} sm={6} xs={12} key={ind}>
-                          <ProductCard {...item} />
-                        </Grid>
-                      )
-                    })}
+                    {productsData?.currentData()?.map((item, ind) => (
+                      <Grid item lg={4} sm={6} xs={12} key={ind}>
+                        <ProductCard {...item} />
+                      </Grid>
+                    ))}
                   </Grid>
+
                   <FlexBetween flexWrap="wrap" mt={4}>
-                    <Span color="grey.600">{products?.length} results found</Span>
-                    <Pagination page={page} count={count} variant="outlined" color="primary"
-                                onChange={handlePageChange}/>
+                    <Span color="grey.600">{products?.length}  results found</Span>
+                    <Pagination page={page} count={count} variant="outlined" color="primary" onChange={handlePageChange} />
                   </FlexBetween>
                 </Fragment>
               </Grid>
 
             ) : (
               <Grid item md={9} xs={12}>
-                <Box>
-                  <LoadingSpinner text='Loading...'/>
-                </Box>
+               <Box>
+                 <LoadingSpinner text='Loading...' />
+               </Box>
               </Grid>
 
             )
@@ -301,10 +304,12 @@ const MainPage = () => {
 };
 
 
+
 const usePagination = (data, itemsPerPage) => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const maxPage = Math.ceil(data?.length / itemsPerPage);
+
 
   function currentData() {
     if (isNaN(currentPage)) {
@@ -331,13 +336,12 @@ const usePagination = (data, itemsPerPage) => {
     setCurrentPage(currentPage => Math.max(currentPage - 1, 1));
   }
 
-
   function jump(page) {
     const pageNumber = Math.max(1, page);
     setCurrentPage(currentPage => Math.min(pageNumber, maxPage));
   }
 
-  return { next, prev, jump, currentData, currentPage, maxPage};
+  return { next, prev, jump, currentData, currentPage, maxPage };
 }
 
 export default MainPage;

@@ -47,6 +47,7 @@ export async function newProduct(product, imageArray) {
   });
   if (imageArray.length === 0) {
     await updateDoc(doc(db, "products", docRef.id), {
+      productId: docRef.id,
       imagePath: arrayUnion(
         `https://picsum.photos/seed/${docRef.id}/200/300`
       ),
@@ -65,6 +66,7 @@ export async function newProduct(product, imageArray) {
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
           await updateDoc(doc(db, "products", docRef.id), {
+            productId: docRef.id,
             imagePath: arrayUnion(
              downloadURL
             ),

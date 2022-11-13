@@ -59,10 +59,10 @@ const ProductForm = (props) => {
                 >
                   <MenuItem value="Textbook">Textbook</MenuItem>
                   <MenuItem value="Grocery">Grocery</MenuItem>
-                  <MenuItem value="Clothing & Beauty">Clothing & Beauty</MenuItem>
-                  <MenuItem value="Electronic & Entertainment">Electronic & Entertainment</MenuItem>
-                  <MenuItem value="Furniture & Household">Furniture & Household</MenuItem>
-                  <MenuItem value="Office & School Supplies">Office & School Supplies</MenuItem>
+                  <MenuItem value="Clothing">Clothing & Beauty</MenuItem>
+                  <MenuItem value="Electronic">Electronic & Entertainment</MenuItem>
+                  <MenuItem value="Furniture">Furniture & Household</MenuItem>
+                  <MenuItem value="Office">Office & School Supplies</MenuItem>
                   <MenuItem value="Other">Other</MenuItem>
 
                 </TextField>
