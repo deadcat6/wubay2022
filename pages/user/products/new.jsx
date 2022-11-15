@@ -57,7 +57,7 @@ export default function AddProduct() {
       method: "POST",
       body: formData,
     }).then(r => {
-      //router.push('/user/products')
+      router.push('/user/products')
     })
 
 
@@ -88,8 +88,7 @@ export default function AddProduct() {
   const handleFormSubmit = (value) => {
     if (session) {
       setProduct(value);
-      addProductHandler(value).then(() => {
-        //router.push('/user/products')
+      addProductHandler(value).then(() => {//router.push('/user/products')
       });
     } else {
       alert("please login")
