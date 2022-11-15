@@ -93,12 +93,14 @@ const Navigations = () => {
   }, [session]);
 
   useEffect(() => {
-    let length = 0;
-    Object.entries(chats)?.map((chat) => {
-      length++;
-    });
-    //console.log("length,", length)
-    setChatLength(length);
+    if(!!chats) {
+      let length = 0;
+      Object.entries(chats)?.map((chat) => {
+        length++;
+      });
+      //console.log("length,", length)
+      setChatLength(length);
+    }
   }, [chats])
 
   const {pathname} = useRouter();
