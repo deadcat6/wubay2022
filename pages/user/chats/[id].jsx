@@ -88,7 +88,7 @@ const PaymentMethodEditor = () => {
     <CustomerDashboardLayout>
       <UserDashboardHeader
         icon={Email}
-        title={Chatting}
+        title="Chatting"
         button={
           <Link href="/user/chats" passHref>
             <Button
