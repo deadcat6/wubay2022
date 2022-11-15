@@ -14,6 +14,7 @@ import {useSession} from "next-auth/react";
 import LoadingSpinner from "../../../components/ui/LoadingSpinner";
 import OrdertRow from "../../../components/user/product/OrdertRow";
 import {H2} from "../../../components/Typography";
+import {useRouter} from "next/router";
 
 
 const ProductList = () => {
@@ -24,6 +25,7 @@ const ProductList = () => {
   const [myProduct, setMyProduct] = useState();
   const [hasActiveProduct, setHasActiveProduct] = useState(false);
   const [hasProduct, setHasProduct] = useState(false);
+  const router = useRouter();
 
   const {
     order,
@@ -46,7 +48,9 @@ const ProductList = () => {
       headers: {'Content-Type': 'application/json'}
     });
     setLoading(false);
-    const data = await res.json();
+    res.json().then(
+      await router.push('/user/products')
+    );
   }
 
   useEffect(() => {
