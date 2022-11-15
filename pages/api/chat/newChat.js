@@ -1,3 +1,4 @@
+
 import {newChat} from '../../../firebase/firebaseChats';
 
 async function handler(req, res) {
@@ -5,8 +6,8 @@ async function handler(req, res) {
     const data = req.body;
     const {userId, sellerId} = data;
 
-    await newChat(userId, sellerId);
-    res.status(201).json({message: 'success'});
+    const chatId = await newChat(userId, sellerId);
+    res.status(201).json({message: 'success', chatId});
   }
 }
 export default handler;

@@ -200,7 +200,7 @@ const StyledBazaarCard = styled(BazaarCard)(() => ({
   },
 }));
 const ImageWrapper = styled(Box)(({theme}) => ({
-  textAlign: "center",
+  textalign: "center",
   position: "relative",
   display: "inline-block",
   [theme.breakpoints.down("sm")]: {

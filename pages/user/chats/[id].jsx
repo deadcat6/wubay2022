@@ -8,7 +8,7 @@ import {formatTime} from '../../../components/formatTime';
 import Link from "next/link";
 import LoadingSpinner from "../../../components/ui/LoadingSpinner";
 import {AttachFile, Email} from "@mui/icons-material";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {useRouter} from "next/router";
 import {useSession} from "next-auth/react";
 import {doc, onSnapshot} from "firebase/firestore";
@@ -16,15 +16,14 @@ import {database} from "../../../firebase/firebase_config";
 
 const PaymentMethodEditor = () => {
 
+
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const {data: session} = useSession();
-
   const [text, setText] = useState("");
   const [img, setImg] = useState(null);
-
   const [messages, setMessages] = useState([]);
-
+  const scrollRef = useRef(null)
   useEffect(() => {
     const getMegs = () => {
       //setLoading(true);
@@ -37,7 +36,15 @@ const PaymentMethodEditor = () => {
       };
     };
     checkSessions() && router.isReady && getMegs();
+
+
   }, [router.isReady, session]);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollIntoView({behaviour: "smooth"});
+    }
+  }, [messages]);
 
   const checkSessions = () => {
     if (!session) {
@@ -49,6 +56,10 @@ const PaymentMethodEditor = () => {
 
   async function sendHandler() {
     if (checkSessions() && router.isReady) {
+      if (!text && !img) {
+        return
+      }
+
       let formData = new FormData();
       formData.append("chatId", router.query.id);
       formData.append("myId", session.user.id);
@@ -56,12 +67,16 @@ const PaymentMethodEditor = () => {
       if (img) {
         formData.append("imageFile", img[0]);
       }
+
       fetch('/api/chat/newMessage', {
         method: "POST",
         body: formData,
       }).then(r => {
         //console.log(r);
+        setText("");
+        setImg(null);
       })
+      //await router.push('/user/orders')
     }
   }
 
@@ -91,18 +106,16 @@ const PaymentMethodEditor = () => {
       />
 
       <Box sx={{
-        maxHeight: 610,
+        height: "30em",
         overflowY: "scroll",
       }}>
-
-
         {messages?.map((item, ind) => {
           //console.log(item)
-          if (item.senderId === session.user.id) {
+          if (item.senderId === session.user.id && (!!item.text || !!item.img)) {
             return (
               <FlexBox gap={2} mb={4} key={ind} sx={{flexDirection: 'row-reverse'}}>
                 <Avatar src={item.senderAvatar}/>
-                <Box>
+                <Box sx={{maxWidth: "90%"}} ref={scrollRef}>
                   <FlexBox sx={{justifyContent: "flex-end"}}>
                     <H5 fontWeight="600" mt={0} mb={0}>
                       {item.senderName}
@@ -113,48 +126,45 @@ const PaymentMethodEditor = () => {
                       {formatTime(item.date.seconds * 1000)}
                     </Span>
                   </FlexBox>
-                  <Box borderRadius="10px" bgcolor="grey.200" p={2} mt={2}>
-                    <FlexBox sx={{justifyContent: "flex-end"}}>
-                      {item.text}
-                    </FlexBox>
+                  {!!item.text &&
+                    <Box borderRadius="10px" bgcolor="grey.200" p={2} mt={2}>
+                      <FlexBox sx={{justifyContent: "flex-end"}}>
+                        {item.text}
+                      </FlexBox>
+                    </Box>
+                  }
 
-                    <Avatar
-                      src={item.img}
-                      sx={{
-                        borderRadius: "8px",
-                      }}
-                    />
+                  <FlexBox justifyContent="flex-end">
+                    <img style={{maxWidth: "250px"}} src={item.img} alt=""/>
+                  </FlexBox>
+                </Box>
+              </FlexBox>
+            )
+          } else if (!!item.text || !!item.img) {
+            return (
+              <FlexBox gap={2} mb={4} key={ind}>
+                <Avatar src={item.senderAvatar}/>
+                <Box sx={{maxWidth: "90%"}} ref={scrollRef}>
+                  <H5 fontWeight="600" mt={0} mb={0}>
+                    {item.senderName}
+                  </H5>
+                  <Span color="grey.600">
+                    {formatTime(item.date.seconds * 1000)}
+                  </Span>
+                  {!!item.text &&
+                    <Box borderRadius="10px" bgcolor="grey.200" p={2} mt={2}>
+                      {item.text}
+                    </Box>
+                  }
+                  <Box>
+                    <img style={{maxWidth: "250px"}} src={item.img} alt=""/>
                   </Box>
+
                 </Box>
               </FlexBox>
             )
           }
-          return (
-            <FlexBox gap={2} mb={4} key={ind}>
-              <Avatar src={item.senderAvatar}/>
-              <Box>
-                <H5 fontWeight="600" mt={0} mb={0}>
-                  {item.senderName}
-                </H5>
 
-                <Span color="grey.600">
-                  {formatTime(item.date.seconds * 1000)}
-                </Span>
-
-                <Box borderRadius="10px" bgcolor="grey.200" p={2} mt={2}>
-                  {item.text}
-                </Box>
-                <Avatar
-                  src={item.img}
-                  sx={{
-                    borderRadius: "8px",
-                  }}
-                />
-                {/*<img src={item.img} alt=""/>*/}
-
-              </Box>
-            </FlexBox>
-          )
         })}
       </Box>
 
@@ -168,6 +178,7 @@ const PaymentMethodEditor = () => {
           />
 
           <TextField
+            value={text}
             onChange={(e) => {
               setText(e.target.value);
             }}
@@ -175,34 +186,45 @@ const PaymentMethodEditor = () => {
             fullWidth
             multiline
             sx={{
-              mb: 3,
+              mb: 1,
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                sendHandler();
+              }
             }}
             placeholder="Write your message here..."
           />
-          <input
-            type="file"
-            style={{display: "none"}}
-            id="file"
-            onChange={(e) => {
-              console.log(e.target.files)
-              setImg(e.target.files)
-            }}
-          />
-          <label htmlFor="file">
-            <AttachFile/>
-          </label>
+          <FlexBox sx={{justifyContent: "flex-end"}}>
+            <Box mr={2} py={1}>
+              <input
+                type="file"
+                style={{display: "none"}}
+                id="file"
+                onChange={(e) => {
+                  //console.log(e.target.files)
+                  setImg(e.target.files)
+                }}
+              />
+            <label htmlFor="file">
+              <AttachFile/>
+            </label>
+            </Box>
+            <Button
+              color="primary"
+              variant="contained"
+              onClick={sendHandler}
+              sx={{
+                //ml: "auto",
+                display: "block",
+              }}
+            >
+              Sent Message
+            </Button>
 
-          <Button
-            color="primary"
-            variant="contained"
-            onClick={sendHandler}
-            sx={{
-              ml: "auto",
-              display: "block",
-            }}
-          >
-            Sent Message
-          </Button>
+          </FlexBox>
+
         </>
       )}
 

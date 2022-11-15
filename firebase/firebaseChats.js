@@ -173,7 +173,7 @@ export async function newChat(myId, theirId) {
     //   )
     // });
   }
-  return true;
+  return combinedId;
 
 }
 

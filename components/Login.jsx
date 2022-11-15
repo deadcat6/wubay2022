@@ -44,7 +44,7 @@ export const Wrapper = styled(({children, passwordVisibility, ...rest}) => (
 const Login = () => {
   return (
     <Wrapper elevation={3}>
-      <H3 textAlign="center" mb={1}>
+      <H3 textalign="center" mb={1}>
         Welcome, Please Login
       </H3>
       <Small
@@ -53,7 +53,7 @@ const Login = () => {
         fontSize="12px"
         fontWeight="600"
         color="grey.800"
-        textAlign="center"
+        textalign="center"
       >
         WUBay, the harbor where used items receives a second life.
       </Small>

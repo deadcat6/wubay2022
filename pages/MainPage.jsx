@@ -40,12 +40,12 @@ const MainPage = () => {
       setPage(1);
       productsData.jump(1);
       const opt = getRanking(sort);
-      console.log(opt, queryOptions)
+      //console.log(opt, queryOptions)
       setProducts()
       //setLoading(true);
       index.setSettings(opt).wait().then(() => {
         index.search('', queryOptions).then(({hits}) => {
-          console.log(hits);
+          //console.log(hits);
           setProducts(hits)
 
         }).catch(err => console.log(err));

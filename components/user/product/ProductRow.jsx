@@ -88,10 +88,24 @@ const ProductRow = ({ product, removeHandler }) => {
   const state = product.transaction.state;
   const updateTime = new Date(product.updateTime).toDateString();
   const router = useRouter();
-  const [productPulish, setProductPublish] = useState(published);
+  const [productPublish, setProductPublish] = useState(published);
+
+  async function publishedHandler() {
+    const response = await fetch('/api/product/setProductPublish', {
+      method: 'POST',
+      body: JSON.stringify({
+        productId: id,
+        published: !productPublish,
+      }),
+      headers: {'Content-Type': 'application/json'}
+    });
+    setProductPublish((state) => !state)
+    const product_data = await response.json();
+  }
 
 
-  return (
+
+    return (
     <StyledTableRow tabIndex={-1} role="checkbox">
       <StyledTableCell align="left">
         <FlexBox alignItems="center" gap={1.5}>
@@ -130,8 +144,8 @@ const ProductRow = ({ product, removeHandler }) => {
       <StyledTableCell align="left">
         <BazaarSwitch
           color="info"
-          checked={productPulish}
-          onChange={() => setProductPublish((state) => !state)}
+          checked={productPublish}
+          onChange={publishedHandler}
         />
       </StyledTableCell>
 

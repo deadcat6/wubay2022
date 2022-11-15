@@ -1,10 +1,9 @@
 import {Email, Inventory2, Person, ShoppingCart} from "@mui/icons-material";
 import {Card, styled, Typography} from "@mui/material";
 import {useRouter} from "next/router";
-import {Fragment} from "react";
+import {Fragment, useEffect, useState} from "react";
 import {Box} from "@mui/system";
 import Link from "next/link";
-import {useEffect, useState} from "react";
 import {useSession} from "next-auth/react";
 import {doc, onSnapshot} from "firebase/firestore";
 import {database} from "../../../firebase/firebase_config"; // custom styled components
@@ -24,14 +23,14 @@ const StyledNavLink = styled(({children, isCurrentPath, ...rest}) => (
 }));
 
 
-
 const Navigations = () => {
   const [linkList, setLinkList] = useState([]);
   const {data: session} = useSession()
   const [chats, setChats] = useState([]);
+  const [chatLength, setChatLength] = useState(null);
 
   useEffect(() => {
-    async function getUserInfo(user, length) {
+    async function getUserInfo(user) {
       const res = await fetch('/api/user/login', {
         method: 'POST',
         body: JSON.stringify({user: user}),
@@ -40,7 +39,7 @@ const Navigations = () => {
       const data = await res.json();
       const profile = data.userData;
       let lengthOfChats = 0;
-      setLinkList([
+      setLinkList(
         {
           title: "YOUR ACCOUNT",
           list: [
@@ -49,7 +48,7 @@ const Navigations = () => {
               title: "Profile",
               icon: Person,
               count: profile.myProducts.length + profile.myOrders.length,
-                //+ profile.usersChats.length,
+              //+ profile.usersChats.length,
             },
             {
               href: "/user/products",
@@ -67,14 +66,15 @@ const Navigations = () => {
               href: "/user/chats",
               title: "Chats",
               icon: Email,
-              count: length,
+              count: 0,
             },
 
           ],
         }
-      ]);
+      );
       return data.userData;
     }
+
     const getChats = () => {
       const unsub = onSnapshot(doc(database, "userChats", session.user.id), (doc) => {
         setChats(doc.data());
@@ -87,29 +87,36 @@ const Navigations = () => {
     if (session) {
       //console.log(session)
       getChats();
-      let length = 0;
-      Object.entries(chats)?.map((chat) => {
-        length++;
-      });
-      getUserInfo(session.user, length);
-
-
+      getUserInfo(session.user);
     }
 
   }, [session]);
+
+  useEffect(() => {
+    let length = 0;
+    Object.entries(chats)?.map((chat) => {
+      length++;
+    });
+    //console.log("length,", length)
+    setChatLength(length);
+  }, [chats])
 
   const {pathname} = useRouter();
   //console.log(profile);
 
   return (
     <Card>
-      {linkList.map((item) => (
-        <Fragment key={item.title}>
+      {linkList && linkList.list &&
+        <Fragment key={linkList.title}>
           <Typography p="26px 30px 1rem" color="grey.600" fontSize="12px">
-            {item.title}
+            {linkList.title}
           </Typography>
 
-          {item.list.map((item) => (
+          {linkList.list.map((item) => {
+            if (item.title === 'Chats') {
+              item.count = chatLength;
+            }
+            return (
             <Link href={item.href} passHref key={item.title}>
               <StyledNavLink
                 href={item.href}
@@ -128,9 +135,10 @@ const Navigations = () => {
                 <span>{item.count}</span>
               </StyledNavLink>
             </Link>
-          ))}
+          )})}
         </Fragment>
-      ))}
+      }
+
     </Card>
   );
 };

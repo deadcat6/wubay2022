@@ -34,14 +34,14 @@ const Profile = () => {
         await router.push('/user/profile/edit');
       } else {
         //const p = {...data.userData, imageUrl: session.user.image};
-        console.log(data.userData)
+        //console.log(data.userData)
         setProfile(data.userData);
         setLoading(false);
       }
     }
 
     if (session) {
-      console.log(session)
+      //console.log(session)
       getUserInfo(session.user);
     }
 
@@ -149,7 +149,7 @@ const ProfileData = ({profile}) => {
                   <h3 color="primary.main" my={0} fontWeight={600}>
                     {profile.myProducts.length}
                   </h3>
-                  <h6 color="grey.600" textAlign="center">
+                  <h6 color="grey.600" textalign="center">
                    My Products
                   </h6>
                 </Card>
@@ -167,7 +167,7 @@ const ProfileData = ({profile}) => {
                 <h3 color="primary.main" my={0} fontWeight={600}>
                   {profile.myOrders.length}
                 </h3>
-                <h6 color="grey.600" textAlign="center">
+                <h6 color="grey.600" textalign="center">
                   My Orders
                 </h6>
               </Card>
@@ -185,7 +185,7 @@ const ProfileData = ({profile}) => {
                 <h3 color="primary.main" my={0} fontWeight={600}>
                   {profile.usersChats.length}
                 </h3>
-                <h6 color="grey.600" textAlign="center">
+                <h6 color="grey.600" textalign="center">
                   My Messages
                 </h6>
               </Card>

@@ -29,7 +29,7 @@ const DropZone = ({ onChange, title, imageSize }) => {
       flexDirection="column"
       borderColor="grey.300"
       justifyContent="center"
-      textAlign="center"
+      textalign="center"
       bgcolor={isDragActive ? "grey.200" : "grey.100"}
       sx={{
         transition: "all 250ms ease-in-out",

@@ -12,15 +12,15 @@ export default async (req, res) => {
   const srcToFile = (src) => fs.readFileSync(src);
   const form = new formidable.IncomingForm();
   form.parse(req, async (err, fields, files) => {
-    console.log("handlerhandlerhandlerhandlerhandlerhandlerhandlerhandler")
-    console.log(fields, files);
+    //console.log("handlerhandlerhandlerhandlerhandlerhandlerhandlerhandler")
+    //console.log(fields, files);
     const {imageFile} = files;
     const {chatId, myId, text,} = fields;
     let img;
     if (imageFile) {
       img = srcToFile(imageFile.filepath);
     }
-    console.log(chatId, myId, text);
+    //console.log(chatId, myId, text);
     await newMessage(chatId, myId, img, text);
     res.status(201).json({message: 'success'});
   });

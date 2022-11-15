@@ -14,8 +14,8 @@ import {getDownloadURL, ref, uploadBytesResumable} from "firebase/storage";
 import {v4 as uuidv4} from "uuid";
 
 export async function newProduct(product, imageArray) {
-  console.log("newProduct")
-  console.log(product, imageArray)
+  //console.log("newProduct")
+  //console.log(product, imageArray)
 
 
   const db = getFirestore(app);
@@ -74,7 +74,7 @@ export async function newProduct(product, imageArray) {
         })
       },
       (error) => {
-        console.log(error);
+        //console.log(error);
       }
     );
   });
@@ -121,12 +121,12 @@ export async function setTransaction(transactions, productId) {
   });
 }
 
-export async function setProductPublish(product, productId) {
+export async function setProductPublish( productId, published) {
   const db = getFirestore(app);
   const docRef = doc(db, "products", productId);
 
   await updateDoc(docRef, {
-    published: product.published,
+    published: published,
   });
 }
 

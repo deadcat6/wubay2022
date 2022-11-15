@@ -52,7 +52,7 @@ export default function AddProduct() {
     }
 
     if (router.isReady) {
-      console.log(router.query.id)
+      //console.log(router.query.id)
       getProductInfo(router.query.id).then().catch(); //PUT PRODUCT ID
     }
   }, [router.isReady]);

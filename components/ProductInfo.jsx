@@ -50,31 +50,41 @@ const ProductInfo = ({product, id}) => {
     return true;
   }
 
-  const handleContact = (e) => {
+  const handleContact = async (e) => {
     if (checkSessions()) {
       e.preventDefault();
-      let emailData = {
-        to_name: product.username,
-        from_name: session.user.name,
-        item_name: product.title,
-        from_email: session.user.email,
-        reply_to: product.userEmail
-      };
-      let send = prompt(
-        "Buyer: " + emailData.from_name +
-        " \nSeller: " + emailData.to_name +
-        " \nItem: " + emailData.item_name +
-        " \nBuyer email: " + emailData.from_email +
-        " \nto: " + emailData.reply_to +
-        ".\nEnter CONFIRM to send.");
-      if (send === "CONFIRM") {
-        emailjs.send('service_32765vj', 'template_2es1tce', emailData, 'iNXQcfJgGe4A7EoEe')
-          .then((result) => {
-            alert("Email Sent!");
-          }, (error) => {
-            //console.log(error.text);
-          });
-      }
+      const res = await fetch('/api/chat/newChat', {
+        method: 'POST',
+        body: JSON.stringify({
+          userId: session.user.id,
+          sellerId: product.userId,
+        }),
+        headers: {'Content-Type': 'application/json'}
+      });
+      const data = await res.json();
+      await router.push(`/user/chats/${data.chatId}`)
+      // let emailData = {
+      //   to_name: product.username,
+      //   from_name: session.user.name,
+      //   item_name: product.title,
+      //   from_email: session.user.email,
+      //   reply_to: product.userEmail
+      // };
+      // let send = prompt(
+      //   "Buyer: " + emailData.from_name +
+      //   " \nSeller: " + emailData.to_name +
+      //   " \nItem: " + emailData.item_name +
+      //   " \nBuyer email: " + emailData.from_email +
+      //   " \nto: " + emailData.reply_to +
+      //   ".\nEnter CONFIRM to send.");
+      // if (send === "CONFIRM") {
+      //   emailjs.send('service_32765vj', 'template_2es1tce', emailData, 'iNXQcfJgGe4A7EoEe')
+      //     .then((result) => {
+      //       alert("Email Sent!");
+      //     }, (error) => {
+      //       //console.log(error.text);
+      //     });
+      // }
     }
   }
 

@@ -18,7 +18,7 @@ export async function uploadImages(imgArray) {
         })
       },
       (error) => {
-        console.log(error);
+        //console.log(error);
       }
     );
   }
@@ -31,7 +31,7 @@ export async function uploadImages(imgArray) {
 };
 
 export async function uploadImage(img) {
-  console.log("uploadImageuploadImageuploadImage"+  img)
+  //console.log("uploadImageuploadImageuploadImage"+  img)
   let result;
   const storageRef = ref(storage, uuidv4());
   const uploadTask = uploadBytesResumable(storageRef, img);
@@ -43,14 +43,14 @@ export async function uploadImage(img) {
     () => {
       getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
         result = downloadURL;
-        console.log("resultresultresultresultresultresult" + result)
+        //console.log("resultresultresultresultresultresult" + result)
         //return result;
        // return downloadURL;;
       })
       return result;
     },
     (error) => {
-      console.log(error);
+      //console.log(error);
     }
   );
 

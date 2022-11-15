@@ -95,7 +95,7 @@ const TicketList = () => {
 
       {Object.entries(chats)?.sort(
         (a, b) => b[1].date - a[1].date).map((chat) => {
-          console.log(chat)
+          //console.log(chat)
           return (
             <Link href={'/user/chats/' + chat[0]} key={chat[0]}>
               <TableRow
@@ -126,7 +126,7 @@ const TicketList = () => {
 
                 <Typography
                   flex="0 0 0 !important"
-                  textAlign="center"
+                  textalign="center"
                   color="grey.600"
                 >
                   <IconButton>
