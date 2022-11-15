@@ -22,6 +22,8 @@ async function add_product(lister, lister_email, price, name, description, image
 
     }
 
+    
+
 export default add_product;
 
 
