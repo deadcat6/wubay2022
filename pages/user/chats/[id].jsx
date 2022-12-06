@@ -13,6 +13,7 @@ import {useRouter} from "next/router";
 import {useSession} from "next-auth/react";
 import {doc, onSnapshot} from "firebase/firestore";
 import {database} from "../../../firebase/firebase_config";
+import ImageIcon from '@mui/icons-material/Image';
 
 const PaymentMethodEditor = () => {
 
@@ -208,7 +209,7 @@ const PaymentMethodEditor = () => {
                 }}
               />
             <label htmlFor="file">
-              <AttachFile/>
+              <ImageIcon />
             </label>
             </Box>
             <Button

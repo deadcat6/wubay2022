@@ -34,16 +34,16 @@ const ProductCard = ({
     <StyledBazaarCard hoverEffect={hoverEffect}>
       <ImageWrapper>
 
-        <HoverIconWrapper className="hover-box">
+        {/*<HoverIconWrapper className="hover-box">*/}
 
-          <IconButton onClick={toggleIsFavorite}>
-            {isFavorite ? (
-              <Favorite color="primary" fontSize="large"/>
-            ) : (
-              <FavoriteBorder fontSize="large" color="disabled"/>
-            )}
-          </IconButton>
-        </HoverIconWrapper>
+        {/*  <IconButton onClick={toggleIsFavorite}>*/}
+        {/*    {isFavorite ? (*/}
+        {/*      <Favorite color="primary" fontSize="large"/>*/}
+        {/*    ) : (*/}
+        {/*      <FavoriteBorder fontSize="large" color="disabled"/>*/}
+        {/*    )}*/}
+        {/*  </IconButton>*/}
+        {/*</HoverIconWrapper>*/}
 
         <Link href={`/product/${productId}`}>
           <a>

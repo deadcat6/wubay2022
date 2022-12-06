@@ -14,6 +14,7 @@ import {useSession} from "next-auth/react";
 import {doc, onSnapshot} from "firebase/firestore";
 import {database} from "../../../firebase/firebase_config";
 import {formatTime} from "../../../components/formatTime";
+import {H6, Paragraph, Small} from "../../../components/Typography";
 
 const TableRow = styled(Card)({
   display: "flex",
@@ -127,17 +128,13 @@ const TicketList = () => {
                   </Box>
 
                   <Box>
-                    <Span className="pre"  color="grey.600">
+                    <Span >
                       {chat[1].userInfo.displayName}
-
                     </Span>
-
-                    <FlexBox alignItems="center" flexWrap="wrap" pt={1} >
-
-                      {!!chat[1].lastMessage ? (<span >{chat[1].lastMessage.text.slice(0, 30)}...</span>) : (
-                        <span>Please Send A Message</span>)}
+                    <FlexBox alignItems="center" flexWrap="wrap"  >
+                      {!!chat[1].lastMessage ? (<H6>{chat[1].lastMessage.text.slice(0, 30)}...</H6>) : (
+                        <small >Please Send A Message</small>)}
                       <StyledChip  label={formatTime(chat[1].date.seconds * 1000)} size="small" green={1}/>
-
                     </FlexBox>
                   </Box>
                 </FlexBox>
