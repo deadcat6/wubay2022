@@ -69,7 +69,7 @@ const BuyerTransactionInfo = ({product, id}) => {
       const res = await fetch('/api/user/setRating', {
         method: 'POST',
         body: JSON.stringify({
-          userId: session.user.id,
+          userId: product.userId,
           productId: id,
           rating: rating
         }),
