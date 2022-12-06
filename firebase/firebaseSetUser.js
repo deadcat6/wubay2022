@@ -31,7 +31,7 @@ export async function setUserProfile(userId, profile) {
     //console.log(doc.data())
     list.push(doc.id);
   });
-  console.log(list)
+  // console.log(list)
   for (const id of list) {
     //console.log(id)
     const Ref = doc(db, "userChats", id);
@@ -42,8 +42,8 @@ export async function setUserProfile(userId, profile) {
       const map = new Map(Object.entries(Snap.data()));
 
       map.forEach(async (value, key)=>{
-        console.log("item")
-        console.log(key + value)
+        // console.log("item")
+        // console.log(key + value)
 
         if (value.userInfo.uid === userId) {
           await updateDoc(doc(database, "userChats", id), {
