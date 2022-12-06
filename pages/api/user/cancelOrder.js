@@ -1,4 +1,4 @@
-import {setTransactionState} from "../../../firebase/firebaseSetProduct";
+import {setProductPublish, setTransactionState} from "../../../firebase/firebaseSetProduct";
 import {removeMyOrder} from "../../../firebase/firebaseSetUser";
 
 async function handler(req, res) {
@@ -7,6 +7,7 @@ async function handler(req, res) {
     const {userId, productId} = data;
     await removeMyOrder(userId, productId);
     await setTransactionState('Published',productId)
+    await setProductPublish(productId, true);
     res.status(201).json({message: 'success'});
   }
 }
