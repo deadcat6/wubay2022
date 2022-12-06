@@ -11,7 +11,8 @@ import LoadingSpinner from "../../../components/ui/LoadingSpinner";
 import {H2} from "../../../components/Typography";
 import TableHeader from "../../../components/user/order/TableHeader";
 import TableBody from "@mui/material/TableBody";
-import OrdertRow from "../../../components/user/order/OrdertRow";
+import OrderRow from "../../../components/user/order/OrderRow";
+import {useRouter} from "next/router";
 
 
 const ProductList = () => {
@@ -32,15 +33,18 @@ const ProductList = () => {
 
   const {data: session} = useSession()
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
+  const [needRefresh, setNeedRefresh] = useState(false);
 
   async function removeHandler(id) {
-    setLoading(true);
-    const res = await fetch('/api/product/removeProduct', {
+    const res = await fetch('/api/user/cancelOrder', {
       method: 'POST',
-      body: JSON.stringify({productId: id}),
+      body: JSON.stringify({userId: session.user.id, productId: id}),
       headers: {'Content-Type': 'application/json'}
     });
     const data = await res.json();
+    setNeedRefresh(!needRefresh);
+
   }
 
   useEffect(() => {
@@ -62,7 +66,7 @@ const ProductList = () => {
     if (session) {
       getMyProducts(session.user.id); //PUT PRODUCT ID
     }
-  }, [session]);
+  }, [session, needRefresh]);
   return loading ? (
     <LoadingSpinner text='Loading...'/>
   ) : (
@@ -116,7 +120,7 @@ const ProductList = () => {
 
                 <TableBody>
                   {filteredList.map((product, index) => (
-                    <OrdertRow product={product} key={index} removeHandler={removeHandler}/>
+                    <OrderRow product={product} key={index} removeHandler={removeHandler}/>
                   ))}
                 </TableBody>
               </Table>

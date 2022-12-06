@@ -26,7 +26,7 @@ export async function newMessage(chatId, myId, img, text) {
   const myName = myDocSnap.data().username;
   const myAvatar = myDocSnap.data().avatarUrl;
 
-  console.log(myId, theirId, myName, myAvatar)
+  //console.log(myId, theirId, myName, myAvatar)
   if (img) {
     //console.log("if img"+img);
     const storageRef = ref(storage, uuidv4());
@@ -39,10 +39,10 @@ export async function newMessage(chatId, myId, img, text) {
         //console.log('Upload is ' + progress + '% done');
         switch (snapshot.state) {
           case 'paused':
-            console.log('Upload is paused');
+            //console.log('Upload is paused');
             break;
           case 'running':
-            console.log('Upload is running');
+            //console.log('Upload is running');
             break;
         }
       }, () => {}, () => {},

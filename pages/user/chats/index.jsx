@@ -4,7 +4,7 @@ import {FlexBox} from "components/flex-box";
 import UserDashboardHeader from "../../../components/UserDashboardHeader";
 import CustomerDashboardNavigation from "../customer-dashboard/Navigations";
 import CustomerDashboardLayout from "../customer-dashboard";
-import {Span} from "components/Typography";
+import {H2, Span} from "components/Typography";
 import Link from "next/link";
 import LoadingSpinner from "../../../components/ui/LoadingSpinner";
 import {Email} from "@mui/icons-material";
@@ -60,9 +60,11 @@ const TicketList = () => {
     if (session) {
       getChats();
       let length = 0;
-      Object.entries(chats)?.map((chat) => {
-        length++;
-      });
+      if (chats) {
+        Object.entries(chats)?.map((chat) => {
+          length++;
+        });
+      }
       setChatsLength(length);
     }
   }, [session]);
@@ -92,8 +94,19 @@ const TicketList = () => {
         //   </Link>
         // }
       />
-
-      {Object.entries(chats)?.sort(
+      {!chats && (
+        <Card>
+          <Box
+            py={8}
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <H2>You Have No Product</H2>
+          </Box>
+        </Card>
+      )}
+      {!!chats && Object.entries(chats)?.sort(
         (a, b) => b[1].date - a[1].date).map((chat) => {
           //console.log(chat)
           return (
@@ -115,7 +128,10 @@ const TicketList = () => {
                     {!!chat[1].lastMessage ? (<span>{chat[1].lastMessage.text.slice(0, 30)}...</span>) : (
                       <span>Please Send A Message</span>)}
                     <FlexBox alignItems="center" flexWrap="wrap" pt={1} m={-0.75}>
-                      <StyledChip label={chat[1].userInfo.displayName} size="small" green={1}/>
+                      {!!chat[1].userInfo.displayName ? (
+                        <StyledChip label={chat[1].userInfo.displayName} size="small" green={1}/>)
+                        :(<StyledChip label={"Yourself"} size="small" green={1}/>)}
+
                       <Span className="pre" m={0.75} color="grey.600">
                         {formatTime(chat[1].date.seconds * 1000)}
                       </Span>

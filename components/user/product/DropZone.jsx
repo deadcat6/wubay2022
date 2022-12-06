@@ -1,14 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Button, Divider } from "@mui/material";
-import React, { useCallback } from "react";
-import { useDropzone } from "react-dropzone";
-import { H5, Small } from "../../Typography";
+import {Box, Button, Divider} from "@mui/material";
+import React, {useCallback, useState} from "react";
+import {useDropzone} from "react-dropzone";
+import {H5, Small} from "../../Typography";
 
-const DropZone = ({ onChange, title, imageSize }) => {
+const DropZone = ({onChange, title, imageSize}) => {
+  const [files, setFiles] = useState([]);
   const onDrop = useCallback((acceptedFiles) => {
+    setFiles(acceptedFiles);
+    console.log(acceptedFiles)
     if (onChange) onChange(acceptedFiles);
   }, []);
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+  const {getRootProps, getInputProps, isDragActive} = useDropzone({
     onDrop,
     multiple: true,
     accept: ".jpeg,.jpg,.png,.gif",
@@ -41,6 +44,7 @@ const DropZone = ({ onChange, title, imageSize }) => {
       <H5 mb={1} color="grey.600">
         {title || "Drag & drop product image here"}
       </H5>
+      <Small mb={1} color="grey.600">{imageSize || "Upload 280*280 image"}</Small>
 
       <Divider
         sx={{
@@ -61,13 +65,18 @@ const DropZone = ({ onChange, title, imageSize }) => {
         color="info"
         sx={{
           px: 4,
-          my: 4,
+          my: 2,
         }}
       >
         Select files
       </Button>
 
-      <Small color="grey.600">{imageSize || "Upload 280*280 image"}</Small>
+
+      {!!files && files.map((f)=>{
+        return (
+          <Small key={f.name} color="grey.600">{f.name}</Small>
+        );
+      })}
     </Box>
   );
 };

@@ -41,8 +41,9 @@ const MainPage = () => {
       productsData.jump(1);
       const opt = getRanking(sort);
       //console.log(opt, queryOptions)
+      setLoading(true);
+
       setProducts()
-      //setLoading(true);
       index.setSettings(opt).wait().then(() => {
         index.search('', queryOptions).then(({hits}) => {
           //console.log(hits);
@@ -50,11 +51,15 @@ const MainPage = () => {
 
         }).catch(err => console.log(err));
       });
-      //setLoading(false);
-
+      setLoading(false);
 
     };
-    getProducts();
+    const timer = setTimeout(async () => {
+      await getProducts();
+    }, 800)
+    return () => clearTimeout(timer)
+
+
   }, [sort, queryOptions]);
 
 
@@ -175,8 +180,9 @@ const MainPage = () => {
       facetFilters: facetFilters,
 
     }
+    setQueryOptions(queryOptions)
 
-    setQueryOptions(queryOptions);
+
 
 
   };

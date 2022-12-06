@@ -1,5 +1,5 @@
-import {doc, arrayUnion, arrayRemove, getFirestore, getDoc, updateDoc} from "firebase/firestore";
-import { app } from './firebase_config';
+import {arrayRemove, arrayUnion, doc, getDoc, getFirestore, serverTimestamp, updateDoc} from "firebase/firestore";
+import {app} from './firebase_config';
 
 export async function setUserProfile(userId, profile) {
   const db = getFirestore(app);
@@ -14,6 +14,7 @@ export async function setUserProfile(userId, profile) {
     newUser: false,
   });
 }
+
 export async function addProduct(userId, productId) {
   const db = getFirestore(app);
   const docRef = doc(db, "users", userId);
@@ -22,6 +23,7 @@ export async function addProduct(userId, productId) {
     myProducts: arrayUnion(productId)
   });
 }
+
 export async function removeMyProduct(userId, productId) {
   const db = getFirestore(app);
   const docRef = doc(db, "users", userId);
@@ -30,6 +32,7 @@ export async function removeMyProduct(userId, productId) {
     myProducts: arrayRemove(productId)
   });
 }
+
 export async function addOrder(userId, productId) {
   const db = getFirestore(app);
   const docRef = doc(db, "users", userId);
@@ -38,6 +41,7 @@ export async function addOrder(userId, productId) {
     myOrders: arrayUnion(productId)
   });
 }
+
 export async function removeMyOrder(userId, productId) {
   const db = getFirestore(app);
   const docRef = doc(db, "users", userId);
@@ -46,23 +50,42 @@ export async function removeMyOrder(userId, productId) {
     myOrders: arrayRemove(productId)
   });
 }
-export async function setRating(productId) {
-  const db = getFirestore(app);
-  const docRef = doc(db, "users", profile.id);
-  const docSnap = await getDoc(docRef);
-  let r = docSnap.data().rating;
-  r += rating;
-  r /= 2;
-  await updateDoc(docRef, {
-    rating: r,
-  });
-}
-export async function setChat(chat) {
-  const db = getFirestore(app);
-  const docRef = doc(db, "users", profile.id);
 
+export async function setRating(userId, rating) {
+  const db = getFirestore(app);
+  const docRef = doc(db, "users", userId);
+
+  const docSnap = await getDoc(docRef);
+  if (!docSnap.exists()) {
+    return false;
+  }
+  let newRating = docSnap.data().rating;
+  let ratingCount = 0;
+  if (docSnap.data().ratingCount) {
+    ratingCount = docSnap.data().ratingCount;
+  }
+  newRating = Math.round((ratingCount * newRating + rating) / (ratingCount + 1));
   await updateDoc(docRef, {
-    usersChats: arrayUnion(chat)
+    rating: newRating,
+    ratingCount: ratingCount + 1,
   });
+
+
+  const userProductIds = docSnap.data().myProducts;
+
+  for (const id of userProductIds) {
+    if (id) {
+      const docRef = doc(db, "products", id);
+      const docSnap = await getDoc(docRef);
+      if (!docSnap.exists()) {
+        continue;
+      }
+      await updateDoc(docRef, {
+        sellerRating: newRating
+      });
+    }
+  }
+  return true;
 }
+
 

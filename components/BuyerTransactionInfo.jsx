@@ -7,11 +7,10 @@ import React, {useCallback, useState} from "react"; // import ImageViewer from "
 import {FlexBox, FlexRowCenter} from "./flex-box"; // ================================================================
 import {bgcolor, border, borderRadius, compose, sizing, spacing, styled, typography,} from "@mui/system";
 import NextImage from "next/image";
-import emailjs from "@emailjs/browser";
 import {useSession} from "next-auth/react";
 import Login from "./Login";
 
-
+import {formatTime} from './formatTime';
 
 const LazyImage = styled(({borderRadius, ...rest}) => (
   <NextImage {...rest} />
@@ -30,7 +29,7 @@ BazaarRating.defaultProps = {
 };
 
 // ================================================================
-const ProductInfo = ({product, id}) => {
+const BuyerTransactionInfo = ({product, id}) => {
   const {data: session} = useSession()
   const [dialogOpen, setDialogOpen] = useState(false);
   const toggleDialog = () => setDialogOpen(!dialogOpen);
@@ -42,6 +41,9 @@ const ProductInfo = ({product, id}) => {
   const [isViewerOpen, setIsViewerOpen] = useState(false);
   const [currentImage, setCurrentImage] = useState(0);
   const [selectedImage, setSelectedImage] = useState(0);
+  const [rating, setRating] = useState(5);
+
+
   const checkSessions = () => {
     if (!session) {
       setDialogOpen(true);
@@ -50,6 +52,36 @@ const ProductInfo = ({product, id}) => {
     return true;
   }
 
+  async function removeHandler() {
+    const res = await fetch('/api/user/cancelOrder', {
+      method: 'POST',
+      body: JSON.stringify({userId: session.user.id, productId: id}),
+      headers: {'Content-Type': 'application/json'}
+    });
+    const data = await res.json();
+    if (data) {
+      await router.push('/user/orders')
+    }
+  }
+
+  const handleRating = async () => {
+    if (checkSessions()) {
+      const res = await fetch('/api/user/setRating', {
+        method: 'POST',
+        body: JSON.stringify({
+          userId: session.user.id,
+          productId: id,
+          rating: rating
+        }),
+        headers: {'Content-Type': 'application/json'}
+      });
+      const data = await res.json();
+      if (data) {
+        await router.push('/user/orders')
+      }
+
+    }
+  }
   const handleContact = async (e) => {
     if (checkSessions()) {
       e.preventDefault();
@@ -63,28 +95,7 @@ const ProductInfo = ({product, id}) => {
       });
       const data = await res.json();
       await router.push(`/user/chats/${data.chatId}`)
-      // let emailData = {
-      //   to_name: product.username,
-      //   from_name: session.user.name,
-      //   item_name: product.title,
-      //   from_email: session.user.email,
-      //   reply_to: product.userEmail
-      // };
-      // let send = prompt(
-      //   "Buyer: " + emailData.from_name +
-      //   " \nSeller: " + emailData.to_name +
-      //   " \nItem: " + emailData.item_name +
-      //   " \nBuyer email: " + emailData.from_email +
-      //   " \nto: " + emailData.reply_to +
-      //   ".\nEnter CONFIRM to send.");
-      // if (send === "CONFIRM") {
-      //   emailjs.send('service_32765vj', 'template_2es1tce', emailData, 'iNXQcfJgGe4A7EoEe')
-      //     .then((result) => {
-      //       alert("Email Sent!");
-      //     }, (error) => {
-      //       //console.log(error.text);
-      //     });
-      // }
+
     }
   }
 
@@ -99,25 +110,6 @@ const ProductInfo = ({product, id}) => {
     setCurrentImage(0);
     setIsViewerOpen(false);
   };
-
-  async function orderHandler() {
-    if (checkSessions()) {
-      if(session.user.id === product.userId) {
-        alert("ATTENTION: You are trying to order a product that you publish, which is only allowed in Testing.")
-      }
-      await fetch('/api/user/addOrder', {
-        method: 'POST',
-        body: JSON.stringify({
-          userId: session.user.id,
-          sellerId: product.userId,
-          productId: id,
-        }),
-        headers: {'Content-Type': 'application/json'}
-      });
-      //response.json();
-      await router.push('/user/orders')
-    }
-  }
 
 
   return (
@@ -194,32 +186,6 @@ const ProductInfo = ({product, id}) => {
 
               {/*<Box color="inherit">Stock Available</Box>*/}
             </Box>
-            <FlexBox alignItems="center" mb={2}>
-              <Box>Category:</Box>
-              <H6 ml={1}>{product.category}</H6>
-            </FlexBox>
-
-            <FlexBox alignItems="center" mb={2}>
-              <Box>Sold By:</Box>
-              {/*<Link href="/shops/fdfdsa">*/}
-              <a>
-                <H6 ml={1}>{product.username}</H6>
-              </a>
-              {/*</Link>*/}
-              <Box mx={1} lineHeight="1">
-                <BazaarRating
-                  color="warn"
-                  fontSize="1.25rem"
-                  value={product.sellerRating}
-                  readOnly
-                />
-              </Box>
-            </FlexBox>
-
-            <FlexBox alignItems="center" mb={2}>
-              <Box>Email:</Box>
-              <H6 ml={1}>{product.userEmail}</H6>
-            </FlexBox>
 
 
             <FlexBox alignItems="center" mb={2}>
@@ -227,48 +193,138 @@ const ProductInfo = ({product, id}) => {
               <H6 ml={1}>{product.paymentMethod}</H6>
             </FlexBox>
 
-            <Box mb={2}>
-              <H3 mb={0}>Description:</H3>
-              <Box>
-                <H6>{product.description}</H6>
-              </Box>
-            </Box>
-
-            <FlexBox alignItems="center" my={3}>
-              <Box lineHeight="1">
-                <BazaarButton
-                  color="primary"
-                  variant="outlined"
-                  onClick={handleContact}
-                  sx={{
-                    mb: 4.5,
-                    px: "1.75rem",
-                    height: 40,
-                  }}
-                >
-                  Contact seller
-                </BazaarButton>
-              </Box>
-              <Box mx={2} lineHeight="1">
-                <BazaarButton
-                  color="primary"
-                  variant="contained"
-                  onClick={orderHandler}
-                  sx={{
-                    mb: 4.5,
-                    px: "1.75rem",
-                    height: 40,
-                  }}
-                >
-                  Order
-                </BazaarButton>
-              </Box>
+            <FlexBox alignItems="center" mb={4}>
+              <Box>Transaction Created Time:</Box>
+              <H6 ml={1}>{formatTime(product.transaction.createdTime?.seconds * 1000)}</H6>
             </FlexBox>
+
+
+            {product.transaction.state === 'Completed' ? (
+              <>
+                <FlexBox alignItems="center" mb={2}>
+                  <H6 mr={1}>Your Transaction is</H6>
+                  <StatusWrapper status={product.transaction.state}>{product.transaction.state}</StatusWrapper>
+                </FlexBox>
+                <FlexBox alignItems="center" mb={2}>
+
+                  {product.rated && product.rated !== -1 ? (
+                    <>
+                      <H6 mr={2}>You already rated: </H6>
+                      <Rating
+                        size="large"
+                        name="simple-controlled"
+                        value={product.rated}
+                        readOnly
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <H6 mr={2}>Please rate the buyer: </H6>
+                      <Rating
+                        size="large"
+                        name="simple-controlled"
+                        value={rating}
+                        onChange={(event, newValue) => {
+                          setRating(newValue);
+                        }}
+                      />
+                    </>
+                  )}
+                </FlexBox>
+
+
+                { (!product.rated || product.rated === -1) &&(
+                  <FlexBox alignItems="center" my={3}>
+                    <Box lineHeight="1">
+                      <BazaarButton
+                        color="primary"
+                        variant="contained"
+                        onClick={handleRating}
+                        sx={{
+                          mb: 4.5,
+                          px: "1.75rem",
+                          height: 40,
+                        }}
+                      >
+                        Submit
+                      </BazaarButton>
+                    </Box>
+                  </FlexBox>
+                )}
+              </>
+            ) : (
+              <>
+                <FlexBox alignItems="center" mb={2}>
+                  <H3 mr={3}>Transaction State:</H3>
+                  <StatusWrapper status={product.transaction.state}>{product.transaction.state}</StatusWrapper>
+                </FlexBox>
+                <FlexBox alignItems="center" my={3}>
+                  <Box lineHeight="1">
+                    <BazaarButton
+                      color="primary"
+                      variant="outlined"
+                      onClick={removeHandler}
+                      sx={{
+                        mb: 4.5,
+                        px: "1.75rem",
+                        height: 40,
+                      }}
+                    >
+                      CANCEL
+                    </BazaarButton>
+                  </Box>
+                  <Box mx={2} lineHeight="1">
+                    <BazaarButton
+                      color="primary"
+                      variant="contained"
+                      onClick={handleContact}
+                      sx={{
+                        mb: 4.5,
+                        px: "1.75rem",
+                        height: 40,
+                      }}
+                    >
+                      Contact buyer
+                    </BazaarButton>
+                  </Box>
+                </FlexBox>
+              </>
+
+            )}
+
           </Grid>
         </Grid>
       </Box>
     </>
   );
 };
+const StatusWrapper = styled(Box)(({theme, status}) => {
+  let color = theme.palette.grey[900];
+  let backgroundColor = theme.palette.grey[200];
 
-export default ProductInfo;
+  if (status === "Accepted" || status === "Completed" || status === "Normal") {
+    color = "rgb(51, 208, 103)";
+    backgroundColor = "#E7F9ED";
+  }
+
+  if (status === "Rejected" || status === "Pending Payment" || status === "Urgent") {
+    color = "#E94560";
+    backgroundColor = "#FFEAEA";
+  }
+
+  if (status === "Shipment Processing") {
+    color = "#feb840";
+    backgroundColor = "#FFF8E5";
+  }
+
+  return {
+    color,
+    fontSize: 15,
+    fontWeight: 600,
+    backgroundColor,
+    borderRadius: "8px",
+    padding: "3px 12px",
+    display: "inline-flex",
+  };
+});
+export default BuyerTransactionInfo;

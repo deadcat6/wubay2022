@@ -8,12 +8,20 @@ import React, { Fragment, useCallback, useState } from "react";
 import NavBar from "./NavBar/NavBar";
 import {createTheme} from "@mui/material/styles";
 import {ThemeProvider} from "@mui/system";
+import CssBaseline from '@mui/material/CssBaseline';
+
 const theme = createTheme({
+
   status: {
     danger: '#e53e3e',
   },
   palette: {
+    mode: 'light',
+    // background: {
+    //   default: "#e60505"
+    // },
     primary: {
+
       main: '#9e1418',
       darker: '#053e85',
     },
@@ -40,9 +48,14 @@ const MainLayout = ({
                      }) => {
   // const [isFixed, setIsFixed] = useState(false);
   // const toggleIsFixed = useCallback((fixed) => setIsFixed(fixed), []);
+
+
+
   return (
     <ThemeProvider theme={theme}>
-    <Fragment>
+      <CssBaseline />
+
+      <Fragment>
       <NavBar/>
       {/* TOPBAR */}
       {/*{showTopbar && <Topbar bgColor={topbarBgColor} />}*/}

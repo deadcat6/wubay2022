@@ -1,11 +1,11 @@
-import {RemoveRedEye} from "@mui/icons-material";
+import {Delete, ManageAccounts, RemoveRedEye} from "@mui/icons-material";
 import {Avatar, Box, IconButton, styled, Switch, TableCell, TableRow} from "@mui/material";
 import {FlexBox} from "../../flex-box";
 import {H6, Paragraph, Small} from "../../Typography";
 import {useRouter} from "next/router";
 import React from "react";
 
-const OrdertRow = ({ product, removeHandler }) => {
+const SellerOrderRow = ({ product, removeHandler }) => {
   const { title, imagePath, id, published, paymentMethod } = product; // state
   const state = product.transaction.state;
   const updateTime = new Date(product.updateTime).toDateString();
@@ -42,15 +42,15 @@ const OrdertRow = ({ product, removeHandler }) => {
 
       <StyledTableCell align="center">
 
-        <StyledIconButton onClick={() => router.push(`/product/${id}`)}>
-          <RemoveRedEye />
+        <StyledIconButton onClick={() => router.push(`/user/products/transaction/${id}`)}>
+          <ManageAccounts />
         </StyledIconButton>
-
 
       </StyledTableCell>
     </StyledTableRow>
   );
 };
+
 const StyledSwitch = styled(Switch)(({ theme }) => ({
   padding: 8,
   "& .MuiSwitch-switchBase.MuiButtonBase-root": {
@@ -150,4 +150,4 @@ const StatusWrapper = styled(Box)(({ theme, status }) => {
     display: "inline-flex",
   };
 });
-export default OrdertRow;
+export default SellerOrderRow;

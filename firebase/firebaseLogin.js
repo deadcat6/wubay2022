@@ -7,14 +7,16 @@ async function FirebaseLogin(user) {
   const docRef = doc(db, "users", user.id);
   const docSnap = await getDoc(docRef);
   if (!docSnap.exists()) {
+    //console.log(user)
     await setDoc(doc(db, "users", user.id), {
-      username: '',
+      username: "user"+user.id,
       password: '',
       email: user.email,
       firstname: '',
       lastname: '',
       phone: '',
       rating: 5,
+      ratingCount: 0,
       myProducts: [],
       myOrders: [],
       usersChats: [],

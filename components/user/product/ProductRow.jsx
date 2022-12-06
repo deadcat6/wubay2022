@@ -128,19 +128,6 @@ const ProductRow = ({ product, removeHandler }) => {
         <CategoryWrapper>{state}</CategoryWrapper>
       </StyledTableCell>
 
-      {/*<StyledTableCell align="left">*/}
-      {/*  <Avatar*/}
-      {/*    src={brand}*/}
-      {/*    sx={{*/}
-      {/*      width: 55,*/}
-      {/*      height: "auto",*/}
-      {/*      borderRadius: 0,*/}
-      {/*    }}*/}
-      {/*  />*/}
-      {/*</StyledTableCell>*/}
-
-
-
       <StyledTableCell align="left">
         <BazaarSwitch
           color="info"

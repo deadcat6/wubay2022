@@ -18,7 +18,7 @@ const Profile = () => {
   const router = useRouter();
   const {data: session} = useSession()
   const [loading, setLoading] = useState(true);
-  const [profile, setProfile] = useState({});
+  const [profile, setProfile] = useState(null);
   useEffect(() => {
     async function getUserInfo(user) {
       //console.log(user)
@@ -31,7 +31,9 @@ const Profile = () => {
       const data = await res.json();
       //data.products.map(e => console.log(e))
       if (data.userData.newUser) {
-        await router.push('/user/profile/edit');
+
+        router.push('/user/profile/edit').then();
+
       } else {
         //const p = {...data.userData, imageUrl: session.user.image};
         //console.log(data.userData)
@@ -42,13 +44,16 @@ const Profile = () => {
 
     if (session) {
       //console.log(session)
-      getUserInfo(session.user);
+      if (session.user) {
+        getUserInfo(session.user);
+
+      }
     }
 
   }, [session]); // Or [] if effect doesn't need props or state
 
 
-  return loading ? (
+  return loading  ? (
     <MainLayout>
       <LoadingSpinner text='Loading...'/>
     </MainLayout>

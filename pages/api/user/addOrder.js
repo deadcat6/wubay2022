@@ -7,7 +7,7 @@ async function handler(req, res) {
     const data = req.body;
     const {userId, sellerId, productId} = data;
     await addOrder(userId, productId);
-    await setTransaction("Pending Payment",productId)
+    await setTransaction("Pending Payment",productId, userId)
     await newChat(userId, sellerId);
     res.status(201).json({message: 'success'});
   }

@@ -12,7 +12,7 @@ import CustomerDashboardLayout from "../customer-dashboard";
 import {Inventory2} from "@mui/icons-material";
 import {useSession} from "next-auth/react";
 import LoadingSpinner from "../../../components/ui/LoadingSpinner";
-import OrdertRow from "../../../components/user/product/OrdertRow";
+import SellerOrderRow from "../../../components/user/product/SellerOrderRow";
 import {H2} from "../../../components/Typography";
 import {useRouter} from "next/router";
 
@@ -25,6 +25,8 @@ const ProductList = () => {
   const [myProduct, setMyProduct] = useState();
   const [hasActiveProduct, setHasActiveProduct] = useState(false);
   const [hasProduct, setHasProduct] = useState(false);
+  const [needRefresh, setNeedRefresh] = useState(false);
+
   const router = useRouter();
 
   const {
@@ -41,16 +43,22 @@ const ProductList = () => {
 
 
   async function removeHandler(id) {
-    setLoading(true);
-    const res = await fetch('/api/product/removeProduct', {
-      method: 'POST',
-      body: JSON.stringify({userId: session.user.id, productId: id}),
-      headers: {'Content-Type': 'application/json'}
-    });
-    setLoading(false);
-    res.json().then(
-      await router.push('/user/products')
-    );
+    let answer = prompt("Please enter DELETE to confirm.");
+
+    if (answer === 'DELETE') {
+      setLoading(true);
+      const res = await fetch('/api/product/removeProduct', {
+        method: 'POST',
+        body: JSON.stringify({userId: session.user.id, productId: id}),
+        headers: {'Content-Type': 'application/json'}
+      });
+      setLoading(false);
+      setNeedRefresh(!needRefresh);
+      // res.json().then(
+      //   await router.push('/user/products')
+      // );
+    }
+
   }
 
   useEffect(() => {
@@ -77,7 +85,7 @@ const ProductList = () => {
     if (session) {
       getMyProducts(session.user.id); //PUT PRODUCT ID
     }
-  }, [session]);
+  }, [session, needRefresh]);
   return loading ? (
     <CustomerDashboardLayout>
       <LoadingSpinner text='Loading...'/>
@@ -135,7 +143,7 @@ const ProductList = () => {
                     {filteredList.map((product, index) => {
                         if (product.transaction.state !== 'Published') {
                           return (
-                            <OrdertRow product={product} key={index} removeHandler={removeHandler}/>
+                            <SellerOrderRow product={product} key={index} removeHandler={removeHandler}/>
                           )
                         }
                       }

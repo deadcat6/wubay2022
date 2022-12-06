@@ -37,6 +37,7 @@ export async function newProduct(product, imageArray) {
     price: product.price,
     sellerRating: userSnap.data().rating,
     published: true,
+    rated: -1,
     transaction: {
       state: 'Published',
       createdTime: null,
@@ -98,6 +99,7 @@ export async function setProduct(product, productId) {
   if (!userSnap.exists()) {
     return null
   }
+
   await updateDoc(docRef, {
     title: product.title,
     description: product.description,
@@ -112,12 +114,26 @@ export async function setProduct(product, productId) {
   });
 }
 
-export async function setTransaction(transactions, productId) {
+export async function setTransactionState(transactionsState, productId) {
   const db = getFirestore(app);
   const docRef = doc(db, "products", productId);
 
   await updateDoc(docRef, {
-    "transaction.state": transactions,
+    "transaction.state": transactionsState,
+  });
+}
+
+export async function setTransaction(transactionsState, productId, buyerId) {
+  const db = getFirestore(app);
+  const docRef = doc(db, "products", productId);
+
+  // await updateDoc(docRef, {
+  //   "transaction.state": transactionsState,
+  // });
+  await updateDoc(docRef, {
+    "transaction.buyer": buyerId,
+    "transaction.createdTime": serverTimestamp(),
+    "transaction.state": transactionsState,
   });
 }
 
@@ -127,6 +143,14 @@ export async function setProductPublish( productId, published) {
 
   await updateDoc(docRef, {
     published: published,
+  });
+}
+export async function setProductRated(rated, productId) {
+  const db = getFirestore(app);
+  const docRef = doc(db, "products", productId);
+
+  await updateDoc(docRef, {
+    rated: rated,
   });
 }
 
