@@ -1,5 +1,14 @@
-import {arrayRemove, arrayUnion, doc, getDoc, getFirestore, serverTimestamp, updateDoc} from "firebase/firestore";
-import {app} from './firebase_config';
+import {
+  arrayRemove,
+  arrayUnion, collection,
+  doc,
+  getDoc, getDocs,
+  getFirestore,
+  query,
+  serverTimestamp,
+  updateDoc
+} from "firebase/firestore";
+import {app, database} from './firebase_config';
 
 export async function setUserProfile(userId, profile) {
   const db = getFirestore(app);
@@ -13,6 +22,43 @@ export async function setUserProfile(userId, profile) {
     email: profile.email,
     newUser: false,
   });
+
+  const q = query(collection(db, "userChats"));
+  const querySnapshot = await getDocs(q);
+  const list = [];
+  querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    //console.log(doc.data())
+    list.push(doc.id);
+  });
+  console.log(list)
+  for (const id of list) {
+    //console.log(id)
+    const Ref = doc(db, "userChats", id);
+    const Snap = await getDoc(Ref);
+    if (Snap.exists()) {
+      //console.log(Snap.data())
+
+      const map = new Map(Object.entries(Snap.data()));
+
+      map.forEach(async (value, key)=>{
+        console.log("item")
+        console.log(key + value)
+
+        if (value.userInfo.uid === userId) {
+          await updateDoc(doc(database, "userChats", id), {
+            [key + ".userInfo"]: {
+              photoURL:value.userInfo.photoURL,
+              uid: value.userInfo.uid,
+              displayName: profile.username,
+            }
+          });
+        }
+      })
+    }
+
+  }
+
 }
 
 export async function addProduct(userId, productId) {

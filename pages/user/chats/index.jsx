@@ -51,6 +51,7 @@ const TicketList = () => {
     const getChats = () => {
       const unsub = onSnapshot(doc(database, "userChats", session.user.id), (doc) => {
         setChats(doc.data());
+
       });
       //setLoading(false);
       return () => {
@@ -63,6 +64,7 @@ const TicketList = () => {
       if (chats) {
         Object.entries(chats)?.map((chat) => {
           length++;
+          //console.log(chat);
         });
       }
       setChatsLength(length);
@@ -102,7 +104,7 @@ const TicketList = () => {
             alignItems="center"
             justifyContent="center"
           >
-            <H2>You Have No Product</H2>
+            <H2>You Have No Chat</H2>
           </Box>
         </Card>
       )}
@@ -125,16 +127,17 @@ const TicketList = () => {
                   </Box>
 
                   <Box>
-                    {!!chat[1].lastMessage ? (<span>{chat[1].lastMessage.text.slice(0, 30)}...</span>) : (
-                      <span>Please Send A Message</span>)}
-                    <FlexBox alignItems="center" flexWrap="wrap" pt={1} m={-0.75}>
-                      {!!chat[1].userInfo.displayName ? (
-                        <StyledChip label={chat[1].userInfo.displayName} size="small" green={1}/>)
-                        :(<StyledChip label={"Yourself"} size="small" green={1}/>)}
+                    <Span className="pre"  color="grey.600">
+                      {chat[1].userInfo.displayName}
 
-                      <Span className="pre" m={0.75} color="grey.600">
-                        {formatTime(chat[1].date.seconds * 1000)}
-                      </Span>
+                    </Span>
+
+                    <FlexBox alignItems="center" flexWrap="wrap" pt={1} >
+
+                      {!!chat[1].lastMessage ? (<span >{chat[1].lastMessage.text.slice(0, 30)}...</span>) : (
+                        <span>Please Send A Message</span>)}
+                      <StyledChip  label={formatTime(chat[1].date.seconds * 1000)} size="small" green={1}/>
+
                     </FlexBox>
                   </Box>
                 </FlexBox>

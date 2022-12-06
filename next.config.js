@@ -23,6 +23,12 @@ const nextConfig = {
         port: '',
         // pathname: '/image/upload/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com/a',
+        port: '',
+        // pathname: '/image/upload/**',
+      },
     ],
   },
 }

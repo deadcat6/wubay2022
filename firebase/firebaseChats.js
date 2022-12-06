@@ -109,7 +109,6 @@ export async function newChat(myId, theirId) {
     return false;
   }
 
-
   const combinedId =
     myId > theirId
       ? myId + theirId
