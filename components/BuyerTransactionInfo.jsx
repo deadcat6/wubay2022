@@ -284,7 +284,7 @@ const BuyerTransactionInfo = ({product, id}) => {
                         height: 40,
                       }}
                     >
-                      Contact buyer
+                      Contact seller
                     </BazaarButton>
                   </Box>
                 </FlexBox>
